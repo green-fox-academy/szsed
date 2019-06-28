@@ -10,10 +10,7 @@ for (let i=1; i<= lineCount; i++){
             percentString += "%";
         }
         else {
-            if (j == 1 || j == lineCount){
-                percentString += "%";
-            }
-            else if (i==j){
+            if (j == 1 || j == lineCount || i == j){
                 percentString += "%";
             }
             else {
