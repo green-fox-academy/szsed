@@ -1,6 +1,6 @@
 'use strict';
 
-let lineCount: number = 44;
+let lineCount: number = 25;
 
 for (let i=1; i<= lineCount; i++){
     let starString: string = "";
