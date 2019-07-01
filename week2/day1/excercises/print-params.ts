@@ -4,7 +4,7 @@
 
 'use strict'
 
-function printParams(params: Array<any>){
+function printParams(params: any[]){
     params.forEach(element => console.log(element));
 }
 

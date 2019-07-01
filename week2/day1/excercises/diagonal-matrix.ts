@@ -14,19 +14,21 @@
 'use strict'
 
 let size: number = 4;
-let matrix: any[] = [];
+let matrix: number[][] = [];
 
 for (let i = 0; i < size; i++) {
     let row: number[] = [];
     for (let j = 0; j < size; j++) {
         if (i + j === size - 1) {
-            row[j] = 1;
+            row.push(1);
         }
         else {
-            row[j] = 0;
+            row.push(0);
         }
     }
-    matrix[i] = row;
+    matrix.push(row);
 }
 
 console.log(matrix);
+
+matrix.forEach((row) => console.log(row.join(" ")));
