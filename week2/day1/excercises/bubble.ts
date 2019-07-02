@@ -4,11 +4,67 @@
 'use strict'
 
 
-function bubble(params: number[]){
-    params.forEach(function(value, index) {
+function bubble(params: number[]): number[] {
+    let sortedArr: number[] = [];
+    let i: number = 0;
+    while (params.length > 0) {
+        let minIndex: number = 0;
+        let minValue: number = params[0];
+        params.forEach(function (value, index) {
+            if (value < minValue) {
+                minValue = value;
+                minIndex = index;
+            }
 
+        })
+        sortedArr[i] = minValue;
+        params.splice(minIndex, 1);
+        i++;
 
     }
+    return sortedArr;
+}
+function advancedBubble(params: number[], desc: boolean): number[] {
+    let sortedArr: number[] = [];
+    let i: number = 0;
+    if (desc) {
+        while (params.length > 0) {
+        let maxIndex: number = 0;
+        let maxValue: number = params[0];
+        params.forEach(function (value, index) {
+            if (value > maxValue) {
+                maxValue = value;
+                maxIndex = index;
+            }
+
+        })
+        sortedArr[i] = maxValue;
+        params.splice(maxIndex, 1);
+        i++;
+
+    }
+
+
+}
+    else {
+    while (params.length > 0) {
+        let minIndex: number = 0;
+        let minValue: number = params[0];
+        params.forEach(function (value, index) {
+            if (value < minValue) {
+                minValue = value;
+                minIndex = index;
+            }
+
+        })
+        sortedArr[i] = minValue;
+        params.splice(minIndex, 1);
+        i++;
+
+    }
+}
+
+return sortedArr;
 }
 //  Example:
 console.log(bubble([34, 12, 24, 9, 5]));
