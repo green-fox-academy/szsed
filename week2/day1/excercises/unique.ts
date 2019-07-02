@@ -5,13 +5,10 @@ function unique(arr: number[]) {
     return arr.filter(function (element, index) {
         let uniq: boolean = true;
         for (let i = index; i < arr.length; i++) {
-            // console.log(element);
-            // console.log(arr[i]);
 
             if (element === arr[i] && index != i) {
                 uniq = false
             }
-            // console.log(uniq);
         }
         return uniq;
     });

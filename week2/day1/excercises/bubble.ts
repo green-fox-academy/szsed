@@ -6,7 +6,6 @@
 
 function bubble(params: number[]): number[] {
     let sortedArr: number[] = [];
-    let i: number = 0;
     while (params.length > 0) {
         let minIndex: number = 0;
         let minValue: number = params[0];
@@ -17,16 +16,14 @@ function bubble(params: number[]): number[] {
             }
 
         })
-        sortedArr[i] = minValue;
+        sortedArr.push(minValue);
         params.splice(minIndex, 1);
-        i++;
 
     }
     return sortedArr;
 }
 function advancedBubble(params: number[], desc: boolean): number[] {
     let sortedArr: number[] = [];
-    let i: number = 0;
     if (desc) {
         while (params.length > 0) {
         let maxIndex: number = 0;
@@ -38,9 +35,8 @@ function advancedBubble(params: number[], desc: boolean): number[] {
             }
 
         })
-        sortedArr[i] = maxValue;
+        sortedArr.push(maxValue);
         params.splice(maxIndex, 1);
-        i++;
 
     }
 
@@ -57,9 +53,8 @@ function advancedBubble(params: number[], desc: boolean): number[] {
             }
 
         })
-        sortedArr[i] = minValue;
+        sortedArr.push(minValue);
         params.splice(minIndex, 1);
-        i++;
 
     }
 }
