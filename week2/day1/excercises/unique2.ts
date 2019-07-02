@@ -5,7 +5,7 @@
 
 function unique(input: number[]): number[] {
 
-    let uniqueArr: number[] = input.filter((value, index, arr) => arr.indexOf(value) == index)
+    let uniqueArr: number[] = input.filter((value, index, arr) => arr.indexOf(value) == index);
 
     return uniqueArr;
 
