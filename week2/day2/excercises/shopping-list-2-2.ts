@@ -1,5 +1,3 @@
-// needed to set "strictNullChecks": false, in tsconfig.json for this solution
-
 'use strict';
 
 export{};
@@ -20,9 +18,8 @@ export{};
 //   | Potato          | 1.75   |
 //   | Onion           | 1.10   |
 
-let priceList = new Map<string, number>();
+let priceList = new Map<string, number>([["Milk", 1.07]]);
 
-priceList.set("Milk", 1.07);
 priceList.set("Rice", 1.59);
 priceList.set("Eggs", 3.14);
 priceList.set("Cheese", 12.6);
@@ -31,6 +28,8 @@ priceList.set("Apples", 2.31);
 priceList.set("Tomato", 2.58);
 priceList.set("Potato", 1.75);
 priceList.set("Onion", 1.10);
+
+console.log(priceList.keys());
 
 
 // - Represent Bob's shopping list
@@ -46,10 +45,9 @@ priceList.set("Onion", 1.10);
 //   | Tomato          | 2      |
 //   | Potato          | 1      |
 
-let bobList = new Map<string, number>();
+let bobList = new Map<string, number>([["Milk", 3]]);
 
 
-bobList.set("Milk", 3);
 bobList.set("Rice", 2);
 bobList.set("Eggs", 2);
 bobList.set("Cheese", 1);
@@ -69,10 +67,9 @@ bobList.set("Potato", 1);
 //   | Apples          | 1      |
 //   | Tomato          | 10     |
 
-let aliceList = new Map<string, number>();
+let aliceList = new Map<string, number>([["Rice", 1]]);
 
 
-aliceList.set("Rice", 1);
 aliceList.set("Eggs", 5);
 aliceList.set("Chicken Breasts", 2);
 aliceList.set("Apples", 1);
