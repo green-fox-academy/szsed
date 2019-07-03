@@ -1,3 +1,5 @@
+// needed to set "strictNullChecks": false, in tsconfig.json for this solution
+
 'use strict';
 
 export{};
@@ -82,14 +84,75 @@ aliceList.set("Tomato", 10);
 
 let bobBill: number = 0;
 
-bobList.forEach((value, key) => {
-    if (priceList.get(key)){
-    bobBill += priceList.get(key) * value;
-    }
-});
+bobList.forEach((value, key) => bobBill += priceList.get(key) * value);
+
+console.log(bobBill);
 
 //   - How much does Alice pay?
+
+let aliceBill: number = 0;
+
+aliceList.forEach((value, key) => aliceBill += priceList.get(key) * value);
+
+console.log(aliceBill);
+
+
 //   - Who buys more Rice?
+
+if (aliceList.get("Rice") > bobList.get("Rice")){
+    console.log("Alice");
+}
+else if (aliceList.get("Rice") == bobList.get("Rice")){
+    console.log("equal");
+}
+else {
+    console.log("Bob");
+}
+
 //   - Who buys more Potato?
+
+if (aliceList.get("Potato") > bobList.get("Potato")){
+    console.log("Alice");
+}
+else if (aliceList.get("Potato") == bobList.get("Potato")){
+    console.log("equal");
+}
+else {
+    console.log("Bob");
+}
+
+
 //   - Who buys more different products?
+
+if (aliceList.size > bobList.size){
+    console.log("Alice");
+}
+else if (aliceList.size == bobList.size){
+    console.log("equal");
+}
+else {
+    console.log("Bob");
+}
+
 //   - Who buys more products? (piece)]
+
+let bobListValues: number[] = Array.from(bobList.values);
+let bobSum: number = 0;
+
+bobListValues.forEach(value => bobSum += value);
+
+let aliceListValues: number[] = Array.from(aliceList.values);
+let aliceSum: number = 0;
+
+aliceListValues.forEach(value => aliceSum += value);
+
+if (aliceSum > bobSum){
+    console.log("Alice");
+}
+else if (aliceSum == bobSum){
+    console.log("equal");
+}
+else {
+    console.log("Bob");
+}
+
