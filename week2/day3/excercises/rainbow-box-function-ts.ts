@@ -16,11 +16,10 @@ let drawSquareFromSizeAndColor = (size: number, color: string) => {
 // Create a loop that fills the canvas with a rainbow of colored squares.
 
 let colorsArray: string[] = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
-let numberOfColors: number = colorsArray.length;
 
-for (let i=0; i < numberOfColors; i++){
+for (let i=0; i < colorsArray.length; i++){
     
-    let sizeVar:number = canvas.height-i*canvas.height/numberOfColors;
+    let sizeVar:number = canvas.height-i*canvas.height/colorsArray.length;
 
     drawSquareFromSizeAndColor(sizeVar, colorsArray[i]);
 }
