@@ -9,7 +9,7 @@ const ctx = canvas.getContext('2d');
 // The x and y coordinates of the square's top left corner
 // and draws a 50x50 square from that point.
 
-let drawSquareFromCoord = (x,y) => ctx.fillRect(x,y,50,50);
+let drawSquareFromCoord = (x: number,y: number) => ctx.fillRect(x,y,50,50);
 
 // Draw 3 squares with that function.
 // Avoid code duplication.
