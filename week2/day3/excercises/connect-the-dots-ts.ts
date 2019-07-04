@@ -21,6 +21,7 @@ let connectGreenLinesStroke = function(arr: number[][]){
     for (let i = 1; i < arr.length; i++){
         ctx.lineTo(arr[i][0],arr[i][1]);
     }
+    ctx.closePath();
     ctx.stroke();
 
 }
