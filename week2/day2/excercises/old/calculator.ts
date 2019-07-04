@@ -24,7 +24,7 @@ let calculator = () => {
     console.log('Input params are', args);
 
     let oper: any = args[0].substr(-1);
-    // added an extra character to arguments because special characters caused bugs
+    // added an extra "_" character to arguments because special characters caused bugs
     let num1: any = Number(args[1]);
     let num2: any = Number(args[2]);
 
@@ -33,33 +33,34 @@ let calculator = () => {
     console.log(num2);
 
 
-    if (args[0].substr(0,1) != "+" || (oper != "+" && oper != "-" && oper != "*" && oper != "/" && oper != "%") ||
+    if (args[0].substr(0, 1) != "_" || (oper != "+" && oper != "-" && oper != "*" && oper != "/" && oper != "%") ||
         (!Boolean(num1) && (num1 != 0)) ||
         (!Boolean(num2) && (num2 != 0)) || args.length != 3
-        ) {
+    ) {
         console.log("invalid calculator parameters");
     }
     else {
         console.log(`${num1}${oper}${num2}`);
-        switch (oper){
-        case "+":
-        console.log(num1+num2);
-        break;
-        case "-":
-        console.log(num1-num2);
-        break;
-        case "*":
-        console.log(num1*num2);
-        break;
-        case "/":
-        console.log(num1/num2);
-        break;
-        case "%":
-        console.log(num1%num2);
-        break;
-        default:
-        console.log("Oops, somethig went wrong!")      
-    }
+        switch (oper) {
+            case "+":
+                console.log(num1 + num2);
+                break;
+            case "-":
+                console.log(num1 - num2);
+                break;
+            case "*":
+                console.log(num1 * num2);
+                break;
+            case "/":
+                console.log(num1 / num2);
+                break;
+            case "%":
+                console.log(num1 % num2);
+                break;
+            default:
+                console.log("Oops, somethig went wrong!")
+        }
+        console.log("Goodbye!");
 
     }
 
