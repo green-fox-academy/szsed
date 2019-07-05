@@ -7,7 +7,7 @@ const ctx = canvas.getContext('2d');
 
 // TODO: fix rotation bug
 
-let numberOfLayers: number = 5;
+let numberOfLayers: number = 3;
 let hexagonSideSize: number = 20;
 let triangleHeight: number = (3**0.5)/2* hexagonSideSize;
 let centerCoord: number[] = [0,0];
@@ -50,14 +50,15 @@ let CalculateHexagonCoordinates = (centerCoordInner: number[], distanceParams: n
 let drawHexagon = (hexCoords: number [][]) => {
 
     ctx.beginPath();
-    // ctx.rotate(Math.PI/6);
+    ctx.rotate(Math.PI/6);
     ctx.moveTo(hexCoords[0][0], hexCoords[0][1]);
-
     for (let i=1; i<6; i++){
         ctx.lineTo(hexCoords[i][0], hexCoords[i][1]);
     }
     ctx.closePath();
     ctx.stroke();
+    ctx.rotate(-Math.PI/6);
+
 }
 
 // drawHexagon(CalculateHexagonCoordinates(centerCoord, 2));

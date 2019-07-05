@@ -28,7 +28,7 @@ let drawlinesToVerticalAxis = (xCoord: number) => {
     ctx.beginPath();
     ctx.strokeStyle = color;
     ctx.moveTo(xCoord, canvas.height/2);
-    ctx.lineTo(canvas.width/2, canvas.height/2+xCoord);
+    ctx.lineTo(canvas.width/2, canvas.height*(2-axisIfSwitch)/2+xCoord*axisIfSwitch);
     ctx.stroke();
 
 }
