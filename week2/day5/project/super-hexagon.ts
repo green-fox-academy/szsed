@@ -5,7 +5,7 @@ const ctx = canvas.getContext('2d');
 
 // DO NOT TOUCH THE CODE ABOVE THIS LINE
 
-let numberOfLayers: number = 1;
+let numberOfLayers: number = 5;
 let hexagonSideSize: number = 20;
 let triangleHeight: number = (3**0.5)/2* hexagonSideSize;
 let centerCoord: number[] = [0,0];
@@ -56,6 +56,46 @@ let drawHexagon = (hexCoords: number [][]) => {
     ctx.stroke();
 }
 
-drawHexagon(CalculateHexagonCoordinates(centerCoord));
+// drawHexagon(CalculateHexagonCoordinates(centerCoord));
 
-console.log(CalculateHexagonCoordinates(centerCoord));
+// console.log(CalculateHexagonCoordinates(centerCoord));
+
+let drawHexagonLayers = () => {
+
+    let allCenterCoordinates: number[][] = [];
+    allCenterCoordinates[0] = centerCoord;
+
+    console.log(allCenterCoordinates.length);
+
+    // looping through layers
+
+    for (let i=0; i< numberOfLayers; i++) {
+
+        // looping through actual center coordinates array
+
+        for (let j=allCenterCoordinates.length; j > 0; j--){
+
+            // calculate new coordinates
+
+            let loopHexCoords: number[][] =CalculateHexagonCoordinates(allCenterCoordinates[j-1]);
+
+            // update array with new center coordinate values
+
+            for (let k = 0; k < 6; k++){
+
+                allCenterCoordinates.push(loopHexCoords[k]);
+
+            }
+
+        }
+
+
+    }
+
+    for (let i=0; i< allCenterCoordinates.length; i++)
+    {
+        drawHexagon(CalculateHexagonCoordinates(allCenterCoordinates[i]))
+    }
+}
+
+drawHexagonLayers();
