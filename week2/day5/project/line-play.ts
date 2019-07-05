@@ -28,12 +28,16 @@ let drawLineAcrossBottom = (startingPoint: number[], color: string) => {
 
 }
 
-for (let i=1; i<lineDensityParameter; i++)
+let drawLines = (lDParamInner: number) =>
 
-{drawLineAcrossTop([i*canvas.width/lineDensityParameter, 0], color1);
+{for (let i=1; i<lDParamInner; i++)
 
-drawLineAcrossBottom([0, i*canvas.height/lineDensityParameter], color2);}
+{drawLineAcrossTop([i*canvas.width/lDParamInner, 0], color1);
 
+drawLineAcrossBottom([0, i*canvas.height/lDParamInner], color2);}
+}
+
+drawLines(20);
 // 1 XP Divide the canvas into 4/16/64 equal parts and repeat the line play pattern in each quarter
 
 
