@@ -9,26 +9,26 @@ const ctx = canvas.getContext('2d');
 
 let color: string = "green";
 
-let lineDensityParameter = 20;
+let lineDensityParameter: number = 20;
 
 
 let drawlinesToVerticalAxis = (xCoord: number) => {
 
-    let leftOfAxis: boolean = xCoord <= canvas.width /2;
+    let leftOfAxis: boolean = xCoord <= canvas.width / 2;
     let axisIfSwitch: number = 1;
 
-    leftOfAxis ? axisIfSwitch =1 : axisIfSwitch = -1;
+    leftOfAxis ? axisIfSwitch = 1 : axisIfSwitch = -1;
 
     ctx.beginPath();
     ctx.strokeStyle = color;
-    ctx.moveTo(xCoord, canvas.height/2);
-    ctx.lineTo(canvas.width/2, axisIfSwitch*(canvas.height/2-xCoord));
+    ctx.moveTo(xCoord, canvas.height / 2);
+    ctx.lineTo(canvas.width / 2, axisIfSwitch * (canvas.height / 2 - xCoord));
     ctx.stroke();
 
     ctx.beginPath();
     ctx.strokeStyle = color;
-    ctx.moveTo(xCoord, canvas.height/2);
-    ctx.lineTo(canvas.width/2, canvas.height*(2-axisIfSwitch)/2+xCoord*axisIfSwitch);
+    ctx.moveTo(xCoord, canvas.height / 2);
+    ctx.lineTo(canvas.width / 2, canvas.height * (2 - axisIfSwitch) / 2 + xCoord * axisIfSwitch);
     ctx.stroke();
 
 }
@@ -36,6 +36,6 @@ let drawlinesToVerticalAxis = (xCoord: number) => {
 // drawlinesToVerticalAxis(50);
 
 for (let i = 1; i < lineDensityParameter; i++) {
-    drawlinesToVerticalAxis(i*lineDensityParameter);
+    drawlinesToVerticalAxis(i * lineDensityParameter);
 
 }

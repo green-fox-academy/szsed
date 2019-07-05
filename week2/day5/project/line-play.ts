@@ -7,12 +7,12 @@ const ctx = canvas.getContext('2d');
 let color1: string = "green";
 let color2: string = "purple";
 
-let lineDensityParameter = 20;
+let lineDensityParameter: number = 20;
 
 let canvasDivisionParameter: number = 4;
 
-let widthParam: number = canvas.width/canvasDivisionParameter;
-let heightParam: number = canvas.height/canvasDivisionParameter;
+let widthParam: number = canvas.width / canvasDivisionParameter;
+let heightParam: number = canvas.height / canvasDivisionParameter;
 
 let drawLineAcrossTop = (startingPoint: number[], color: string) => {
     ctx.beginPath();
@@ -49,12 +49,12 @@ let drawLines2 = () => {
             // looping through canvas parts j: horizontal; k: vertical
 
             for (let i = 1; i < lineDensityParameter; i++) {
-                drawLineAcrossTop([i * widthParam/lineDensityParameter + j * widthParam, k * heightParam], color1);
+                drawLineAcrossTop([i * widthParam / lineDensityParameter + j * widthParam, k * heightParam], color1);
 
-                drawLineAcrossBottom([j * widthParam, i * heightParam/lineDensityParameter + k * heightParam], color2);
+                drawLineAcrossBottom([j * widthParam, i * heightParam / lineDensityParameter + k * heightParam], color2);
             }
         }
     }
 }
 
-drawLines2(lineDensityParameter, canvasDivisionParameter);
+drawLines2();
