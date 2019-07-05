@@ -5,6 +5,8 @@ const ctx = canvas.getContext('2d');
 
 // DO NOT TOUCH THE CODE ABOVE THIS LINE
 
+// TODO: fix bottom-right area
+
 let color: string = "green";
 
 let lineDensityParameter = 20;
