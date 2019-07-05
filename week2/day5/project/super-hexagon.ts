@@ -8,7 +8,8 @@ const ctx = canvas.getContext('2d');
 let numberOfLayers: number = 1;
 let hexagonSideSize: number = 20;
 let triangleHeight: number = (3**0.5)/2* hexagonSideSize;
-let centerCoord: number[] = [canvas.width/2, canvas.height/2];
+let centerCoord: number[] = [0,0];
+ctx.translate(canvas.width/2, canvas.height/2);
 
 let CalculateHexagonCoordinates = (centerCoordInner: number[]): number[][] =>{
     let hexCoords:number[][] = [];
@@ -39,8 +40,22 @@ let CalculateHexagonCoordinates = (centerCoordInner: number[]): number[][] =>{
     hexCoords[5][0] = centerCoordInner[0]-triangleHeight;
     hexCoords[5][1] = centerCoordInner[1]-hexagonSideSize/2;
 
-
-
-
     return hexCoords;
 }
+
+let drawHexagon = (hexCoords: number [][]) => {
+
+    ctx.beginPath();
+    ctx.rotate(Math.PI/6);
+    ctx.moveTo(hexCoords[0][0], hexCoords[0][1]);
+
+    for (let i=1; i<6; i++){
+        ctx.lineTo(hexCoords[i][0], hexCoords[i][1]);
+    }
+    ctx.closePath();
+    ctx.stroke();
+}
+
+drawHexagon(CalculateHexagonCoordinates(centerCoord));
+
+console.log(CalculateHexagonCoordinates(centerCoord));
