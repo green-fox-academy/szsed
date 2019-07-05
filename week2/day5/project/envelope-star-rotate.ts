@@ -9,7 +9,7 @@ const ctx = canvas.getContext('2d');
 
 let color: string = "green";
 
-let lineDensityParameter = 20;
+let lineDensityParameter = 10;
 
 let widthParam: number = canvas.width/2;
 let heightParam: number = canvas.height/2;
@@ -27,7 +27,7 @@ let drawLineRotate = (startingPoint: number[]) => {
 }
 
 let drawLinesRotate = () => {
-    for (let i=1; i < widthParam/lineDensityParameter*2; i++){
+    for (let i=1; i < lineDensityParameter; i++){
         drawLineRotate([-widthParam+i*widthParam/lineDensityParameter, 0]);
     }
 
