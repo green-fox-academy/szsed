@@ -28,16 +28,31 @@ let drawLineAcrossBottom = (startingPoint: number[], color: string) => {
 
 }
 
-let drawLines = (lDParamInner: number) =>
+let drawLines = (lDParamInner: number) => {
+    for (let i = 1; i < lDParamInner; i++) {
+        drawLineAcrossTop([i * canvas.width / lDParamInner, 0], color1);
 
-{for (let i=1; i<lDParamInner; i++)
-
-{drawLineAcrossTop([i*canvas.width/lDParamInner, 0], color1);
-
-drawLineAcrossBottom([0, i*canvas.height/lDParamInner], color2);}
+        drawLineAcrossBottom([0, i * canvas.height / lDParamInner], color2);
+    }
 }
 
-drawLines(20);
+// drawLines(20);
 // 1 XP Divide the canvas into 4/16/64 equal parts and repeat the line play pattern in each quarter
 
+let drawLines2 = (lDParamInner: number, cDParamInner: number) => {
 
+    for (let j = 0; j < cDParamInner; j++) {
+        for (let k = 0; k < cDParamInner; k++) {
+
+            // looping through canvas parts
+
+            for (let i = 1; i < lDParamInner; i++) {
+                drawLineAcrossTop([i * canvas.width / lDParamInner, 0], color1);
+
+                drawLineAcrossBottom([0, i * canvas.height / lDParamInner], color2);
+            }
+        }
+    }
+}
+
+drawLines2(lineDensityParameter, canvasDivisionParameter);
