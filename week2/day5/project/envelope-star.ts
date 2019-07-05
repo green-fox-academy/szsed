@@ -26,4 +26,9 @@ let drawlinesToVerticalAxis = (xCoord: number) => {
 
 }
 
-drawlinesToVerticalAxis(50);
+// drawlinesToVerticalAxis(50);
+
+for (let i = 1; i < lineDensityParameter; i++) {
+    drawlinesToVerticalAxis(i*lineDensityParameter);
+
+}
