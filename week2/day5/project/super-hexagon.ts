@@ -11,34 +11,36 @@ let triangleHeight: number = (3**0.5)/2* hexagonSideSize;
 let centerCoord: number[] = [0,0];
 ctx.translate(canvas.width/2, canvas.height/2);
 
-let CalculateHexagonCoordinates = (centerCoordInner: number[]): number[][] =>{
+let CalculateHexagonCoordinates = (centerCoordInner: number[], distanceParams: number): number[][] =>{
     let hexCoords:number[][] = [];
+
+    console.log(distanceParams);
 
     // from top clockwise
 
     hexCoords[0] = [];
     hexCoords[0][0] = centerCoordInner[0];
-    hexCoords[0][1] = centerCoordInner[1]-hexagonSideSize;
+    hexCoords[0][1] = centerCoordInner[1]-hexagonSideSize*distanceParams;
 
     hexCoords[1] = [];
-    hexCoords[1][0] = centerCoordInner[0]+triangleHeight;
-    hexCoords[1][1] = centerCoordInner[1]-hexagonSideSize/2;
+    hexCoords[1][0] = centerCoordInner[0]+triangleHeight*distanceParams;
+    hexCoords[1][1] = centerCoordInner[1]-hexagonSideSize/2*distanceParams;
 
     hexCoords[2] = [];
-    hexCoords[2][0] = centerCoordInner[0]+triangleHeight;
-    hexCoords[2][1] = centerCoordInner[1]+hexagonSideSize/2;
+    hexCoords[2][0] = centerCoordInner[0]+triangleHeight*distanceParams;
+    hexCoords[2][1] = centerCoordInner[1]+hexagonSideSize/2*distanceParams;
 
     hexCoords[3] = [];
     hexCoords[3][0] = centerCoordInner[0];
-    hexCoords[3][1] = centerCoordInner[1]+hexagonSideSize;
+    hexCoords[3][1] = centerCoordInner[1]+hexagonSideSize*distanceParams;
 
     hexCoords[4] = []
-    hexCoords[4][0] = centerCoordInner[0]-triangleHeight;
-    hexCoords[4][1] = centerCoordInner[1]+hexagonSideSize/2;
+    hexCoords[4][0] = centerCoordInner[0]-triangleHeight*distanceParams;
+    hexCoords[4][1] = centerCoordInner[1]+hexagonSideSize/2*distanceParams;
 
     hexCoords[5] = [];
-    hexCoords[5][0] = centerCoordInner[0]-triangleHeight;
-    hexCoords[5][1] = centerCoordInner[1]-hexagonSideSize/2;
+    hexCoords[5][0] = centerCoordInner[0]-triangleHeight*distanceParams;
+    hexCoords[5][1] = centerCoordInner[1]-hexagonSideSize/2*distanceParams;
 
     return hexCoords;
 }
@@ -56,7 +58,7 @@ let drawHexagon = (hexCoords: number [][]) => {
     ctx.stroke();
 }
 
-// drawHexagon(CalculateHexagonCoordinates(centerCoord));
+drawHexagon(CalculateHexagonCoordinates(centerCoord, 2));
 
 // console.log(CalculateHexagonCoordinates(centerCoord));
 
@@ -98,4 +100,4 @@ let drawHexagonLayers = () => {
     }
 }
 
-drawHexagonLayers();
+// drawHexagonLayers();
