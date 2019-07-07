@@ -80,14 +80,12 @@ let CalculateHexagonCoordinates = (centerCoordInner: number[], distanceParam: nu
 let drawHexagon = (hexCoords: number[][]) => {
 
     ctx.beginPath();
-    ctx.rotate(Math.PI / 6);
     ctx.moveTo(hexCoords[0][0], hexCoords[0][1]);
     for (let i = 1; i < 6; i++) {
         ctx.lineTo(hexCoords[i][0], hexCoords[i][1]);
     }
     ctx.closePath();
     ctx.stroke();
-    ctx.rotate(-Math.PI / 6);
 
 }
 
@@ -106,7 +104,7 @@ let drawHexagonLayers = () => {
 
             // calculate new coordinates
 
-            let loopHexCoords: number[][] = CalculateHexagonCoordinates(allCenterCoordinates[j - 1], 3 ** 0.5, 0);
+            let loopHexCoords: number[][] = CalculateHexagonCoordinates(allCenterCoordinates[j - 1], 3 ** 0.5, 1);
 
             // update array with new center coordinate values
 
@@ -126,7 +124,7 @@ let drawHexagonLayers = () => {
     console.log(allCenterCoordinates);
 
     for (let i = 0; i < allCenterCoordinates.length; i++) {
-        drawHexagon(CalculateHexagonCoordinates(allCenterCoordinates[i], 1, 1));
+        drawHexagon(CalculateHexagonCoordinates(allCenterCoordinates[i], 1, 0));
     }
 }
 
