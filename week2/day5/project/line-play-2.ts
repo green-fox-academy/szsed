@@ -4,12 +4,14 @@ const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d');
 
 // DO NOT TOUCH THE CODE ABOVE THIS LINE
+// CTX translate version
+
 let color1: string = "green";
 let color2: string = "purple";
 
 let lineDensityParameter: number = 20;
 
-let canvasDivisionParameter: number = 8;
+let canvasDivisionParameter: number = 3;
 
 let widthParam: number = canvas.width / canvasDivisionParameter;
 let heightParam: number = canvas.height / canvasDivisionParameter;
@@ -38,7 +40,7 @@ let drawLineAcrossBottom = (startingPoint: number[], color: string) => {
     ctx.beginPath();
     ctx.strokeStyle = color;
     ctx.moveTo(startingPoint[0], startingPoint[1]);
-    ctx.lineTo(startingPoint[1] - tileY + tileX, heightParam + tileY);
+    ctx.lineTo(startingPoint[1] + (tileX - tileY), heightParam - startingPoint[0] + (tileY - tileX));
     ctx.stroke();
 
 }
