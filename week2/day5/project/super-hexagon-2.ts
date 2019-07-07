@@ -5,7 +5,9 @@ const ctx = canvas.getContext('2d');
 
 // DO NOT TOUCH THE CODE ABOVE THIS LINE
 
-let numberOfLayers: number = 3;
+// TODO: duplicate filter doesn't work
+
+let numberOfLayers: number = 6;
 let hexagonSideSize: number = 20;
 let triangleHeight: number = (3 ** 0.5) / 2 * hexagonSideSize;
 let centerCoord: number[] = [0, 0];
@@ -115,7 +117,7 @@ let drawHexagonLayers = () => {
             }
 
             //filter duplicates
-            allCenterCoordinates = allCenterCoordinates.filter((value: number[], index: number) => allCenterCoordinates.indexOf(value) == index);
+            allCenterCoordinates = allCenterCoordinates.map((arr:number[]) => JSON.stringify(arr)).filter((value: string, index: number, arr: string[]) => arr.indexOf(value) == index).map((arr) => JSON.parse(arr));
 
         }
 
