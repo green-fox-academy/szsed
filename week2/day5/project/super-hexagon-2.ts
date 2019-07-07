@@ -106,7 +106,7 @@ let drawHexagonLayers = () => {
 
             // calculate new coordinates
 
-            let loopHexCoords: number[][] = CalculateHexagonCoordinates(allCenterCoordinates[j - 1], 3 ** 0.5, 1);
+            let loopHexCoords: number[][] = CalculateHexagonCoordinates(allCenterCoordinates[j - 1], 3 ** 0.5, 0);
 
             // update array with new center coordinate values
 
@@ -126,7 +126,7 @@ let drawHexagonLayers = () => {
     console.log(allCenterCoordinates);
 
     for (let i = 0; i < allCenterCoordinates.length; i++) {
-        drawHexagon(CalculateHexagonCoordinates(allCenterCoordinates[i], 1, 0));
+        drawHexagon(CalculateHexagonCoordinates(allCenterCoordinates[i], 1, 1));
     }
 }
 
