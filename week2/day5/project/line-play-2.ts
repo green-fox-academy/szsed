@@ -11,36 +11,26 @@ let color2: string = "purple";
 
 let lineDensityParameter: number = 20;
 
-let canvasDivisionParameter: number = 3;
+let canvasDivisionParameter: number = 8;
 
 let widthParam: number = canvas.width / canvasDivisionParameter;
 let heightParam: number = canvas.height / canvasDivisionParameter;
 
 let drawLineAcrossTop = (startingPoint: number[], color: string) => {
 
-    //Where are we on the grid?
-
-    let tileX = startingPoint[0] - startingPoint[0] % widthParam;
-    let tileY = startingPoint[1] - startingPoint[1] % widthParam;
-
     ctx.beginPath();
     ctx.strokeStyle = color;
     ctx.moveTo(startingPoint[0], startingPoint[1]);
-    ctx.lineTo(widthParam + tileX, startingPoint[0] - tileX + tileY);
+    ctx.lineTo(widthParam, startingPoint[0]);
     ctx.stroke();
 
 }
 let drawLineAcrossBottom = (startingPoint: number[], color: string) => {
 
-    //Where are we on the grid?
-
-    let tileX = startingPoint[0] - startingPoint[0] % widthParam;
-    let tileY = startingPoint[1] - startingPoint[1] % widthParam;
-
     ctx.beginPath();
     ctx.strokeStyle = color;
     ctx.moveTo(startingPoint[0], startingPoint[1]);
-    ctx.lineTo(startingPoint[1] + (tileX - tileY), heightParam - startingPoint[0] + (tileY - tileX));
+    ctx.lineTo(startingPoint[1], heightParam - startingPoint[0]);
     ctx.stroke();
 
 }
@@ -62,11 +52,15 @@ let drawLines2 = () => {
 
             // looping through canvas parts j: horizontal; k: vertical
 
-            for (let i = 1; i < lineDensityParameter; i++) {
-                drawLineAcrossTop([i * widthParam / lineDensityParameter + j * widthParam, k * heightParam], color1);
+            ctx.translate(j*widthParam, k* heightParam);
 
-                drawLineAcrossBottom([j * widthParam, i * heightParam / lineDensityParameter + k * heightParam], color2);
+            for (let i = 1; i < lineDensityParameter; i++) {
+                drawLineAcrossTop([i * widthParam / lineDensityParameter, 0], color1);
+
+                drawLineAcrossBottom([0, i * heightParam / lineDensityParameter], color2);
             }
+
+            ctx.translate(-j*widthParam,-k* heightParam);
         }
     }
 }
