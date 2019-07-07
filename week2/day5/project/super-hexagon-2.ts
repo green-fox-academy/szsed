@@ -1,0 +1,131 @@
+'use strict';
+
+const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
+const ctx = canvas.getContext('2d');
+
+// DO NOT TOUCH THE CODE ABOVE THIS LINE
+
+let numberOfLayers: number = 3;
+let hexagonSideSize: number = 20;
+let triangleHeight: number = (3 ** 0.5) / 2 * hexagonSideSize;
+let centerCoord: number[] = [0, 0];
+ctx.translate(canvas.width / 2, canvas.height / 2);
+
+let CalculateHexagonCoordinates = (centerCoordInner: number[], distanceParam: number, rotationParam: number): number[][] => {
+    let hexCoords: number[][] = [];
+
+    // from top clockwise
+
+    if (rotationParam == 0) {
+        hexCoords[0] = [];
+        hexCoords[0][0] = centerCoordInner[0] - hexagonSideSize / 2 * distanceParam;
+        hexCoords[0][1] = centerCoordInner[1] - triangleHeight * distanceParam;
+
+        hexCoords[1] = [];
+        hexCoords[1][0] = centerCoordInner[0] + hexagonSideSize / 2 * distanceParam;
+        hexCoords[1][1] = centerCoordInner[1] - triangleHeight * distanceParam;
+
+        hexCoords[2] = [];
+        hexCoords[2][0] = centerCoordInner[0] + hexagonSideSize * distanceParam;
+        hexCoords[2][1] = centerCoordInner[1];
+
+        hexCoords[3] = [];
+        hexCoords[3][0] = centerCoordInner[0] + hexagonSideSize / 2 * distanceParam;
+        hexCoords[3][1] = centerCoordInner[1] + triangleHeight * distanceParam;
+
+        hexCoords[4] = []
+        hexCoords[4][0] = centerCoordInner[0] - hexagonSideSize / 2 * distanceParam;
+        hexCoords[4][1] = centerCoordInner[1] + triangleHeight * distanceParam;
+
+        hexCoords[5] = [];
+        hexCoords[5][0] = centerCoordInner[0] - hexagonSideSize * distanceParam;
+        hexCoords[5][1] = centerCoordInner[1];
+
+
+
+    }
+    else if (rotationParam == 1) {
+        hexCoords[0] = [];
+        hexCoords[0][0] = centerCoordInner[0];
+        hexCoords[0][1] = centerCoordInner[1] - hexagonSideSize * distanceParam;
+
+        hexCoords[1] = [];
+        hexCoords[1][0] = centerCoordInner[0] + triangleHeight * distanceParam;
+        hexCoords[1][1] = centerCoordInner[1] - hexagonSideSize / 2 * distanceParam;
+
+        hexCoords[2] = [];
+        hexCoords[2][0] = centerCoordInner[0] + triangleHeight * distanceParam;
+        hexCoords[2][1] = centerCoordInner[1] + hexagonSideSize / 2 * distanceParam;
+
+        hexCoords[3] = [];
+        hexCoords[3][0] = centerCoordInner[0];
+        hexCoords[3][1] = centerCoordInner[1] + hexagonSideSize * distanceParam;
+
+        hexCoords[4] = []
+        hexCoords[4][0] = centerCoordInner[0] - triangleHeight * distanceParam;
+        hexCoords[4][1] = centerCoordInner[1] + hexagonSideSize / 2 * distanceParam;
+
+        hexCoords[5] = [];
+        hexCoords[5][0] = centerCoordInner[0] - triangleHeight * distanceParam;
+        hexCoords[5][1] = centerCoordInner[1] - hexagonSideSize / 2 * distanceParam;
+    }
+    else {
+        console.log("invalid rotation parameter");
+    }
+    return hexCoords;
+}
+
+let drawHexagon = (hexCoords: number[][]) => {
+
+    ctx.beginPath();
+    ctx.rotate(Math.PI / 6);
+    ctx.moveTo(hexCoords[0][0], hexCoords[0][1]);
+    for (let i = 1; i < 6; i++) {
+        ctx.lineTo(hexCoords[i][0], hexCoords[i][1]);
+    }
+    ctx.closePath();
+    ctx.stroke();
+    ctx.rotate(-Math.PI / 6);
+
+}
+
+let drawHexagonLayers = () => {
+
+    let allCenterCoordinates: number[][] = [];
+    allCenterCoordinates[0] = centerCoord;
+
+    // looping through layers
+
+    for (let i = 0; i < numberOfLayers - 1; i++) {
+
+        // looping through actual center coordinates array
+
+        for (let j = allCenterCoordinates.length; j > 0; j--) {
+
+            // calculate new coordinates
+
+            let loopHexCoords: number[][] = CalculateHexagonCoordinates(allCenterCoordinates[j - 1], 3 ** 0.5, 1);
+
+            // update array with new center coordinate values
+
+            for (let k = 0; k < 6; k++) {
+
+                allCenterCoordinates.push(loopHexCoords[k]);
+
+            }
+
+            //filter duplicates
+            allCenterCoordinates = allCenterCoordinates.filter((value: number[], index: number) => allCenterCoordinates.indexOf(value) == index);
+
+        }
+
+
+    }
+    console.log(allCenterCoordinates);
+
+    for (let i = 0; i < allCenterCoordinates.length; i++) {
+        drawHexagon(CalculateHexagonCoordinates(allCenterCoordinates[i], 1, 0));
+    }
+}
+
+drawHexagonLayers();
