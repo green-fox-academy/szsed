@@ -5,100 +5,42 @@ const ctx = canvas.getContext('2d');
 
 // DO NOT TOUCH THE CODE ABOVE THIS LINE
 
-let numberOfLayers: number = 3;
-let hexagonSideSize: number = 20;
-let triangleHeight: number = (3 ** 0.5) / 2 * hexagonSideSize;
-let centerCoord: number[] = [0, 0];
+const numberOfLayers: number = 5;
+const hexagonSideSize: number = 20;
+const triangleHeight: number = (3 ** 0.5) / 2 * hexagonSideSize;
+const centerCoord: number[] = [0, 0];
+const startCoord: number[] = [centerCoord[0] - hexagonSideSize/2, centerCoord[1] - (2*numberOfLayers-1)*triangleHeight]
 ctx.translate(canvas.width / 2, canvas.height / 2);
 
-let CalculateHexagonCoordinates = (centerCoordInner: number[], distanceParam: number): number[][] => {
-    let hexCoords: number[][] = [];
+let drawHexagon = (topLeftCoords: number[]) => {
 
-    console.log(distanceParam);
-
-    // from top clockwise
-
-    hexCoords[0] = [];
-    hexCoords[0][0] = centerCoordInner[0];
-    hexCoords[0][1] = centerCoordInner[1] - hexagonSideSize * distanceParam;
-
-    hexCoords[1] = [];
-    hexCoords[1][0] = centerCoordInner[0] + triangleHeight * distanceParam;
-    hexCoords[1][1] = centerCoordInner[1] - hexagonSideSize / 2 * distanceParam;
-
-    hexCoords[2] = [];
-    hexCoords[2][0] = centerCoordInner[0] + triangleHeight * distanceParam;
-    hexCoords[2][1] = centerCoordInner[1] + hexagonSideSize / 2 * distanceParam;
-
-    hexCoords[3] = [];
-    hexCoords[3][0] = centerCoordInner[0];
-    hexCoords[3][1] = centerCoordInner[1] + hexagonSideSize * distanceParam;
-
-    hexCoords[4] = []
-    hexCoords[4][0] = centerCoordInner[0] - triangleHeight * distanceParam;
-    hexCoords[4][1] = centerCoordInner[1] + hexagonSideSize / 2 * distanceParam;
-
-    hexCoords[5] = [];
-    hexCoords[5][0] = centerCoordInner[0] - triangleHeight * distanceParam;
-    hexCoords[5][1] = centerCoordInner[1] - hexagonSideSize / 2 * distanceParam;
-
-    return hexCoords;
-}
-
-let drawHexagon = (hexCoords: number[][]) => {
+    let topRightCoords: number[] = [topLeftCoords[0] + hexagonSideSize, topLeftCoords[1]];
+    let RightCoords: number[] = [topLeftCoords[0] + hexagonSideSize * 3/2, topLeftCoords[1] + triangleHeight];
+    let bottomRightCoords: number[] = [topLeftCoords[0] + hexagonSideSize, topLeftCoords[1] + triangleHeight * 2];
+    let bottomLeftCoords: number[] = [topLeftCoords[0], topLeftCoords[1] + triangleHeight * 2];
+    let LeftCoords: number[] = [topLeftCoords[0] - hexagonSideSize / 2, topLeftCoords[1] + triangleHeight];
 
     ctx.beginPath();
-    ctx.rotate(Math.PI / 6);
-    ctx.moveTo(hexCoords[0][0], hexCoords[0][1]);
-    for (let i = 1; i < 6; i++) {
-        ctx.lineTo(hexCoords[i][0], hexCoords[i][1]);
-    }
+    ctx.moveTo(topLeftCoords[0], topLeftCoords[1]);
+    ctx.lineTo(topRightCoords[0], topRightCoords[1]);
+    ctx.lineTo(RightCoords[0], RightCoords[1]);
+    ctx.lineTo(bottomRightCoords[0], bottomRightCoords[1]);
+    ctx.lineTo(bottomLeftCoords[0], bottomLeftCoords[1]);
+    ctx.lineTo(LeftCoords[0], LeftCoords[1]);
     ctx.closePath();
     ctx.stroke();
-    ctx.rotate(-Math.PI / 6);
 
 }
+
+drawHexagon(startCoord);
 
 let drawHexagonLayers = () => {
 
-    let allCenterCoordinates: number[][] = [];
-    allCenterCoordinates[0] = centerCoord;
+for (let i = 0; i < numberOfLayers * 2 - 1 ; i++){
 
-    console.log(allCenterCoordinates.length);
-
-    // looping through layers
-
-    for (let i = 0; i < numberOfLayers - 1; i++) {
-
-        // looping through actual center coordinates array
-
-        for (let j = allCenterCoordinates.length; j > 0; j--) {
-
-            // calculate new coordinates
-
-            let loopHexCoords: number[][] = CalculateHexagonCoordinates(allCenterCoordinates[j - 1], 3 ** 0.5);
-
-            console.log(loopHexCoords);
-
-            // update array with new center coordinate values
-
-            for (let k = 0; k < 6; k++) {
-
-                allCenterCoordinates.push(loopHexCoords[k]);
-
-            }
-
-            console.log(allCenterCoordinates);
-
-
-        }
-
-
-    }
-
-    for (let i = 0; i < allCenterCoordinates.length; i++) {
-        drawHexagon(CalculateHexagonCoordinates(allCenterCoordinates[i], 1))
-    }
+    
 }
 
-drawHexagonLayers();
+}
+
+// drawHexagonLayers();
