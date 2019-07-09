@@ -11,6 +11,10 @@ let fileName: string = 'my-fil.txt';
 let content: string;
 
 let printByLine = (file: string) => {
+    if (!fs.existsSync(fileName)) {
+        throw new Error(`Unable to read file: ${fileName}`);
+    }
+
     content = fs.readFileSync(fileName, 'utf-8');
 
     let contentArr: string[] = content.split('\n');
@@ -21,18 +25,9 @@ let printByLine = (file: string) => {
 
 }
 
-try {
-    if (!fs.existsSync(fileName)) {
-        throw new Error(`Unable to read file: ${fileName}`);
-    }
-}
-catch (e) {
-    console.log(e.message);
-}
-
 try { 
     printByLine(content);
 }
 catch (e) {
-
+    console.log(e.message);
 }
