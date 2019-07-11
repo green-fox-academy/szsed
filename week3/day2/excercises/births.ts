@@ -45,12 +45,12 @@ let getBirthYearsSorted = (content: string[]): string[] => {
 }
 
 let getBirthYearsWithCount = (content: string[]): any[] => {
-    let yearsWithCount: any[] = [];
+    let yearsWithCount: [string, number][] = [];
     let remaining: number = content.length;
     while (remaining > 0){
         let year: string = content[remaining-1];
         let count: number = content.lastIndexOf(year) - content.indexOf(year) + 1;
-        yearsWithCount.push([year, count])
+        yearsWithCount.push([year, count]);
         remaining -= count;
     }
     return yearsWithCount.sort();
