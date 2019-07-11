@@ -16,7 +16,7 @@ import Ship from './ship';
 let maxArmada: number = 10;
 
 
-class Armada {
+export default class Armada {
     ships: Ship[];
 
     fillArmada() {
@@ -73,12 +73,12 @@ class Armada {
 
 }
 
-let myArmada = new Armada();
-myArmada.fillArmada();
-myArmada.getArmadaInfo();
-let otherArmada = new Armada();
-otherArmada.fillArmada();
-otherArmada.getArmadaInfo();
-myArmada.war(otherArmada);
-myArmada.getArmadaInfo();
-otherArmada.getArmadaInfo();
+// let myArmada = new Armada();
+// myArmada.fillArmada();
+// myArmada.getArmadaInfo();
+// let otherArmada = new Armada();
+// otherArmada.fillArmada();
+// otherArmada.getArmadaInfo();
+// myArmada.war(otherArmada);
+// myArmada.getArmadaInfo();
+// otherArmada.getArmadaInfo();
