@@ -9,7 +9,7 @@ export default class Parrot {
     color: string;
     owner: string;
 
-    constructor(breed?: string, color?: string){
+    constructor(breed: string, color: string){
         this.breed = breed;
         this.color = color;
     }

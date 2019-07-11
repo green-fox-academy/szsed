@@ -23,7 +23,7 @@ export default class Pirate {
     isDead: boolean = false;
     parrot: Parrot;
 
-    constructor(name?: string, parrotBreed?: string, parrotColor?: string){
+    constructor(name: string = 'Long John Silver', parrotBreed: string = 'Cockatiel', parrotColor: string = 'blue'){
         this.name = name;
         this.parrot = new Parrot(parrotBreed, parrotColor);
         this.parrot.owner = this.name;
