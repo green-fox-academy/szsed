@@ -6,6 +6,8 @@
 // breed() -> creates a new animal if there's place for it
 // slaughter() -> removes the least hungry animal
 
+'use strict';
+
 import Animal from './animal'
 
 class Farm {
