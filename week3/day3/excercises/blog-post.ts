@@ -13,7 +13,7 @@
 
 'use strict';
 
-class BlogPost {
+export default class BlogPost {
     authorName: string;
     title: string;
     text: string;
