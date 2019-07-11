@@ -8,7 +8,7 @@
 
 'use strict';
 
-class Animal {
+export default class Animal {
     hungerVal: number = 50;
     thirstVal: number = 50;
 
