@@ -4,7 +4,7 @@
 
 'use strict';
 
-let powerFunct = (base: number, n: number) => {
+let powerFunct = (base: number, n: number): number => {
 
     try {
         if (base < 1 || n < 1 || n != Math.floor(n)) {
