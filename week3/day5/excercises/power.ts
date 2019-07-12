@@ -17,15 +17,15 @@ let powerFunct = (base: number, n: number) => {
 
     let result: number = base;
 
-    if (n == 1){
+    if (n == 1) {
         return result;
     }
 
-    result *= powerFunct(base, n-1);
+    result *= powerFunct(base, n - 1);
     return result;
 }
 
-console.log(powerFunct(-2,3));
-console.log(powerFunct(2,3.5));
-console.log(powerFunct(2,3));
-console.log(powerFunct(10,3));
+console.log(powerFunct(-2, 3));
+console.log(powerFunct(2, 3.5));
+console.log(powerFunct(2, 3));
+console.log(powerFunct(10, 3));
