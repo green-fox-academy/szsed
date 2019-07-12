@@ -2,26 +2,26 @@
 
 'use strict';
 
-let numberAdder = (n: number): number =>{
+let numberAdder = (n: number): number => {
 
     console.log(n);
 
-try {
-    if (n < 1){
-        throw Error('invalid input parameter: please provide an integer greater than 0');
+    try {
+        if (n < 1) {
+            throw Error('invalid input parameter: please provide an integer greater than 0');
         }
-} catch (error) {
-    console.log(error.message);
-    return undefined;
-}
+    } catch (error) {
+        console.log(error.message);
+        return undefined;
+    }
 
     let result: number = 0;
-    
-    if (n == 1){
+
+    if (n == 1) {
         result++;
         return result;
     }
-    result += n + numberAdder(n-1);
+    result += n + numberAdder(n - 1);
     return result;
 }
 

@@ -14,26 +14,26 @@
 
 // There is no integer type in JavaScript. To remove the rightmost digit you must divide (/) the number by 10 and find a way to get the the whole number portion of that number.
 
-let sumDigits = (n: number): number =>{
+let sumDigits = (n: number): number => {
 
     try {
-        if (n < 0 || Math.floor(n) != n){
+        if (n < 0 || Math.floor(n) != n) {
             throw Error('invalid input parameter: please provide a non-negative integer');
-            }
+        }
     } catch (error) {
         console.log(error.message);
         return undefined;
     }
-    
+
     let result: number = 0;
 
-    if (n == 0){
+    if (n == 0) {
         return result;
     }
 
     let multiplesOfTen = 10 ** (n.toString().length - 1);
     let firstDigit: number = (n - (n % multiplesOfTen)) / multiplesOfTen;
-    result += firstDigit + sumDigits(n-firstDigit*multiplesOfTen);
+    result += firstDigit + sumDigits(n - firstDigit * multiplesOfTen);
     return result;
 }
 
