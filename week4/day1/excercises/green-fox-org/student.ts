@@ -15,7 +15,7 @@
 
 'use strict';
 
-import Person from './person'
+import Person from './person';
 
 export default class Student extends Person{
     previousOrganization: string;
