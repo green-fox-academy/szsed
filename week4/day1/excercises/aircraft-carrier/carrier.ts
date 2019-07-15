@@ -30,7 +30,7 @@
 
 import Aircraft from "./aircraft";
 
-class AircraftCarrier {
+export default class AircraftCarrier {
     aircrafts: Aircraft[];
     ammoStorage: number;
     healthPoints: number;
@@ -41,7 +41,67 @@ class AircraftCarrier {
         this.healthPoints = healthpoints;
     }
 
+    init(numberOfAircraft: number){
+
+        for (let i = 0; i < numberOfAircraft; i++){
+            if (Math.random() < 0.5){
+                this.add(new Aircraft('F16'));
+            }
+            else {
+                this.add(new Aircraft('F35'));
+            }
+        }
+
+    }
+
     add(newAircraft: Aircraft){
         this.aircrafts.push(newAircraft);
+    }
+
+    fill() {
+        try {
+            if (this.ammoStorage == 0)
+            console.log('Aircraft carrier out of ammo!')
+        } catch (error) {
+            return;
+        }
+        
+        this.aircrafts.forEach((element) => {
+            if (element.type == 'F35') {
+                this.ammoStorage = element.refill(this.ammoStorage);
+        }
+        })
+
+        this.aircrafts.forEach((element) => {
+            if (element.type == 'F16') {
+                this.ammoStorage = element.refill(this.ammoStorage);
+            }
+        })
+
+    }
+
+    fight(enemyCarrier: AircraftCarrier){
+        let damageCounter: number = 0;
+        this.aircrafts.forEach((element) => {
+            damageCounter += element.currentAmmo * element.baseDamage;
+            element.currentAmmo = 0;
+        })
+        enemyCarrier.healthPoints -= damageCounter;
+    }
+
+    getStatus(){
+        if (this.healthPoints <= 0) return 'It\'s dead Jim :(';
+        let returnString: string = '';
+        let totalDamage: number = 0;
+        this.aircrafts.forEach((element) => {
+            totalDamage += element.baseDamage * element.currentAmmo;
+        })
+        returnString += `HP: ${this.healthPoints}, Aircraft count: ${this.aircrafts.length}, Ammo Storage: ${this.ammoStorage}, Total damage: ${totalDamage}`;
+        returnString += `\nAircraft:\n`
+
+        this.aircrafts.forEach((element) => {
+            returnString += element.getStatus() + '\n';
+        })
+        return returnString;
     }
 }

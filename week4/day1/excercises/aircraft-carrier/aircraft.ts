@@ -36,13 +36,12 @@ export default class Aircraft {
     baseDamage: number;
 
     constructor(type: string) {
+        this.type = type;
         if (type == 'F16') {
-            this.type = type;
             this.maxAmmo = 8;
             this.baseDamage = 30;
         }
         else if (type == 'F35') {
-            this.type = type;
             this.maxAmmo = 12;
             this.baseDamage = 50;
         }
@@ -54,14 +53,15 @@ export default class Aircraft {
         return damage;
     }
 
-    refill(amount: number) {
+    refill(amount: number): number {
         if (amount < this.maxAmmo - this.currentAmmo) {
             this.currentAmmo += amount;
             return 0;
         }
         else {
+            let usedAmmo: number = this.maxAmmo - this.currentAmmo;
             this.currentAmmo = this.maxAmmo;
-            return amount - this.maxAmmo + this.currentAmmo;
+            return amount - usedAmmo;
         }
     }
 
