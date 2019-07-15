@@ -33,9 +33,21 @@ export default class Garden {
 
     waterPlants(amount: number) {
         console.log(`Watering with ${amount}.`);
+        let howManyNeedWater: number = 0;
         this.plantsInHere.forEach((element: Plant) => {
-            element.getWatered(amount);
+            if (element.needsWater()) {
+                howManyNeedWater++;
+            }
         });
+
+        if (howManyNeedWater != 0) {
+            this.plantsInHere.forEach((element: Plant) => {
+                if (element.needsWater()) {
+                    element.getWatered(amount / howManyNeedWater);
+                }
+            });
+        }
+
         this.getWaterInfo();
         // console.log(this.plantsInHere);
     }

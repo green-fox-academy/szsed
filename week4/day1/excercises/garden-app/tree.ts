@@ -18,7 +18,7 @@ export default class Tree extends Plant {
 
     constructor(color: string, waterAmount: number) {
         super(color, waterAmount);
-        this.needsWaterParam = 20;
+        this.needsWaterParam = 10;
         this.absorbtionParam = 0.4;
     }
 
