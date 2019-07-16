@@ -3,19 +3,19 @@
 import { Todo } from './todo-printable';
 
 class TodoList {
-  private todos: Todo[];
+    private todos: Todo[];
 
-  constructor() {
-    this.todos = [];
-  }
+    constructor() {
+        this.todos = [];
+    }
 
-  add(thing: Todo): void {
-    this.todos.push(thing);
-  }
+    add(thing: Todo): void {
+        this.todos.push(thing);
+    }
 
-  getThings(): Todo[] {
-    return this.todos;
-  }
+    getThings(): Todo[] {
+        return this.todos;
+    }
 }
 
 function initializeTodos(): Todo[] {

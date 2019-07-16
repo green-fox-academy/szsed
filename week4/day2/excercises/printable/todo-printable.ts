@@ -2,24 +2,24 @@
 
 import Printable from "./printable";
 
-class Todo implements Printable{
+class Todo implements Printable {
     private name: string;
     private completed: boolean;
-  
+
     constructor(name: string) {
-      this.name = name;
+        this.name = name;
     }
-  
+
     public complete(): void {
-      this.completed = true;
+        this.completed = true;
     }
-  
+
     getName(): string {
-      return this.name;
+        return this.name;
     }
-  
+
     getCompleted(): boolean {
-      return this.completed;
+        return this.completed;
     }
 
     printAllFields(): void {
@@ -27,6 +27,6 @@ class Todo implements Printable{
         let isCompleted: string = this.completed ? 'Yes' : 'No';
         console.log(`Completed: ${isCompleted}`);
     }
-  }
-  
-  export { Todo };
+}
+
+export { Todo };
