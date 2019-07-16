@@ -22,7 +22,7 @@ export default class Reptile extends Animal {
         return 'laying eggs';
     }
 
-    makeSound(): string{
+    makeSound(): string {
         return 'Hisssss';
     }
 }

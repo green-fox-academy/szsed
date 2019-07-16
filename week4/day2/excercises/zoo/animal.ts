@@ -16,7 +16,7 @@ export default abstract class Animal {
     sex: string;
     district: string;
 
-    constructor(name: string ='default animal name', age: number = 0, sex: string = 'unknown', district: string = 'unknown'){
+    constructor(name: string = 'default animal name', age: number = 0, sex: string = 'unknown', district: string = 'unknown') {
         this.name = name;
         this.age = age;
         this.sex = sex;
