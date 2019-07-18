@@ -36,17 +36,28 @@ export function median(pool: number[]): number {
 }
 
 export function isVowel(character: string): boolean {
-    return ['a', 'u', 'o', 'e', 'i'].some(vowel => vowel === character);
+    return ['a', 'u', 'o', 'e', 'i'].some(vowel => vowel === character.toLowerCase());
 }
 
 export function translate(hungarian: string): string {
     let teve = hungarian;
     let length = teve.length;
+    // let i = 0;
+
+    // while (teve[i] != undefined) {
+    //     let c = teve[i];
+    //     console.log(c);
+    //     if (isVowel(c)) {
+    //         teve = teve.split(c).join(`${c}v${c}`);
+    //         i += 2;
+    //     }
+    //     i++;
+    // }
 
     for (let i = 0; i < length; i++) {
         let c = teve[i];
         if (isVowel(c)) {
-            teve = teve.split(c).join(`${c}v${c}`);
+            teve = teve.slice(0, i) + `${c}v${c}` + teve.slice(i + 1, length);
             i += 2;
             length += 2;
         }
