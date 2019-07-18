@@ -32,13 +32,12 @@ export function maxOfThree(a: number, b: number, c: number): number {
 };
 
 export function median(pool: number[]): number {
-    pool = pool.sort();
-    console.log(pool);
+    pool = pool.sort((a, b) => a - b);
     if (pool.length % 2 == 1) {
         return pool[(pool.length - 1) / 2]
     }
     else {
-        return (pool[pool.length / 2] + pool[(pool.length - 1) / 2]) / 2;
+        return (pool[pool.length / 2] + pool[pool.length / 2 - 1]) / 2;
     }
 }
 

@@ -74,7 +74,7 @@ test('is vowel: U', function (t: any): any {
   t.end();
 });
 
-test('is vowel: k', function(t: any): any {
+test('is vowel: k', function (t: any): any {
   t.notOk(isVowel('k'));
   t.end();
 });
