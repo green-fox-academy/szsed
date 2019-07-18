@@ -7,10 +7,11 @@
 export default class NumberAdder {
     numberList: number[];
 
-    getSum(): number {
-        console.log(this.numberList);
-        console.log(this.numberList == []);
-        if (this.numberList == [] || this.numberList == undefined){
+    getSum(): number | undefined {
+        if (this.numberList == undefined){
+            return undefined;
+        }
+        else if (this.numberList.length == 0){
             return undefined;
         }
         let sum: number = 0;
