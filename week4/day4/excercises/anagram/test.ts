@@ -7,6 +7,6 @@ test('anagram checker test', (t: any) => {
     t.equals(anagramChecker('majom', 'mojam'), true);
     t.equals(anagramChecker('majom', 'cica'), false);
     t.equals(anagramChecker('majom', ''), false);
-    t.equals(anagramChecker('majom', undefined), false);
+    t.equals(anagramChecker('majom', undefined), undefined);
     t.end();
 });

@@ -5,13 +5,10 @@
 'use strict';
 
 let anagramChecker = (string1: string, string2: string): boolean => {
-    let reverseString: string = '';
-
-    for (let i = 0; i < string1.length; i++) {
-        reverseString += string1.charAt(string1.length - i - 1);
+    if (string1 == undefined || string2 == undefined){
+        return undefined;
     }
-
-    if (reverseString == string2) {
+    else if (string1.split('').sort().join().toLowerCase() == string2.split('').sort().join().toLowerCase()){
         return true;
     }
     else {
