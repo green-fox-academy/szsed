@@ -32,7 +32,14 @@ export function maxOfThree(a: number, b: number, c: number): number {
 };
 
 export function median(pool: number[]): number {
-    return pool[Math.floor((pool.length - 1) / 2)];
+    pool = pool.sort();
+    console.log(pool);
+    if (pool.length % 2 == 1) {
+        return pool[(pool.length - 1) / 2]
+    }
+    else {
+        return (pool[pool.length / 2] + pool[(pool.length - 1) / 2]) / 2;
+    }
 }
 
 export function isVowel(character: string): boolean {
@@ -42,17 +49,6 @@ export function isVowel(character: string): boolean {
 export function translate(hungarian: string): string {
     let teve = hungarian;
     let length = teve.length;
-    // let i = 0;
-
-    // while (teve[i] != undefined) {
-    //     let c = teve[i];
-    //     console.log(c);
-    //     if (isVowel(c)) {
-    //         teve = teve.split(c).join(`${c}v${c}`);
-    //         i += 2;
-    //     }
-    //     i++;
-    // }
 
     for (let i = 0; i < length; i++) {
         let c = teve[i];

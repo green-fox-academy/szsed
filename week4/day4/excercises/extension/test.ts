@@ -36,10 +36,26 @@ test('max of three: third', function (t: any): any {
 test('median: four', function (t: any): any {
   t.equal(median([7, 5, 3, 5]), 5);
   t.end();
+
+});
+
+test('median: four', function (t: any): any {
+  t.equal(median([5, 7, 3, 5]), 5);
+  t.end();
 });
 
 test('median: five', function (t: any): any {
   t.equal(median([1, 2, 3, 4, 5]), 3);
+  t.end();
+});
+
+test('median: five', function (t: any): any {
+  t.equal(median([155, 1, 3, 40, 1]), 3);
+  t.end();
+});
+
+test('median: five', function (t: any): any {
+  t.equal(median([155, 1, 1, 40, 3]), 3);
   t.end();
 });
 
