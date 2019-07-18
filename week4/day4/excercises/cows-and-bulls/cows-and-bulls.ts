@@ -14,7 +14,7 @@
 
 'use strict'
 
-import { getUnpackedSettings } from "http2";
+import guessEvaluator from './guessEvaluator'
 
 export default class CowsAndBulls {
     private targetNumber: number;
@@ -40,10 +40,20 @@ export default class CowsAndBulls {
     }
 
     setTarget(input: number) {
-
+        this.targetNumber = input;
     }
 
     guess(input: number): string {
-        return;
+        if (this.gameState == 'finished') {
+            return 'game over';
+        }
+        else {
+            this.counter++
+            let result: string = guessEvaluator(input, this.targetNumber);
+            if (result == '4 cow(s)') {
+                this.gameState = 'finished';
+            }
+            return result;
+        }
     }
 }
