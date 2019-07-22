@@ -5,13 +5,21 @@ const ctx = canvas.getContext('2d');
 
 // DO NOT TOUCH THE CODE ABOVE THIS LINE
 
-const numberOfLayersKoch: number = 3;
-const startCoordsKoch: [number, number] = [0, canvas.height / 2];
-const endCoordsKoch: [number, number] = [canvas.width, canvas.height / 2];
-const startAngle: number = 0;
-const startSize: number = canvas.width;
-const startParamsKoch: [[number, number], number, number] = [startCoordsKoch, startAngle, startSize];
+// import { calcAllParams, drawKochLine } from './koch-line';
+
+const numberOfLayersKDiamond: number = 5;
+const startSize: number = canvas.width * 4 / 6;
+const startCoordsKDiamond1: [number, number] = [canvas.width / 6, canvas.height * 2 / 6];
+const startCoordsKDiamond2: [number, number] = [canvas.width * 5 / 6, canvas.height * 2 / 6];
+const startCoordsKDiamond3: [number, number] = [canvas.width / 2, canvas.height * 2 / 6 + startSize * 3 ** 0.5 / 2];
+const endCoordsKDiamond: [number, number] = startCoordsKDiamond1;
 const sixtyDegs: number = Math.PI / 3;
+const startAngle1: number = 0;
+const startAngle2: number = sixtyDegs * 2;
+const startAngle3: number = -sixtyDegs * 2;
+const startParamsKDiamond1: [[number, number], number, number] = [startCoordsKDiamond1, startAngle1, startSize];
+const startParamsKDiamond2: [[number, number], number, number] = [startCoordsKDiamond2, startAngle2, startSize];
+const startParamsKDiamond3: [[number, number], number, number] = [startCoordsKDiamond3, startAngle3, startSize];
 
 let paramsArr: [[number, number], number, number][] = [];
 
@@ -36,11 +44,6 @@ let calcAllParams = (layers: number, params: [[number, number], number, number])
     }
 }
 
-calcAllParams(numberOfLayersKoch, startParamsKoch);
-let coords: [number, number][] = [];
-paramsArr.forEach(element => coords.push(element[0]));
-console.log(coords.length);
-
 
 let drawKochLine = (coords: [number, number][], endcoords: [number, number]): void => {
 
@@ -57,6 +60,11 @@ let drawKochLine = (coords: [number, number][], endcoords: [number, number]): vo
 }
 
 
-drawKochLine(coords, endCoordsKoch);
+calcAllParams(numberOfLayersKDiamond, startParamsKDiamond1);
+calcAllParams(numberOfLayersKDiamond, startParamsKDiamond2);
+calcAllParams(numberOfLayersKDiamond, startParamsKDiamond3);
 
-export { calcAllParams, drawKochLine };
+let coords: [number, number][] = [];
+paramsArr.forEach(element => coords.push(element[0]));
+
+drawKochLine(coords, endCoordsKDiamond);
