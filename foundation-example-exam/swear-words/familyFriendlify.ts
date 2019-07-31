@@ -12,9 +12,9 @@ const familyFriendlify = (text: string, swearwords: string[]): number => {
 
     for (let i: number = wordsArray.length - 1; i >= 0; i--) {
         swearwords.forEach((word) => {
-            if (wordsArray[i].indexOf(word) >= 0) {
+            if (wordsArray[i].toLowerCase().indexOf(word.toLowerCase()) >= 0) {
                 wordsRemoved++;
-                wordsArray.splice(i, 1);
+                console.log(wordsArray.splice(i, 1));
             }
         })
     }
@@ -28,7 +28,6 @@ const familyFriendlify = (text: string, swearwords: string[]): number => {
     }
 
     return wordsRemoved;
-
 }
 
 export default familyFriendlify;
