@@ -14,7 +14,7 @@ const familyFriendlify = (text: string, swearwords: string[]): number => {
         swearwords.forEach((word) => {
             if (wordsArray[i].toLowerCase().indexOf(word.toLowerCase()) >= 0) {
                 wordsRemoved++;
-                console.log(wordsArray.splice(i, 1));
+                wordsArray[i] = wordsArray[i].replace(wordsArray[i], '');
             }
         })
     }
