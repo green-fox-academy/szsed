@@ -28,11 +28,17 @@ export class Shelter {
     }
 
     findNewOwner() {
+        if (this.animals.length == 0) {
+            return;
+        }
         let adoptables: Animal[] = this.animals.filter((animal: Animal) => animal.isAdoptable());
+        let animalIndex: number = Math.floor(Math.random() * this.animals.length);
+        while (!this.animals[animalIndex].isAdoptable() && adoptables.length > 0) {
+            animalIndex = Math.floor(Math.random() * this.animals.length);
+        }
         if (adoptables.length > 0 && this.adopters.length > 0) {
-            let animalIndex: number = Math.floor(Math.random() * adoptables.length);
             let adopterIndex: number = Math.floor(Math.random() * this.adopters.length);
-            adoptables[animalIndex].ownerName = this.adopters[adopterIndex];
+            this.animals[animalIndex].ownerName = this.adopters[adopterIndex];
             this.animals.splice(animalIndex, 1);
             this.adopters.splice(adopterIndex, 1);
         }
