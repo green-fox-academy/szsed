@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* .container:after {
+    display: block;
+    clear: both;
+    content: '';
+    visibility: hidden;
+    height: 0;
+} */
+
+.container {
+    height: 250px;
+    width: 100%;
+    background-color: #FFD62A;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.purplesquare {
+    height: 100px;
+    width: 100px;
+    background-color: #B02AFF;
+    margin-right: 5px;
+}
+
+.container.two {
+    justify-content: space-between;
+}
+
+.purplesquare.two {
+    margin: 0;
+}
+
+.container.three {
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.purplesquare.three {
+    margin-right: 0;
+    margin-left: 5px;
+}

@@ -6,7 +6,7 @@
 .container {
     height: 250px;
     width: 700px;
-    background-color: yellow;
+    background-color: #FFD62A;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,5 +15,5 @@
 .purplesquare {
     height: 100px;
     width: 100px;
-    background-color: purple;
+    background-color: #B02AFF;
 }
