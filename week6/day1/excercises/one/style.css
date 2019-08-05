@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    width: 400px;
+}
+
+.container:after {
+    display: block;
+    clear: both;
+    content: '';
+    visibility: hidden;
+    height: 0;
+}
+
+.item {
+    min-width: 100px;
+    min-height: 100px;
+    margin: 0;
+    padding: 0;
+    float: left;
+}
+
+.green {
+    background-color: green;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.purple {
+    background-color: purple;
+}
+
+.yellow.two {
+    width: 200px;
+}
+
+.container.three{
+    flex-direction: row-reverse;
+}
+
+.yellow.three {
+    width: 200px;
+}
+
+.container.four {
+    flex-direction: column;
+}
+
+.yellow.four {
+    height: 200px;
+    order: 1;
+}
