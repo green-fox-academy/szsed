@@ -1,0 +1,16 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    border: 5px solid black;
+    border-radius: 15px;
+    width: 800px;
+    height: 600px;
+}
+
+.containerheader {
+    border-bottom: 5px solid black;
+    height: 25px;
+}
