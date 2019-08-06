@@ -4,7 +4,7 @@
 // ['apple', 'banana', 'cat', 'dog']
 
 let contentList = ['apple', 'banana', 'cat', 'dog'];
-Array.from(document.getElementsByTagName('li')).forEach((element, index) => element.textContent = contentList[index]);
+document.querySelectorAll('li').forEach((element, index) => element.textContent = contentList[index]);
 
 // 2) change the < ul > element's background color to 'limegreen'
 //     - use css class to change the color instead of the style property
