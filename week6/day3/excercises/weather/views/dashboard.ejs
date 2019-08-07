@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
+</head>
+
+<body>
+    <div>
+        <ul>
+            <% for (let forecast of forecasts) { %>
+            <li>
+                <div class="city">
+                    <%= forecast.city %>
+                    <div class="location">
+                        <%= forecast.location %>
+                    </div>
+                </div>
+                <div class="weatherinfo">
+                    <span class="temperature"><%= forecast.weather[0].temp %>°C</span>
+                    <span class="icon"><%= forecast.weather[0].icon %></span>
+                </div>
+            </li>
+            <% } %>
+        </ul>
+
+    </div>
+</body>
+
+</html>
