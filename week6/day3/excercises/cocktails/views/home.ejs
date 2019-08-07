@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Cocktails</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Cocktails</h1>
+    <nav>
+        <a href="/">all</a>
+
+        <% for (let alcohol of alcoholList){ %>
+        <a href="/?alcohol=<%= alcohol %>"> <%= alcohol %></a> <% } %>
+    </nav>
+    <ul>
+        <li>
+            <div class="name header">name</div>
+            <div class="price header">price</div>
+        </li>
+        <% for (let cocktail of cocktails){ 
+            let isGrey = cocktails.indexOf(cocktail) % 2 == 0? ' grey' : '' %>
+
+        <li>
+            <div class="name<%= isGrey %>">
+                <%= cocktail.name %>
+                <% if (!cocktail.isAlcoholic) { %>
+                <span>(non-alcoholic)</span>
+                <% } %>
+                <div class="ingredients">
+                    <%= cocktail.contains.join(', ') %>
+                </div>
+
+            </div>
+            <div class="price<%= isGrey %>"><%= cocktail.price %> Ft</div>
+        </li>
+        <% } %>
+    </ul>
+
+</body>
+
+</html>

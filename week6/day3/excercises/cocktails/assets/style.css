@@ -1,0 +1,46 @@
+nav {
+    margin-bottom: 20px;
+}
+
+a {
+    text-transform: uppercase;
+    text-decoration: none;
+    margin: 10px;
+    font-size: 20px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    width: 75%;
+}
+
+li {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.name {
+    width: 70%;
+    margin: 0 7px 0 0;
+    padding: 7px;
+}
+
+.price {
+    width: 20%;
+    margin: 0;
+    padding: 7px;
+    text-align: center;
+}
+
+.header {
+    background-color: black;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.grey {
+    background-color: #d3d3d3;
+}
