@@ -69,6 +69,7 @@ app.use(express.static('assets'));
 app.get('/', (req, res) => res.render('dashboard', { forecasts: forecasts }));
 
 app.get('/cities/:cityId', (req, res) => {
+    res.render('details', { forecast: forecasts.filter(element => element.city === req.params.cityId)[0] })
     // req.params.cityId
 })
 

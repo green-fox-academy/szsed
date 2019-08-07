@@ -12,7 +12,7 @@
     <div>
         <ul>
             <% for (let forecast of forecasts) { %>
-            <li>
+            <li class=<%= forecast.city %>>
                 <div class="city">
                     <%= forecast.city %>
                     <div class="location">
@@ -21,13 +21,18 @@
                 </div>
                 <div class="weatherinfo">
                     <span class="temperature"><%= forecast.weather[0].temp %>°C</span>
-                    <span class="icon"><%= forecast.weather[0].icon %></span>
+                    <span class="icon"><img src="<%= forecast.weather[0].icon %>.png" alt="#"></span>
                 </div>
             </li>
             <% } %>
         </ul>
 
     </div>
+    <script>
+        document.querySelectorAll('li').forEach(element => {
+            element.onclick = () => location = 'cities/' + element.className;
+        });
+    </script>
 </body>
 
 </html>
