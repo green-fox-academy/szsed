@@ -15,7 +15,7 @@ let buttonLabels = ['Up', '>', 'X', 'Down']
 
 let container = document.createElement('div');
 container.style.display = 'flex';
-container.style.justifyContent = 'space-evenly';
+container.style.justifyContent = 'center';
 document.body.appendChild(container);
 
 for (let i = 0; i < 3; i++) {
@@ -23,6 +23,7 @@ for (let i = 0; i < 3; i++) {
     newDiv.style.width = '100px';
     newDiv.style.height = '100px';
     newDiv.style.border = '1px solid black';
+    newDiv.style.margin = '5px';
 
     for (let j = 0; j < 4; j++) {
 
@@ -54,8 +55,9 @@ for (let i = 0; i < 3; i++) {
 
 let foodOnLeft = container.children[0]
 let buttons = container.children[1].children;
+let foodOnRight = container.children[2]
 
-console.log(foodOnLeft.children);
+console.log(Array.from(foodOnLeft.children));
 
 buttons[0].onclick = () => {
     Array.from(foodOnLeft.children).forEach((element, index, arr) => {
@@ -66,11 +68,49 @@ buttons[0].onclick = () => {
     })
 }
 
-buttons[3].onclick = () => {
-    Array.from(foodOnLeft.children).forEach((element, index, arr) => {
-        if (element.style.backgroundColor === 'rgb(211, 211, 211)' && index < 3) {
-            element.style.backgroundColor = '#fff';
-            arr[index + 1].style.backgroundColor = '#d3d3d3';
+buttons[1].onclick = () => {
+    for (let i = 0; i < Array.from(foodOnLeft.children).length; i++) {
+        if (Array.from(foodOnLeft.children)[i].style.backgroundColor === 'rgb(211, 211, 211)' && i > 0) {
+            Array.from(foodOnLeft.children)[i - 1].style.backgroundColor = '#d3d3d3';
+            Array.from(foodOnLeft.children)[i].style.backgroundColor = '#fff';
+            foodOnRight.appendChild(Array.from(foodOnLeft.children)[i]);
+            break;
+        } else if (Array.from(foodOnLeft.children)[i].style.backgroundColor === 'rgb(211, 211, 211)' && i < Array.from(foodOnLeft.children).length - 1) {
+            Array.from(foodOnLeft.children)[i + 1].style.backgroundColor = '#d3d3d3';
+            Array.from(foodOnLeft.children)[i].style.backgroundColor = '#fff';
+            foodOnRight.appendChild(Array.from(foodOnLeft.children)[i]);
+            break;
+        } else if (Array.from(foodOnLeft.children)[i].style.backgroundColor === 'rgb(211, 211, 211)') {
+            Array.from(foodOnLeft.children)[i].style.backgroundColor = '#fff';
+            foodOnRight.appendChild(Array.from(foodOnLeft.children)[i]);
+            break;
         }
-    })
+    }
+}
+
+buttons[2].onclick = () => {
+    for (let i = 0; i < Array.from(foodOnLeft.children).length; i++) {
+        if (Array.from(foodOnLeft.children)[i].style.backgroundColor === 'rgb(211, 211, 211)' && i > 0) {
+            Array.from(foodOnLeft.children)[i - 1].style.backgroundColor = '#d3d3d3';
+            Array.from(foodOnLeft.children)[i].remove();
+            break;
+        } else if (Array.from(foodOnLeft.children)[i].style.backgroundColor === 'rgb(211, 211, 211)' && i < Array.from(foodOnLeft.children).length - 1) {
+            Array.from(foodOnLeft.children)[i + 1].style.backgroundColor = '#d3d3d3';
+            Array.from(foodOnLeft.children)[i].remove();
+            break;
+        } else if (Array.from(foodOnLeft.children)[i].style.backgroundColor === 'rgb(211, 211, 211)') {
+            Array.from(foodOnLeft.children)[i].remove();
+            break;
+        }
+    }
+}
+
+buttons[3].onclick = () => {
+    for (let i = 0; i < Array.from(foodOnLeft.children).length; i++) {
+        if (Array.from(foodOnLeft.children)[i].style.backgroundColor === 'rgb(211, 211, 211)' && i < Array.from(foodOnLeft.children).length - 1) {
+            Array.from(foodOnLeft.children)[i].style.backgroundColor = '#fff';
+            Array.from(foodOnLeft.children)[i + 1].style.backgroundColor = '#d3d3d3';
+            break;
+        }
+    }
 }
