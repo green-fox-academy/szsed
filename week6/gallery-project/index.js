@@ -6,6 +6,7 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.use(express.static('assets'));
+app.use(express.static('views/js'));
 
 fileName = 'db/items.txt';
 let fileContent = '';

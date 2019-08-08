@@ -10,11 +10,16 @@ img.featured {
 
 img.arrow {
     transform: scale(1.5, 1.5);
-    margin: 20px;
+    padding: 20px;
 }
 
 img.reverse {
     transform: scale(1.5, 1.5) rotate(180deg);
+}
+
+img.inactive {
+    -webkit-filter: brightness(170%); /* Safari 6.0 - 9.0 */
+    filter: brightess(150%);
 }
 
 img.thumbnail {
@@ -23,7 +28,10 @@ img.thumbnail {
     height: 50px;
     width: 50px;
     margin: 3px;
-    margin-top: 10px;
+}
+
+img.selected {
+    border: 5px solid pink;
 }
 
 div.container {
@@ -52,5 +60,7 @@ div.arrowbox {
 }
 
 div.thumbnails {
+    margin-top: 30px;
     justify-content: center;
+    align-content: center;
 }

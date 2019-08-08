@@ -16,27 +16,25 @@
     <div class="container">
         <div class="slider">
             <div class="arrowbox">
-                <img class="arrow" src="/arrow.svg" alt="#">
+                <img class="arrow inactive" src="/arrow.svg" alt="#">
             </div>
             <div class="picturebox">
                 <img class="featured" src="/<%= imageData[0][0] %>" alt=" #">
             </div>
             <div class="arrowbox">
-                <img class="arrow reverse" src="/arrow.svg" alt="#">
+                <img class="arrow reverse inactive" src="/arrow.svg" alt="#">
             </div>
         </div>
         <div class="thumbnails">
-            <% imageData.forEach((element, index) =>{ %>
-            <img class="thumbnail" src="/<%= imageData[index][0] %>" alt="#">
+            <% imageData.forEach((element, index) =>{
+                let firstThumbnail = '';
+                if (index===0) firstThumbnail = ' selected';%>
+            <img class="thumbnail<%= firstThumbnail %>" src="/<%= imageData[index][0] %>" alt="#">
             <% }) %>
         </div>
     </div>
 
-
 </body>
-<script>
-    let imageIndex = 0;
-    document.querySelector('.arrow').onclick = () => { console.log('hello') };
-</script>
+<script src='home.js'></script>
 
 </html>
