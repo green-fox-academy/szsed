@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
 </head>
 
@@ -28,11 +28,11 @@
         </ul>
 
     </div>
-    <script>
-        document.querySelectorAll('li').forEach(element => {
-            element.onclick = () => location = 'cities/' + element.className;
-        });
-    </script>
 </body>
+<script>
+    document.querySelectorAll('li').forEach(element => {
+        element.onclick = () => location = 'cities/' + element.className;
+    });
+</script>
 
 </html>

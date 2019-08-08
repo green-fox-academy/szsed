@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title><%= forecast.city %></title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="/style.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
 </head>
 
@@ -13,7 +13,7 @@
         <h1><%= forecast.city %></h1>
         <% forecast.weather.forEach (element => { %>
         <div class="day">
-            <span class="icon"><img src="../<%= element.icon %>.png" alt="#"></span>
+            <span class="icon"><img src="/<%= element.icon %>.png" alt="#"></span>
             <div class="temperature"><%= element.temp %>°C</div>
             <div class="message"><%= element.message %></div>
         </div>

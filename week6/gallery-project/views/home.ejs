@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Image Gallery \o/</title>
+</head>
+
+<body>
+    <% imagesArray = imagesList.split('\n');
+    imageData = [];
+    imagesArray.forEach(element => imageData.push(element.split('$$'))) %>
+    <div class="container">
+        <div class="slider">
+            <div class="arrowbox">
+                <img class="arrow" src="/arrow.svg" alt="#">
+            </div>
+            <div class="picturebox">
+                <img class="featured" src="/<%= imageData[0][0] %>" alt=" #">
+            </div>
+            <div class="arrowbox">
+                <img class="arrow reverse" src="/arrow.svg" alt="#">
+            </div>
+        </div>
+        <div class="thumbnails">
+            <% imageData.forEach((element, index) =>{ %>
+            <img class="thumbnail" src="/<%= imageData[index][0] %>" alt="#">
+            <% }) %>
+        </div>
+    </div>
+
+
+</body>
+<script>
+    let imageIndex = 0;
+    document.querySelector('.arrow').onclick = () => { console.log('hello') };
+</script>
+
+</html>
