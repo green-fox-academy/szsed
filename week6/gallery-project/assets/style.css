@@ -6,6 +6,23 @@ body {
 img.featured {
     height: 400px;
     width: 800px;
+    -webkit-transition: opacity 1s linear;
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    transition: opacity 1s linear;
+}
+
+img.featured2 {
+    height: 400px;
+    width: 800px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    -webkit-transition: opacity 1s linear;
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    transition: opacity 1s linear;
 }
 
 img.arrow {
@@ -32,6 +49,10 @@ img.thumbnail {
     height: 50px;
     width: 50px;
     margin: 3px;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
 }
 
 img.thumbnail:hover {
@@ -64,6 +85,7 @@ div.picturebox {
     display: inline-block;
     position: relative;
     font-family: 'Beth Ellen', cursive;
+    font-size: 0.75rem;
 }
 
 div.picturebox:hover {
