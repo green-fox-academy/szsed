@@ -1,19 +1,17 @@
 'use strict';
 
-let thumbnails = Array.from(document.querySelectorAll('.thumbnail'));
-let arrow = document.querySelector('.arrow');
-let arrowReverse = document.querySelector('.reverse');
+const thumbnails = Array.from(document.querySelectorAll('.thumbnail'));
+const arrow = document.querySelector('.arrow');
+const arrowReverse = document.querySelector('.reverse');
 
-let arrowClick = () => {
-    let currentFeatured = document.querySelector('.featured');
-    let currentSelected = document.querySelector('.selected');
-    console.log('left');
+const arrowClick = () => {
+    let indexOfPrevious = thumbnails.indexOf(document.querySelector('.selected')) - 1;
+    thumbnails[indexOfPrevious].onclick();
 }
 
-let arrowClickReverse = () => {
-    let currentFeatured = document.querySelector('.featured');
-    let currentSelected = document.querySelector('.selected');
-    console.log('right');
+const arrowClickReverse = () => {
+    let indexOfNext = thumbnails.indexOf(document.querySelector('.selected')) + 1;
+    thumbnails[indexOfNext].onclick();
 }
 
 if (thumbnails.length > 1) {
@@ -54,3 +52,23 @@ thumbnails.forEach((element, index) => {
         }
     }
 });
+
+const onKeyPress = (event) => {
+    // Handle arrow keys
+    switch (event.keyCode) {
+        case 37:
+            try {
+                arrow.onclick();
+            } catch (error) {
+            }
+            break;
+        case 39:
+            try {
+                arrowReverse.onclick();
+            } catch (error) {
+            }
+            break;
+    }
+}
+
+document.body.addEventListener('keydown', onKeyPress);

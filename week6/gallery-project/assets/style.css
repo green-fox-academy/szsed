@@ -15,6 +15,7 @@ img.featured:hover {
 img.arrow {
     transform: scale(1.5, 1.5);
     padding: 20px;
+    cursor: pointer;
 }
 
 img.reverse {
@@ -23,7 +24,7 @@ img.reverse {
 
 img.inactive {
     -webkit-filter: brightness(170%); /* Safari 6.0 - 9.0 */
-    filter: brightess(150%);
+    filter: brightess(170%);
 }
 
 img.thumbnail {
@@ -71,4 +72,5 @@ div.thumbnails {
     margin-top: 30px;
     justify-content: center;
     align-content: center;
+    max-width: 800px;
 }
