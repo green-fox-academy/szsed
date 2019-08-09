@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Beth+Ellen&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Image Gallery \o/</title>
 </head>
@@ -18,8 +19,12 @@
             <div class="arrowbox">
                 <img class="arrow inactive" src="/arrow.svg" alt="#">
             </div>
-            <div class="picturebox">
+            <div class="picturebox" title="<%= imageData[0][1] %>">
                 <img class="featured" src="/<%= imageData[0][0] %>" alt="#">
+                <div class="textbox">
+                    <h4><%= imageData[0][1] %></h4>
+                    <p><%= imageData[0][2] %></p>
+                </div>
             </div>
             <div class="arrowbox">
                 <img class="arrow reverse inactive" src="/arrow.svg" alt="#">

@@ -1,8 +1,11 @@
 'use strict';
 
 const thumbnails = Array.from(document.querySelectorAll('.thumbnail'));
+const picturebox = document.querySelector('.picturebox');
 const arrow = document.querySelector('.arrow');
 const arrowReverse = document.querySelector('.reverse');
+
+picturebox.onclick = () => location = 'pictures/' + picturebox.getAttribute('title');
 
 const arrowClick = () => {
     let indexOfPrevious = thumbnails.indexOf(document.querySelector('.selected')) - 1;
@@ -30,10 +33,14 @@ thumbnails.forEach((element, index) => {
             currentFeatured.remove();
             let newFeatured = document.createElement('img');
             let imgLink = element.getAttribute('src');
+            let imgTitle = element.getAttribute('title');
             newFeatured.setAttribute('src', imgLink);
             newFeatured.setAttribute('alt', '#');
             newFeatured.classList.add('featured');
+            picturebox.setAttribute('title', imgTitle);
             document.querySelector('.picturebox').appendChild(newFeatured);
+            document.querySelector('h4').textContent = element.getAttribute('title');
+            document.querySelector('p').textContent = element.getAttribute('data');
             if (index === 0 && thumbnails.length > 1) {
                 arrow.classList.add('inactive');
                 arrow.onclick = '';

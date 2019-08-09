@@ -8,14 +8,12 @@ img.featured {
     width: 800px;
 }
 
-img.featured:hover {
-    cursor: pointer;
-}
-
 img.arrow {
     transform: scale(1.5, 1.5);
-    padding: 20px;
+    margin: 15px;
+    padding: 5px;
     cursor: pointer;
+    height: fit-content;
 }
 
 img.reverse {
@@ -25,6 +23,7 @@ img.reverse {
 img.inactive {
     -webkit-filter: brightness(170%); /* Safari 6.0 - 9.0 */
     filter: brightess(170%);
+    cursor: default;
 }
 
 img.thumbnail {
@@ -61,11 +60,29 @@ div.slider {
     box-shadow: 0 3px 10px;
 }
 
+div.picturebox {
+    display: inline-block;
+    position: relative;
+    font-family: 'Beth Ellen', cursive;
+}
+
+div.picturebox:hover {
+    cursor: pointer;
+}
+
+div.textbox {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
 div.arrowbox {
     display: flex;
     height: 100%;
     background-color: white;
-    align-content: center;
+    align-items: center;
 }
 
 div.thumbnails {
@@ -73,4 +90,12 @@ div.thumbnails {
     justify-content: center;
     align-content: center;
     max-width: 800px;
+}
+
+h4 {
+    margin: 10px;
+}
+
+p {
+    margin: 10px;
 }
