@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Star Wars</title>
+</head>
+
+<body>
+    <input type="text" placeholder="Enter character name">
+    <button>Search</button>
+
+</body>
+
+<script>
+    const xhr = new XMLHttpRequest();
+
+
+    const leButton = document.querySelector('button');
+
+    const requestName = (charName) => {
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    parsedResult = JSON.parse(xhr.responseText);
+                    console.log(parsedResult);
+                    for (let i = 0; i < parsedResult.results.length; i++) {
+                        let newDiv = document.createElement('div');
+                        newDiv.textContent = parsedResult.results[i].name;
+                        newDiv.onclick = requestFilms(parsedResult.results[i].films[0]);
+                        document.body.appendChild(newDiv);
+                    }
+                }
+                else {
+                    console.log('Something went wrong');
+                }
+            }
+        };
+        xhr.open('GET', `https://swapi.co/api/people/?search=${charName}`);
+        xhr.send();
+    }
+
+    const requestFilms = (filmEndPoint) => {
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    parsedResult = JSON.parse(xhr.responseText);
+                    console.log(parsedResult);
+                    // for (let i = 0; i < parsedResult.results.length; i++) {
+                    //     let newDiv = document.createElement('div');
+                    //     newDiv.textContent = parsedResult.results[i].name;
+                    //     document.body.appendChild(newDiv);
+                    // }
+                }
+                else {
+                    console.log('Something went wrong');
+                }
+            }
+        };
+        xhr.open('GET', `${filmEndPoint}`);
+        xhr.send();
+    }
+
+    leButton.onclick = () => {
+        let queryString = document.querySelector('input').value;
+        requestName(queryString);
+    }
+
+</script>
+
+</html>
