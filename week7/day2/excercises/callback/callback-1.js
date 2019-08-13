@@ -36,3 +36,12 @@ const words = ['map', 'reduce', 'filter'];
 
 console.log(mapWith(words, removeSecondLetter));
 // expected result: ['mp','rdc', 'fle']
+
+const removeSecondLetter2 = (string) => {
+    for (let i = string.length - 1; i >= 0; i--) {
+        if (i % 2 === 1) string = string.slice(0, i) + string.slice(i + 1);
+    }
+    return string;
+}
+
+console.log(mapWith(words, removeSecondLetter2));
