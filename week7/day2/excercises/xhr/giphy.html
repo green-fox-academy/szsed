@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Giphy</title>
+</head>
+
+<body>
+    <script>
+        const xhr = new XMLHttpRequest();
+
+        const createImages = (giphyArray) => {
+            giphyArray.forEach(element => {
+                let newImg = document.createElement('img');
+                newImg.src = element.images.original.url;
+                newImg.alt = '#';
+                document.body.appendChild(newImg);
+            });
+        }
+
+        let parsedResult = {};
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    parsedResult = JSON.parse(xhr.responseText);
+                    createImages(parsedResult.data);
+                }
+                else {
+                    console.log('Something went wrong');
+                }
+            }
+        };
+        xhr.open('GET', 'http://api.giphy.com/v1/gifs/search?q=lolcat&api_key=5bZsLOlTlBZk88TgWU58mDWmMD30eQ4E&limit=5');
+        xhr.setRequestHeader('Accept', 'application/json');
+        xhr.send();
+
+    </script>
+</body>
+
+</html>
