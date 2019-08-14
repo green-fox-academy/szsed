@@ -1,6 +1,6 @@
 'use strict';
 
-export const factorio = (input) => {
+const factorio = (input) => {
     if (input == 0) {
         return 1;
     }
@@ -12,3 +12,5 @@ export const factorio = (input) => {
         return fact;
     }
 }
+
+module.exports = factorio;
