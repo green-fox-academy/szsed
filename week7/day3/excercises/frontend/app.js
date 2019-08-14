@@ -8,6 +8,7 @@ const greeter = require('./greeter');
 const appenda = require('./appenda');
 const doUntil = require('./dountil');
 const doArrayMath = require('./doarraymath');
+const textSithTransformer = require('./tst');
 
 
 const PORT = 3000;
@@ -28,6 +29,9 @@ app.get('/appenda/:appendTo', appenda);
 app.post('/dountil/:action', doUntil);
 
 app.post('/arrays', doArrayMath);
+
+app.post('/sith', textSithTransformer);
+// btw guys, Yoda is not a Sith... smh
 
 app.listen(PORT, () => {
     console.log(`App is listening on port# ${PORT}`);
