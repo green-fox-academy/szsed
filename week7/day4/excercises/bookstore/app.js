@@ -39,6 +39,17 @@ app.get('/titles', (req, res) => {
     });
 });
 
+app.get('/bookinfo', (req, res) => {
+    conn.query('select * from book_mast;', function (err, rows) {
+        if (err) {
+            console.log(err.message);
+        }
+
+        console.log('Data received from DB.');
+        res.render('bookinfo', { books: rows });
+    });
+});
+
 
 app.listen(PORT, () => {
     console.log(`App is listening on port# ${PORT}`);
