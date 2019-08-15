@@ -1,5 +1,8 @@
 const mysql = require('mysql');
 const readContent = require('./readcontent');
+const createDB = require('./createdb');
+// const insertRows = require('./insertrows');
+const compareTableWithOriginal = require('./comparison');
 
 const fileName = 'users.csv';
 const textDB = readContent(fileName);
@@ -11,6 +14,7 @@ const conn = mysql.createConnection({
     database: 'bookstore'
 });
 
+
 conn.connect((err) => {
     if (err) {
         console.log('Error connecting to DB');
@@ -20,40 +24,35 @@ conn.connect((err) => {
     console.log('DB connection established');
 });
 
-const recordArr = textDB.split('\n');
+const recordArr = textDB.split('\r').join('').split('\n');
+recordArr.shift();
 
+conn.query(createDB.sqlCreateString, createDB.createDBCallback);
 
-const sqlCreateString = `create table if not exists customers (
-    id integer primary key auto_increment,
-    prefix varchar(31),
-    first_name varchar(63) not null,
-    last_name varchar(63) not null,
-    address varchar(255),
-    height float,
-    bitcoin_address varchar(255) not null,
-    color_preference varchar(7) not null
-    );`;
+// failed modularization below
+// insertRows(recordArr, conn.query);
 
 const sqlInsertString = `insert into customers values (?, ?, ?, ?, ?, ?, ?, ?);`;
 
-conn.query(sqlCreateString, function (err, rows) {
-    if (err) {
-        console.log(err.message);
-    } else {
-        console.log('Table created.');
-    }
-});
-
-recordArr.shift();
 console.log(recordArr.length);
 
 recordArr.forEach((element, index) => {
     fixedElement = element.split(',').map(value => value === '' ? null : value);
-    conn.query(sqlInsertString, fixedElement, function (err, rows) {
+    conn.query(sqlInsertString, fixedElement, (err, rows) => {
         if (err) {
             console.log(err.message);
         } else {
             console.log('Row inserted.' + index);
         }
     });
+});
+
+let currentDB = [];
+
+conn.query('select * from customers;', (err, rows) => {
+    if (err) {
+        console.log(err.message);
+    }
+    currentDB = rows;
+    console.log(compareTableWithOriginal(currentDB, recordArr));
 });
