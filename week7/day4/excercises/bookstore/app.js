@@ -40,7 +40,8 @@ app.get('/titles', (req, res) => {
 });
 
 app.get('/bookinfo', (req, res) => {
-    conn.query('select * from book_mast;', function (err, rows) {
+    const queryString = 'select book_name, aut_name, cate_descrip, pub_name, book_price from book_mast join publisher on book_mast.pub_id = publisher.pub_id join author on book_mast.aut_id = author.aut_id join category on book_mast.cate_id = category.cate_id;'
+    conn.query(queryString, function (err, rows) {
         if (err) {
             console.log(err.message);
         }
