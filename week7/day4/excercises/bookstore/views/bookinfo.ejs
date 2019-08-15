@@ -21,14 +21,16 @@
             </tr>
         </thead>
         <tbody>
-            <% for (let book of books) { %>
+            <% if (books) {
+                for (let book of books) { %>
             <tr>
                 <% for (let field in book) { %>
                 <td><%= book[field] %>
                 </td>
                 <%}%>
-            </tr>
-            <%}%>
+                </tr>
+                <%}
+            }%>
         </tbody>
     </table>
 
