@@ -39,9 +39,9 @@ const sqlInsertString = `insert into customers values (?, ?, ?, ?, ?, ?, ?, ?);`
 conn.query(sqlCreateString, function (err, rows) {
     if (err) {
         console.log(err.message);
+    } else {
+        console.log('Table created.');
     }
-
-    console.log('Table created.');
 });
 
 recordArr.shift();
