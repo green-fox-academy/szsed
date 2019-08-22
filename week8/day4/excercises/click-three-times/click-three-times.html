@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Workshop: EventListeners</title>
+</head>
+
+<body>
+    <button>Click me</button>
+
+    <script>
+        // Click Three Times
+        // Create a simple HTML document with one button. 
+        // If the user clicks the button 3 times, and 5 seconds is already elapsed since the page is loaded, a text should appear under the button: 
+        // 5 seconds elapsed and clicked 3 times 
+        // If the user starts clicking before the first 5 seconds, nothing should be printed
+        const button = document.querySelector('button');
+        let counter = 0;
+        const divAdder = () => {
+            counter++;
+            if (counter >= 3 && Date.now() - dateOnLoad >= 5000) {
+                newDiv = document.createElement('div');
+                newDiv.textContent = '5 seconds elapsed and clicked 3 times';
+                button.parentElement.appendChild(newDiv);
+            }
+        }
+        button.addEventListener('click', divAdder);
+        let dateOnLoad;
+        window.onload = () => dateOnLoad = Date.now();
+    </script>
+</body>
+
+</html>
