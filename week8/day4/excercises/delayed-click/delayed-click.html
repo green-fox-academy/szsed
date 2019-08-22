@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Workshop: EventListeners</title>
+</head>
+
+<body>
+    <button>Click me</button>
+
+    <script>
+        // Create a simple HTML document with one button. If the user clicks the button it should wait 2 seconds 
+        // and it should show a text under the button: 2 seconds ellapsed
+        const button = document.querySelector('button');
+        const divAdder = () => setTimeout(() => {
+            newDiv = document.createElement('div');
+            newDiv.textContent = '2 seconds elapsed';
+            button.parentElement.appendChild(newDiv);
+        }, 2000)
+        button.addEventListener('click', divAdder);
+    </script>
+</body>
+
+</html>
