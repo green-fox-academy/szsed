@@ -12,7 +12,7 @@
 <body>
     <div>
         <h1>Movie Selector</h1>
-        <select name="genre" id="genre">
+        <select name="genre" id="genre" placeholder="cica">
             <option value="placeholder" id="genre-placeholder">Select a genre</option>
         </select>
         <select name="movie" id="movie">
@@ -65,8 +65,6 @@
         moviePlaceholder.remove();
         selectionSpan.textContent = movieDropdown.options[movieDropdown.selectedIndex].text;
     });
-
-
 </script>
 
 </html>

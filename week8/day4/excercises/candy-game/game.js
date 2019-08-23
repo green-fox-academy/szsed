@@ -22,7 +22,6 @@ const displayCandies = () => {
 
 const displaySpeed = () => {
     speedElem.textContent = candyPerSecond;
-    console.log(candyPerSecond, lollipops, rainFactor);
 }
 
 const updateSpeed = () => {
@@ -70,4 +69,4 @@ document.body.addEventListener('click', (ev) => {
     }
 });
 
-window.onload = setInterval(candyGenerator, 1000);
+window.onload = () => setInterval(candyGenerator, 1000);
