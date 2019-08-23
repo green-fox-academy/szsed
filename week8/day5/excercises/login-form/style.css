@@ -1,0 +1,15 @@
+i {
+    cursor: pointer;
+}
+
+input:focus {
+    outline: none;
+}
+
+input[pattern]:valid {
+    border: 2px solid darkgreen;
+  }
+
+input[pattern]:invalid {
+    border: 2px dashed red;
+  }

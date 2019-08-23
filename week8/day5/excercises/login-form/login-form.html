@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/login" method="POST">
+        <p>ACCOUNT LOGIN</p>
+        <label for="username">USERNAME</label>
+        <input type="text" name="username" pattern="[a-zA-Z-]{3,}" required autofocus>
+        <label for=" password">PASSWORD</label>
+        <input type="password" name="password" pattern="[a-zA-Z0-9-]{8,}" required>
+        <i class="fa fa-eye"></i>
+        <a href="/help">Forgot Password?</a>
+        <input type="submit" value="Login">
+    </form>
+    <script src="login-form.js"></script>
+</body>
+
+</html>
