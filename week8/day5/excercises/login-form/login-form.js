@@ -9,6 +9,4 @@ icon.addEventListener('click', () => {
     passwordField.getAttribute('type') === 'password' ?
         passwordField.setAttribute('type', 'text') :
         passwordField.setAttribute('type', 'password');
-})
-
-console.log(passwordField);
+});

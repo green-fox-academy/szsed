@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/submit" method="POST">
+        <fieldset class="favpet">
+            <legend>What is your favourite pet?</legend>
+            <label for="dog">Dog</label>
+            <input type="radio" name="favpet" id="dog" value="dog">
+            <label for="cat">Cat</label>
+            <input type="radio" name="favpet" id="cat" value="cat">
+            <label for="fish">Viktor the goldfish</label>
+            <input type="radio" name="favpet" id="fish" value="goldfish">
+        </fieldset>
+        <fieldset class="catfacts">
+            <legend>Do you want to sign up for cat facts?</legend>
+            <input type="radio" name="catfacts" id="yes" value="Yes">
+            <input type="radio" name="catfacts" id="no" value="Cat">
+        </fieldset>
+    </form>
+    <button class="ilovecats" disabled>I love cats</button>
+    <button class="signup" disabled>Sign up</button>
+    <script>
+        'use strict';
+
+        const favPetRadios = document.querySelector('.favpet');
+        const catFactRadios = document.querySelector('.catfacts');
+        const iLoveCatsButton = document.querySelector('.ilovecats');
+        const signUpButton = document.querySelector('.signup');
+
+        favPetRadios.addEventListener('click', ev => {
+            if (ev.target.id === 'dog' || ev.target.id === 'cat') {
+                signUpButton.disabled = false;
+            } else if (ev.target.id === 'fish') {
+                signUpButton.disabled = true;
+            }
+        });
+
+        catFactRadios.addEventListener('click', ev => {
+            if (ev.target.id === 'yes') {
+                iLoveCatsButton.disabled = false;
+            } else if (ev.target.id === 'no') {
+                iLoveCatsButton.disabled = true;
+                signUpButton.disabled = false;
+            }
+        });
+
+        iLoveCatsButton.addEventListener('click', () => {
+            alert('Thank you, you\'ve successfully signed up for cat facts');
+        });
+
+        signUpButton.addEventListener('click', () => {
+            alert('Sigh, we still added you to the cat facts list');
+        });
+
+    </script>
+</body>
+
+</html>
