@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form action="/submit" method="POST">
+    <form action="" method="POST">
         <fieldset class="favpet">
             <legend>What is your favourite pet?</legend>
             <label for="dog">Dog</label>
@@ -24,9 +24,9 @@
             <input type="radio" name="catfacts" id="yes" value="Yes">
             <input type="radio" name="catfacts" id="no" value="Cat">
         </fieldset>
+        <button class="ilovecats" disabled>I love cats</button>
+        <button class="signup" disabled>Sign up</button>
     </form>
-    <button class="ilovecats" disabled>I love cats</button>
-    <button class="signup" disabled>Sign up</button>
     <script>
         'use strict';
 
@@ -59,7 +59,6 @@
         signUpButton.addEventListener('click', () => {
             alert('Sigh, we still added you to the cat facts list');
         });
-
     </script>
 </body>
 
