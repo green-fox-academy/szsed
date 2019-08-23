@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Movie Selector</title>
+</head>
+
+<body>
+    <div>
+        <h1>Movie Selector</h1>
+        <select name="genre" id="genre">
+            <option value="placeholder" id="genre-placeholder">Select a genre</option>
+        </select>
+        <select name="movie" id="movie">
+            <option value="placeholder" id="movie-placeholder">Select a movie</option>
+        </select>
+        <p>The Selected movie is: <span>-</span></p>
+    </div>
+
+</body>
+
+<script>
+    'use strict';
+    const movies = {
+        'Sci-fi': ['Moon', '2001: A Space Odyssey', 'Contact'],
+        Drama: ['Darkest Hour', 'There Will Be Blood', 'American Beauty'],
+        Comedy: ['Airplane!', 'Deadpool', 'Wayne\'s World']
+    };
+    const genres = Object.keys(movies);
+
+    const genreDropdown = document.querySelector('#genre');
+    const movieDropdown = document.querySelector('#movie');
+    const genrePlaceholder = document.querySelector('#genre-placeholder');
+    const moviePlaceholder = document.querySelector('#movie-placeholder');
+
+    const selectionSpan = document.querySelector('span');
+
+    window.onload = () => {
+        genres.forEach(genre => {
+            let newOption = document.createElement('option');
+            newOption.setAttribute('value', genre);
+            newOption.textContent = genre;
+            genreDropdown.appendChild(newOption);
+        })
+    }
+
+    genreDropdown.addEventListener('change', () => {
+        genrePlaceholder.remove();
+        Array.from(movieDropdown.children).forEach(child => child.remove());
+        movieDropdown.appendChild(moviePlaceholder);
+        movies[genres[genreDropdown.selectedIndex]].forEach(movie => {
+            let newOption = document.createElement('option');
+            newOption.setAttribute('value', movie);
+            newOption.textContent = movie;
+            movieDropdown.appendChild(newOption);
+        });
+        selectionSpan.textContent = '-';
+    });
+
+    movieDropdown.addEventListener('change', () => {
+        moviePlaceholder.remove();
+        selectionSpan.textContent = movieDropdown.options[movieDropdown.selectedIndex].text;
+    });
+
+
+</script>
+
+</html>
