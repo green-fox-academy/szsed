@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Norris Fetcher</title>
+</head>
+
+<body>
+    <div>
+        <button>Gimme a Joke</button>
+    </div>
+
+    <script>
+        const leButton = document.querySelector('button');
+        const leDiv = document.querySelector('div');
+
+        leButton.addEventListener('click', () => {
+            fetch('http://api.icndb.com/jokes/random')
+                .then(result => result.json())
+                .then(result => {
+                    newJoke = document.createElement('p')
+                    newJoke.textContent = result.value.joke;
+                    leDiv.insertBefore(newJoke, leButton);
+                })
+                .catch(err => console.log('ERROR: ' + err.message))
+        })
+    </script>
+</body>
+
+</html>
