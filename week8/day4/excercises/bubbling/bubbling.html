@@ -78,7 +78,7 @@
 
         let currentWidth = window.getComputedStyle(imgInspector).getPropertyValue('width').slice(0, -2);
         let currentHeight = window.getComputedStyle(imgInspector).getPropertyValue('height').slice(0, -2);
-        console.log(currentWidth, currentHeight);
+
         nav.addEventListener('click', (ev) => {
             if (ev.target.getAttribute('data-action') === 'zoom') {
                 switch (ev.target.getAttribute('data-direction')) {
