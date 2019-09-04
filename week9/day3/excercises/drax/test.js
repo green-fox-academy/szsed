@@ -4,7 +4,7 @@ const test = require('tape');
 const request = require('supertest');
 const app = require('./index').app;
 const server = require('./index').server;
-const calTable = require('./index').calTable;
+const mockCalTable = { ...require('./index').calTable };
 
 server.close();
 
@@ -15,7 +15,7 @@ test('/drax endpoint GET', t => {
         .end((err, res) => {
             if (err) throw err;
             t.equals(res.status, 200);
-            t.same(res.body, calTable);
+            t.same(res.body, mockCalTable);
         });
 
     t.end();
