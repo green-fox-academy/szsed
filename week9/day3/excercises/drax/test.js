@@ -4,47 +4,47 @@ const test = require('tape');
 const request = require('supertest');
 const app = require('./index').app;
 const server = require('./index').server;
-const ship = require('./index').ship;
+const calTable = require('./index').calTable;
 
 server.close();
 
-test('/drax endpoint', t => {
+test('/drax endpoint GET', t => {
 
     request(app)
         .get('/drax')
         .end((err, res) => {
             if (err) throw err;
             t.equals(res.status, 200);
-            t.same(res.body, ship);
+            t.same(res.body, calTable);
         });
 
     t.end();
 });
 
-test('/rocket/fill endpoint', t => {
-    const testCaliber = '.25';
-    const testAmount = '1250';
+test('/drax endpoint POST', t => {
+    const testRecord = {
+        name: 'testtest',
+        amount: 12345,
+        calorie: 98765
+    }
 
     request(app)
-        .get(`/rocket/fill?caliber=${testCaliber}&amount=${testAmount}`)
+        .post('/drax')
+        .send(testRecord)
         .end((err, res) => {
             if (err) throw err;
             t.equals(res.status, 200);
-            t.same(res.body, {
-                received: testCaliber,
-                amount: testAmount,
-                shipstatus: '10%',
-                ready: false
-            });
+            t.same(res.body, testRecord);
         });
 
     request(app)
-        .get(`/rocket/fill`)
+        .post('/drax')
+        .send({})
         .end((err, res) => {
             if (err) throw err;
             t.equals(res.status, 400);
             t.same(res.body, {
-                error: 'Hello I am an errormessage'
+                error: 'Invalid food record input'
             });
         });
 

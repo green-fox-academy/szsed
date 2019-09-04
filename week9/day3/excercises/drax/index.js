@@ -18,7 +18,6 @@ app.get('/drax', (req, res) => {
 });
 
 app.post('/drax', (req, res) => {
-    console.log(req.body);
     if (req.body.name && req.body.amount && req.body.calorie) {
         const newRecord = {
             name: req.body.name,
@@ -39,6 +38,24 @@ app.delete('/drax/:foodname', (req, res) => {
         if (req.params.foodname === calTable[i].name) {
             res.send(calTable.splice(i, 1)[0]);
             return;
+        }
+    }
+    res.status(400);
+    res.send({ error: 'Food name not found' });
+
+});
+
+app.patch('/drax/:foodname/amount', (req, res) => {
+    for (let i = 0; i < calTable.length; i++) {
+        if (req.params.foodname === calTable[i].name) {
+            if (req.body.amount) {
+                calTable[i].amount = req.body.amount;
+                res.send(calTable[i]);
+                return;
+            } else {
+                res.status(400);
+                res.send({ error: 'New amount not provided' });
+            }
         }
     }
     res.status(400);
