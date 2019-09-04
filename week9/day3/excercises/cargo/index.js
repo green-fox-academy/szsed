@@ -8,11 +8,11 @@ const ship = {
     "caliber50": 0,
     "shipstatus": "empty",
     "ready": false
-}
+};
 
 app.get('/rocket', (req, res) => {
     res.send(ship);
-})
+});
 
 app.get('/rocket/fill', (req, res) => {
     if (req.query.caliber && req.query.amount) {
@@ -21,7 +21,7 @@ app.get('/rocket/fill', (req, res) => {
         res.status(400);
         res.send({ error: 'Hello I am an errormessage' });
     }
-})
+});
 
 const server = app.listen(PORT, () => console.log(`App is listening on port# ${PORT}`));
 
