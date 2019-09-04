@@ -25,4 +25,4 @@ app.get('/rocket/fill', (req, res) => {
 
 const server = app.listen(PORT, () => console.log(`App is listening on port# ${PORT}`));
 
-module.exports = { app, server };
+module.exports = { app, server, ship };
