@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    width: 60%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 100px 1fr 100px;
+}
+
+div {
+    min-height: 100px;
+}
+
+.green {
+    background-color: rgb(87, 209, 33);
+}
+
+.yellow {
+    background-color: rgb(253, 209, 50);
+}
+
+.purple {
+    background-color: rgb(191, 31, 240);
+}
+
+@media screen and (max-width: 600px) {
+    main {
+        display: block;
+    }
+}
