@@ -41,7 +41,7 @@ span {
     position: absolute;
     top: 0;
     padding-top: 0.3rem;
-    visibility: hidden;
+    opacity: 0;
 }
 
 i {
@@ -56,17 +56,38 @@ button[data-action="confirm"] > i {
     color: rgb(56, 186, 125);
 }
 
-button[data-action="delete"] + span {
+button[data-action="delete"] ~ span {
     background-color: rgb(243, 69, 65);
 }
 
-button[data-action="confirm"] + span {
+button[data-action="confirm"] ~ span {
     background-color: rgb(56, 186, 125);
 }
 
-button[data-action]:hover + span {
-    visibility: visible;
+button[data-action]:hover ~ span {
+    transition: opacity 1s;
+    opacity: 1;
 }
+
+.arrow {
+    display: inline-block;
+    width: 0; 
+    height: 0;
+    margin: 0;
+    border-top: 0.4rem solid transparent;
+    border-bottom: 0.4rem solid transparent;
+    border-left: 0.4rem solid rgb(28,36,43);
+    position: absolute;
+    left: 3rem;
+    top: 1.1rem;
+    z-index: 1;
+    opacity: 0;
+}
+
+button[data-action]:hover + div {
+    opacity: 1;
+}
+
 
 @media screen and (max-width: 500px) {
     main {
