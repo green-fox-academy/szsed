@@ -15,7 +15,6 @@ main {
     width: 60%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    place-items: center;
 }
 
 button {
@@ -26,8 +25,6 @@ button {
     border-radius: 0.5rem;
     border: none;
     outline: none;
-    width: 80%;
-    max-width: 150px;
 }
 
 button:hover {
