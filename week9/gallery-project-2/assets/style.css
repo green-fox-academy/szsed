@@ -9,8 +9,7 @@ html {
 
 body {
     width: 80%;
-    height: 80vh;
-    margin: 10vh auto 0 auto;
+    margin: 5vh auto 0 auto;
     background-image: linear-gradient(to right, #c3c3c3, #fff, #c3c3c3);
     display: flex;
     flex-direction: column;
@@ -80,6 +79,7 @@ img.selected {
 }
 
 div.slider {
+    margin-top: 30px;
     display: flex;
     justify-content: center;
     box-shadow: 0 3px 10px;
@@ -133,6 +133,62 @@ p.mobile {
     font-size: 0.75rem;
 }
 
+div.buttons {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+}
+
+div.buttons button {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 1rem 2rem;
+    margin: 1rem 5vw;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    width: 70%;
+    white-space: nowrap;
+}
+
+div.buttons button:hover {
+    cursor: pointer;
+    filter: brightness(110%);
+}
+
+div.buttons button:active {
+    filter: brightness(90%);
+}
+
+button.blue {
+    background-color: rgb(68,98,162);
+    box-shadow: 0 0.2rem 0 rgb(38, 57, 109), 0 -0.1rem 0 rgb(85, 119, 191);
+}
+
+button.green {
+    background-color: rgb(26,168,86);
+    box-shadow: 0 0.2rem 0 rgb(22, 106, 68), 0 -0.1rem 0 rgb(85, 211, 139);
+}
+
+button.red {
+    background-color: rgb(211, 66, 50);
+    box-shadow: 0 0.2rem 0 rgb(134, 43, 47), 0 -0.1rem 0 rgb(220, 100, 83);
+}
+
+button.light {
+    background-color: rgb(0, 174, 237);
+    box-shadow: 0 0.2rem 0 rgb(12, 106, 160), 0 -0.1rem 0 rgb(37, 196, 248);
+}
+
+button.black {
+    background-color: rgb(40, 42, 43);
+    box-shadow: 0 0.2rem 0 rgb(30, 31, 46), 0 -0.1rem 0 rgb(55, 57, 57);
+}
+
+
+
 @media screen and (max-width: 1300px) {
     div.picturebox{
         width: 600px;
@@ -177,5 +233,16 @@ p.mobile {
         height: 100vh;
         margin: 0;
         justify-content: flex-start;
+    }
+
+    div.buttons {
+        margin-top: 15px;
+        grid-template-columns: 1fr;
+        width: 90%;
+    }
+
+    div.buttons button {
+        margin: 0.5rem 5vw;
+        width: 50%;
     }
 }
