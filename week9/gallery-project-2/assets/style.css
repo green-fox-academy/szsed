@@ -1,0 +1,181 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background-color: #fff;
+}
+
+body {
+    width: 80%;
+    height: 80vh;
+    margin: 10vh auto 0 auto;
+    background-image: linear-gradient(to right, #c3c3c3, #fff, #c3c3c3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+img.featured {
+    height: 100%;
+    width: 100%;
+    -webkit-transition: opacity 1s linear;
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    transition: opacity 1s linear;
+}
+
+img.featured2 {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    -webkit-transition: opacity 1s linear;
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    transition: opacity 1s linear;
+}
+
+img.arrow {
+    transform: scale(1.5, 1.5);
+    margin: 15px;
+    padding: 5px;
+    cursor: pointer;
+    height: fit-content;
+}
+
+img.reverse {
+    transform: scale(1.5, 1.5) rotate(180deg);
+}
+
+img.inactive {
+    -webkit-filter: brightness(170%); /* Safari 6.0 - 9.0 */
+    filter: brightess(170%);
+    cursor: default;
+}
+
+img.thumbnail {
+    border: 5px solid white;
+    box-shadow: 0 3px 10px;
+    height: 50px;
+    width: 50px;
+    margin: 3px;
+    margin-top: 15px;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+
+img.thumbnail:hover {
+cursor: pointer;
+}
+
+img.selected {
+    transform: translate(0, -10px)
+}
+
+div.slider {
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 3px 10px;
+}
+
+div.picturebox {
+    position: relative;
+    font-family: 'Beth Ellen', cursive;
+    font-size: 0.75rem;
+    height: 400px;
+    width: 800px;
+}
+
+div.picturebox:hover {
+    cursor: pointer;
+}
+
+div.textbox {
+    position: absolute;
+    bottom: 0;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+}
+
+div.arrowbox {
+    display: flex;
+    background-color: white;
+    align-items: center;
+}
+
+div.thumbnails {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    max-width: 800px;
+    flex-wrap: wrap;
+}
+
+h4 {
+    padding: 10px;
+}
+
+p {
+    padding: 10px 10px 0 10px;
+}
+
+p.mobile {
+    display: none;
+    font-family: 'Beth Ellen', cursive;
+    font-size: 0.75rem;
+}
+
+@media screen and (max-width: 1300px) {
+    div.picturebox{
+        width: 600px;
+        height: 300px;
+    }
+
+    div.thumbnails {
+        max-width: 600px;
+    }
+
+    body {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    div.picturebox{
+        width: 100vw;
+        height: 50vw;
+    }
+
+    div.arrowbox {
+        display: none;
+    }
+
+    div.thumbnails {
+        max-width: 100vw;
+    }
+
+    div.textbox > p {
+        display: none;
+    }
+
+    p.mobile {
+        display: block;
+    }
+
+    body {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        justify-content: flex-start;
+    }
+}

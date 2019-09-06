@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Beth+Ellen&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Image Gallery \o/</title>
+</head>
+
+<body>
+    <div class="slider">
+        <div class="arrowbox">
+            <img class="arrow inactive" src="/arrow.svg" alt="#">
+        </div>
+        <div class="picturebox" title="<%= images[0].title %>">
+            <img class="featured" src="<%= images[0].url %>" alt="#">
+            <img class="featured2" src="<%= images[0].url %>" alt="#">
+            <div class="textbox">
+                <h4><%= images[0].title %></h4>
+                <p><%= images[0].descr %></p>
+            </div>
+        </div>
+        <div class="arrowbox">
+            <img class="arrow reverse inactive" src="/arrow.svg" alt="#">
+        </div>
+    </div>
+    <p class="mobile"><%= images[0].descr %></p>
+    <div class="thumbnails">
+        <% images.forEach((element, index) =>{
+                let firstThumbnail = '';
+                if (index===0) firstThumbnail = ' selected';%>
+        <img class="thumbnail<%= firstThumbnail %>" src="<%= element.url %>" alt="#" title="<%= element.title %>"
+            data="<%= element.descr %>">
+        <% }) %>
+    </div>
+</body>
+<script src='home.js'></script>
+
+</html>
