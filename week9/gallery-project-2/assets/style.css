@@ -5,6 +5,7 @@
 
 html {
     background-color: #fff;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -138,11 +139,11 @@ div.buttons {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     place-items: center;
-}
-
-div.buttons button {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
+}
+
+div.buttons button, input.submit {
     color: rgba(255, 255, 255, 0.8);
     padding: 1rem 2rem;
     margin: 1rem 5vw;
@@ -151,6 +152,7 @@ div.buttons button {
     outline: none;
     width: 70%;
     white-space: nowrap;
+    max-width: 15rem;
 }
 
 div.buttons button:hover {
@@ -167,7 +169,7 @@ button.blue {
     box-shadow: 0 0.2rem 0 rgb(38, 57, 109), 0 -0.1rem 0 rgb(85, 119, 191);
 }
 
-button.green {
+button.green, input.submit {
     background-color: rgb(26,168,86);
     box-shadow: 0 0.2rem 0 rgb(22, 106, 68), 0 -0.1rem 0 rgb(85, 211, 139);
 }
@@ -182,12 +184,38 @@ button.light {
     box-shadow: 0 0.2rem 0 rgb(12, 106, 160), 0 -0.1rem 0 rgb(37, 196, 248);
 }
 
-button.black {
-    background-color: rgb(40, 42, 43);
-    box-shadow: 0 0.2rem 0 rgb(30, 31, 46), 0 -0.1rem 0 rgb(55, 57, 57);
+button.orange {
+    background-color: rgb(219, 150, 20);
+    box-shadow: 0 0.2rem 0 rgb(222, 120, 4), 0 -0.1rem 0 rgb(235, 170, 57);
 }
 
+form {
+    grid-column: 1 / span 3;
+    justify-self: left;
+    margin-left: 5vw;
+    margin-bottom: 2rem;
+}
 
+input, textarea, label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    display: block;
+    padding: 0.5rem;
+}
+
+textarea {
+    height: 7rem;
+    width: 35rem;
+}
+
+input.submit {
+    margin: 0;
+    margin-left: 0.5rem;
+}
+
+.hidden {
+    display: none;
+}
 
 @media screen and (max-width: 1300px) {
     div.picturebox{
@@ -201,7 +229,6 @@ button.black {
 
     body {
         width: 100%;
-        height: 100vh;
         margin: 0;
     }
 }
@@ -230,7 +257,6 @@ button.black {
 
     body {
         width: 100%;
-        height: 100vh;
         margin: 0;
         justify-content: flex-start;
     }
@@ -245,4 +271,15 @@ button.black {
         margin: 0.5rem 5vw;
         width: 50%;
     }
+
+    form {
+        grid-column: 1 / 1;
+        justify-self: center;
+    }
+
+    textarea {
+        height: 10rem;
+        width: 20rem;
+    }    
+
 }

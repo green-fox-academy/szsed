@@ -29,6 +29,7 @@ app.get('/', (req, res) => {
     conn.query('select * from images;', function (err, rows) {
         if (err) {
             console.log(err.message);
+            res.status(400);
             res.send(err);
         }
         console.log('Data received from DB.');
@@ -40,9 +41,34 @@ app.post('/', (req, res) => {
     conn.query('insert into images (title, url, descr) values (?, ?, ?);', [req.body.title, req.body.url, req.body.descr], function (err, rows) {
         if (err) {
             console.log(err.message);
+            res.status(400);
             res.send(err);
         }
-        console.log('Data received from DB.');
+        console.log('Record inserted into DB.');
+        res.send(rows);
+    });
+});
+
+app.patch('/:imgId', (req, res) => {
+    conn.query('update images set title = ?, url = ?, descr = ? where img_id = ?;', [req.body.title, req.body.url, req.body.descr, req.params.imgId], function (err, rows) {
+        if (err) {
+            console.log(err.message);
+            res.status(400);
+            res.send(err);
+        }
+        console.log('Record updated.');
+        res.send(rows);
+    });
+});
+
+app.delete('/:imgId', (req, res) => {
+    conn.query('delete from images where img_id = ?;', req.params.imgId, function (err, rows) {
+        if (err) {
+            console.log(err.message);
+            res.status(400);
+            res.send(err);
+        }
+        console.log('Record deleted from DB.');
         res.send(rows);
     });
 });
@@ -51,6 +77,7 @@ app.get('/pictures/:imgTitle', (req, res) => {
     conn.query('select * from images where title = ?;', req.params.imgTitle, function (err, rows) {
         if (err) {
             console.log(err.message);
+            res.status(400);
             res.send(err);
         }
         console.log('Data received from DB.');

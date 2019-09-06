@@ -33,16 +33,31 @@
                 let firstThumbnail = '';
                 if (index===0) firstThumbnail = ' selected';%>
         <img class="thumbnail<%= firstThumbnail %>" src="<%= element.url %>" alt="#" title="<%= element.title %>"
-            data="<%= element.descr %>">
+            data-desc="<%= element.descr %>" data-id="<%= element.img_id %>">
         <% }) %>
     </div>
     <div class="buttons">
-        <button class="green">Add</button>
-        <button class="light">Update</button>
-        <button class="red">Delete</button>
-        <button class="black">Move Left</button>
-        <button class="black">Move Right</button>
-        <button class="green">Save</button>
+        <button class="add green">Add</button>
+        <button class="update orange">Update</button>
+        <button class="delete red">Delete</button>
+        <button class="moveleft light">Move Left</button>
+        <button class="save orange">Save</button>
+        <button class="moveright light">Move Right</button>
+        <form action="/" method="POST" class="hidden">
+            <label>
+                Title:
+                <input type="text" name="title" maxlength="45" required>
+            </label>
+            <label>
+                URL:
+                <input type="url" name="url" maxlength="255" required>
+            </label>
+            <label>
+                Description:
+                <textarea name="descr" rows="10" cols="55" maxlength="300" required></textarea>
+            </label>
+            <input type="submit" class="submit green" value=Submit>
+        </form>
     </div>
 </body>
 <script src='home.js'></script>
