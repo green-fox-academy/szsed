@@ -29,12 +29,40 @@ const displayForm = () => {
 addButton.addEventListener('click', () => {
     submitMode = 'add';
     displayForm();
+
+    titleField.value = '';
+    urlField.value = '';
+    descrField.value = '';
 });
 
 updateButton.addEventListener('click', () => {
     submitMode = 'update';
+
+    let selected = document.querySelector('.selected');
+
+    titleField.value = selected.getAttribute('title');
+    urlField.value = selected.getAttribute('src');
+    descrField.value = selected.getAttribute('data-descr');
+
     displayForm();
 });
+
+const updateFields = data => {
+    if (counter % 2 === 0) {
+        featured2.setAttribute('src', data.url);
+
+    } else {
+        featured.setAttribute('src', data.url);
+    }
+
+    let selected = document.querySelector('.selected');
+
+    selected.setAttribute('src', data.url);
+    selected.setAttribute('title', data.title);
+    selected.setAttribute('data-descr', data.descr);
+    document.querySelector('h4').textContent = data.title;
+    document.querySelector('p').textContent = data.descr;
+}
 
 submitButton.addEventListener('click', event => {
     event.preventDefault();
@@ -68,7 +96,13 @@ submitButton.addEventListener('click', event => {
             }
         })
             .then(result => result.json())
-            .then(json => json.errno ? console.log(json.sqlMessage) : console.log(json))
+            .then(json => {
+                if (json.errno) {
+                    console.log(json.sqlMessage)
+                } else {
+                    if (submitMode === 'update') updateFields(data);
+                }
+            })
             .then(displayForm)
             .catch(err => console.log(err.message));
     } else {
@@ -81,7 +115,20 @@ deleteButton.addEventListener('click', () => {
         method: 'DELETE',
     })
         .then(result => result.json())
-        .then(json => json.errno ? console.log(json.sqlMessage) : console.log(json))
+        .then(json => {
+            if (json.errno) {
+                console.log(json.sqlMessage)
+            } else {
+                let selected = document.querySelector('.selected');
+                let selectedIndex = thumbnails.findIndex(element => element.getAttribute('data-id') === selected.getAttribute('data-id'));
+                if (selectedIndex > 0) {
+                    thumbnails[selectedIndex - 1].onclick();
+                } else if (selectedIndex === 0 && thumbnails.length > 1) {
+                    thumbnails[selectedIndex + 1].onclick();
+                }
+                selected.remove();
+            }
+        })
         .catch(err => console.log(err.message));
 })
 
@@ -109,7 +156,7 @@ thumbnails.forEach((element, index) => {
             counter++;
             picturebox.setAttribute('title', imgTitle);
             document.querySelector('h4').textContent = element.getAttribute('title');
-            document.querySelector('p').textContent = element.getAttribute('data-desc');
+            document.querySelector('p').textContent = element.getAttribute('data-descr');
             if (index === 0 && thumbnails.length > 1) {
                 arrow.classList.add('inactive');
                 arrow.onclick = '';
