@@ -19,194 +19,194 @@ let submitMode = '';
 let selectedID = thumbnails[0].getAttribute('data-id');
 
 const displayForm = () => {
-    form.classList.toggle('hidden');
-    if (!form.classList.contains('hidden')) {
-        form.firstElementChild.focus();
-        form.firstElementChild.scrollIntoView();
-    }
+  form.classList.toggle('hidden');
+  if (!form.classList.contains('hidden')) {
+    form.firstElementChild.focus();
+    form.firstElementChild.scrollIntoView();
+  }
 }
 
 addButton.addEventListener('click', () => {
-    submitMode = 'add';
-    displayForm();
+  submitMode = 'add';
+  displayForm();
 
-    titleField.value = '';
-    urlField.value = '';
-    descrField.value = '';
+  titleField.value = '';
+  urlField.value = '';
+  descrField.value = '';
 });
 
 updateButton.addEventListener('click', () => {
-    submitMode = 'update';
+  submitMode = 'update';
 
-    let selected = document.querySelector('.selected');
+  let selected = document.querySelector('.selected');
 
-    titleField.value = selected.getAttribute('title');
-    urlField.value = selected.getAttribute('src');
-    descrField.value = selected.getAttribute('data-descr');
+  titleField.value = selected.getAttribute('title');
+  urlField.value = selected.getAttribute('src');
+  descrField.value = selected.getAttribute('data-descr');
 
-    displayForm();
+  displayForm();
 });
 
 const updateFields = data => {
-    if (counter % 2 === 0) {
-        featured2.setAttribute('src', data.url);
+  if (counter % 2 === 0) {
+    featured2.setAttribute('src', data.url);
 
-    } else {
-        featured.setAttribute('src', data.url);
-    }
+  } else {
+    featured.setAttribute('src', data.url);
+  }
 
-    let selected = document.querySelector('.selected');
+  let selected = document.querySelector('.selected');
 
-    selected.setAttribute('src', data.url);
-    selected.setAttribute('title', data.title);
-    selected.setAttribute('data-descr', data.descr);
-    document.querySelector('h4').textContent = data.title;
-    document.querySelector('p').textContent = data.descr;
+  selected.setAttribute('src', data.url);
+  selected.setAttribute('title', data.title);
+  selected.setAttribute('data-descr', data.descr);
+  document.querySelector('h4').textContent = data.title;
+  document.querySelector('p').textContent = data.descr;
 }
 
 submitButton.addEventListener('click', event => {
-    event.preventDefault();
+  event.preventDefault();
 
-    const formIsValid = (titleField.checkValidity() && urlField.checkValidity() && descrField.checkValidity());
+  const formIsValid = (titleField.checkValidity() && urlField.checkValidity() && descrField.checkValidity());
 
-    const data = {
-        title: titleField.value,
-        url: urlField.value,
-        descr: descrField.value
-    }
+  const data = {
+    title: titleField.value,
+    url: urlField.value,
+    descr: descrField.value
+  }
 
-    let fetchUrl = '';
-    let fetchMethod = '';
+  let fetchUrl = '';
+  let fetchMethod = '';
 
-    if (submitMode === 'add') {
-        fetchUrl = '/';
-        fetchMethod = 'POST';
+  if (submitMode === 'add') {
+    fetchUrl = '/';
+    fetchMethod = 'POST';
 
-    } else if (submitMode === 'update') {
-        fetchUrl = `/${selectedID}`;
-        fetchMethod = 'PATCH';
-    }
+  } else if (submitMode === 'update') {
+    fetchUrl = `/${selectedID}`;
+    fetchMethod = 'PATCH';
+  }
 
-    if (formIsValid) {
-        fetch(fetchUrl, {
-            method: fetchMethod,
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(result => result.json())
-            .then(json => {
-                if (json.errno) {
-                    console.log(json.sqlMessage)
-                } else {
-                    if (submitMode === 'update') updateFields(data);
-                }
-            })
-            .then(displayForm)
-            .catch(err => console.log(err.message));
-    } else {
-        alert('Invalid form input');
-    }
+  if (formIsValid) {
+    fetch(fetchUrl, {
+      method: fetchMethod,
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(result => result.json())
+      .then(json => {
+        if (json.errno) {
+          console.log(json.sqlMessage)
+        } else {
+          if (submitMode === 'update') updateFields(data);
+        }
+      })
+      .then(displayForm)
+      .catch(err => console.log(err.message));
+  } else {
+    alert('Invalid form input');
+  }
 });
 
 deleteButton.addEventListener('click', () => {
-    fetch(`/${selectedID}`, {
-        method: 'DELETE',
+  fetch(`/${selectedID}`, {
+    method: 'DELETE',
+  })
+    .then(result => result.json())
+    .then(json => {
+      if (json.errno) {
+        console.log(json.sqlMessage)
+      } else {
+        let selected = document.querySelector('.selected');
+        let selectedIndex = thumbnails.findIndex(element => element.getAttribute('data-id') === selected.getAttribute('data-id'));
+        if (selectedIndex > 0) {
+          thumbnails[selectedIndex - 1].onclick();
+        } else if (selectedIndex === 0 && thumbnails.length > 1) {
+          thumbnails[selectedIndex + 1].onclick();
+        }
+        selected.remove();
+      }
     })
-        .then(result => result.json())
-        .then(json => {
-            if (json.errno) {
-                console.log(json.sqlMessage)
-            } else {
-                let selected = document.querySelector('.selected');
-                let selectedIndex = thumbnails.findIndex(element => element.getAttribute('data-id') === selected.getAttribute('data-id'));
-                if (selectedIndex > 0) {
-                    thumbnails[selectedIndex - 1].onclick();
-                } else if (selectedIndex === 0 && thumbnails.length > 1) {
-                    thumbnails[selectedIndex + 1].onclick();
-                }
-                selected.remove();
-            }
-        })
-        .catch(err => console.log(err.message));
+    .catch(err => console.log(err.message));
 })
 
 picturebox.onclick = () => location = 'pictures/' + picturebox.getAttribute('title');
 
 thumbnails.forEach((element, index) => {
-    element.onclick = () => {
-        let selected = document.querySelector('.selected');
-        if (!element.classList.contains('selected')) {
-            element.classList.add('selected');
-            selected.classList.remove('selected');
-            let imgLink = element.getAttribute('src');
-            let imgTitle = element.getAttribute('title');
-            selectedID = element.getAttribute('data-id');
+  element.onclick = () => {
+    let selected = document.querySelector('.selected');
+    if (!element.classList.contains('selected')) {
+      element.classList.add('selected');
+      selected.classList.remove('selected');
+      let imgLink = element.getAttribute('src');
+      let imgTitle = element.getAttribute('title');
+      selectedID = element.getAttribute('data-id');
 
-            if (counter % 2 === 0) {
-                featured2.setAttribute('src', imgLink);
-                featured.style.opacity = 0;
-                featured2.style.opacity = 1;
-            } else {
-                featured.setAttribute('src', imgLink);
-                featured.style.opacity = 1;
-                featured2.style.opacity = 0;
-            }
-            counter++;
-            picturebox.setAttribute('title', imgTitle);
-            document.querySelector('h4').textContent = element.getAttribute('title');
-            document.querySelector('p').textContent = element.getAttribute('data-descr');
-            if (index === 0 && thumbnails.length > 1) {
-                arrow.classList.add('inactive');
-                arrow.onclick = '';
-            } else {
-                arrow.classList.remove('inactive');
-                arrow.onclick = arrowClick;
-            }
+      if (counter % 2 === 0) {
+        featured2.setAttribute('src', imgLink);
+        featured.style.opacity = 0;
+        featured2.style.opacity = 1;
+      } else {
+        featured.setAttribute('src', imgLink);
+        featured.style.opacity = 1;
+        featured2.style.opacity = 0;
+      }
+      counter++;
+      picturebox.setAttribute('title', imgTitle);
+      document.querySelector('h4').textContent = element.getAttribute('title');
+      document.querySelector('p').textContent = element.getAttribute('data-descr');
+      if (index === 0 && thumbnails.length > 1) {
+        arrow.classList.add('inactive');
+        arrow.onclick = '';
+      } else {
+        arrow.classList.remove('inactive');
+        arrow.onclick = arrowClick;
+      }
 
-            if (index === thumbnails.length - 1 && thumbnails.length > 1) {
-                arrowReverse.classList.add('inactive');
-                arrowReverse.onclick = '';
-            } else {
-                arrowReverse.classList.remove('inactive');
-                arrowReverse.onclick = arrowClickReverse;
-            }
-        }
+      if (index === thumbnails.length - 1 && thumbnails.length > 1) {
+        arrowReverse.classList.add('inactive');
+        arrowReverse.onclick = '';
+      } else {
+        arrowReverse.classList.remove('inactive');
+        arrowReverse.onclick = arrowClickReverse;
+      }
     }
+  }
 });
 
 const arrowClick = () => {
-    let indexOfPrevious = thumbnails.indexOf(document.querySelector('.selected')) - 1;
-    thumbnails[indexOfPrevious].onclick();
+  let indexOfPrevious = thumbnails.indexOf(document.querySelector('.selected')) - 1;
+  thumbnails[indexOfPrevious].onclick();
 }
 
 const arrowClickReverse = () => {
-    let indexOfNext = thumbnails.indexOf(document.querySelector('.selected')) + 1;
-    thumbnails[indexOfNext].onclick();
+  let indexOfNext = thumbnails.indexOf(document.querySelector('.selected')) + 1;
+  thumbnails[indexOfNext].onclick();
 }
 
 if (thumbnails.length > 1) {
-    arrowReverse.onclick = arrowClickReverse;
-    arrowReverse.classList.remove('inactive');
+  arrowReverse.onclick = arrowClickReverse;
+  arrowReverse.classList.remove('inactive');
 }
 
 const onKeyPress = (event) => {
-    // Handle arrow keys
-    switch (event.keyCode) {
-        case 37:
-            try {
-                arrow.onclick();
-            } catch (error) {
-            }
-            break;
-        case 39:
-            try {
-                arrowReverse.onclick();
-            } catch (error) {
-            }
-            break;
-    }
+  // Handle arrow keys
+  switch (event.keyCode) {
+    case 37:
+      try {
+        arrow.onclick();
+      } catch (error) {
+      }
+      break;
+    case 39:
+      try {
+        arrowReverse.onclick();
+      } catch (error) {
+      }
+      break;
+  }
 }
 
 document.body.addEventListener('keydown', onKeyPress);
