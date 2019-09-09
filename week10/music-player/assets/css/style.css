@@ -16,10 +16,19 @@ span div {
     outline: none;
 }
 
-.noUi-base {
-    width: 30%;
-}
-
 .arrow.back {
     transform: rotate(180deg);
+}
+
+.noUi-base {
+    width: 30%;
+    height: 50%;
+}
+
+.noUi-connects {
+    position: static;
+}
+
+.noUi-connect {
+    background-image: linear-gradient(to right, #3FB8AF, #00FFFF)
 }
