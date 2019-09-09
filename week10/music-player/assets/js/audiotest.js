@@ -36,9 +36,41 @@ audio.addEventListener('loadedmetadata', () => {
 });
 
 progressSlider.noUiSlider.on('change', () => {
+  duration.textContent = Math.floor(audio.duration * 10) / 10;
   audio.currentTime = progressSlider.noUiSlider.get();
   displayRemaining();
 });
 
-const addPlaylistButton = document.querySelector('addplaylist');
-const addTrackButton = document.querySelector('addtrack');
+const addPlaylistButton = document.querySelector('.addplaylist');
+const addTrackButton = document.querySelector('.addtrack');
+
+addPlaylistButton.addEventListener('click', () => {
+  let newPlaylistName = window.prompt('Enter name of new playlist:');
+  if (newPlaylistName) {
+    let newList = document.createElement('li');
+    let deleteButton = document.createElement('img');
+    deleteButton.setAttribute('src', '../assets/img/cross.svg');
+    deleteButton.setAttribute('alt', '#');
+    deleteButton.addEventListener('click', event => event.target.parentElement.remove());
+    newList.textContent = newPlaylistName;
+    newList.appendChild(deleteButton);
+    document.querySelector('ul').appendChild(newList);
+  }
+});
+
+addTrackButton.addEventListener('click', () => {
+  let newTrackName = window.prompt('Enter name of new track:');
+  let newTrackUrl = window.prompt('Enter URL:');
+  if (newTrackName && newTrackUrl) {
+  }
+});
+
+const starButton = document.querySelector('.star');
+
+starButton.addEventListener('click', () => {
+  if (starButton.getAttribute('src') === '../assets/img/stargray.svg') {
+    starButton.setAttribute('src', '../assets/img/staryellow.svg');
+  } else {
+    starButton.setAttribute('src', '../assets/img/stargray.svg');
+  }
+})
