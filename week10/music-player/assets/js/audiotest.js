@@ -21,7 +21,7 @@ noUiSlider.create(progressSlider, {
 });
 
 noUiSlider.create(volumeSlider, {
-  start: 0,
+  start: 50,
   range: {
     min: 0,
     max: 100
@@ -29,11 +29,14 @@ noUiSlider.create(volumeSlider, {
 });
 
 const displayRemaining = () => remaining.textContent = Math.floor((audio.duration - audio.currentTime) * 10) / 10;
-
-audio.addEventListener('loadedmetadata', () => {
+const displayDurationAndRemaining = () => {
   duration.textContent = Math.floor(audio.duration * 10) / 10;
   displayRemaining();
-});
+}
+
+window.addEventListener('load', displayDurationAndRemaining);
+
+audio.addEventListener('loadedmetadata', displayDurationAndRemaining);
 
 progressSlider.noUiSlider.on('change', () => {
   duration.textContent = Math.floor(audio.duration * 10) / 10;
@@ -62,6 +65,19 @@ addTrackButton.addEventListener('click', () => {
   let newTrackName = window.prompt('Enter name of new track:');
   let newTrackUrl = window.prompt('Enter URL:');
   if (newTrackName && newTrackUrl) {
+    const tableBody = document.querySelector('tbody');
+    let newTableRow = document.createElement('tr');
+    let numberField = document.createElement('td');
+    let titleField = document.createElement('td');
+    let durationField = document.createElement('td');
+    numberField.textContent = Number(tableBody.lastElementChild.firstElementChild.textContent) + 1;
+    newTableRow.appendChild(numberField);
+    titleField.textContent = newTrackName;
+    newTableRow.appendChild(titleField);
+    audio.setAttribute('src', newTrackUrl);
+    durationField.textContent = duration.textContent;
+    newTableRow.appendChild(durationField);
+    tableBody.appendChild(newTableRow);
   }
 });
 
@@ -74,3 +90,15 @@ starButton.addEventListener('click', () => {
     starButton.setAttribute('src', '../assets/img/stargray.svg');
   }
 })
+
+const playPauseButton = document.querySelector('.playpause');
+
+playPauseButton.addEventListener('click', () => {
+  if (playPauseButton.getAttribute('src') === '../assets/img/play.svg') {
+    playPauseButton.setAttribute('src', '../assets/img/pause.svg');
+    audio.play();
+  } else {
+    playPauseButton.setAttribute('src', '../assets/img/play.svg');
+    audio.pause();
+  }
+});
