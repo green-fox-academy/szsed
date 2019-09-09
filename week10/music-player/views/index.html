@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <title>Music Player Thing</title>
+</head>
+
+<body>
+
+    <div class="playlists">
+        <figure class="foxplayer">
+            <img src="../assets/pics/foxplayer.png" alt="#">
+        </figure>
+        <figure class="playing">
+            <img src="../assets/pics/music-placeholder.png" alt="#">
+        </figure>
+        <header>
+            <h3>Playlists</h3>
+            <figure>
+                <img src="../assets/pics/add.svg" alt="#">
+            </figure>
+        </header>
+        <ul>
+            <li>All tracks</li>
+            <li>Favorites</li>
+        </ul>
+    </div>
+    <div class="currentlist">
+        <table>
+            <thead>
+                <tr>
+                    <td>
+                        <p class="title"></p>
+                        <p class="artist"></p>
+                    </td>
+                    <td>
+                        <img src="../assets/pics/add.svg" alt="#">
+                        <img src="../assets/pics/star.svg" alt="#">
+                    </td>
+                </tr>
+            </thead>
+            <tr>
+                <td>1</td>
+                <td>Test Song</td>
+                <td>3.30</td>
+                <td>2</td>
+                <td>Test Song</td>
+                <td>3.30</td>
+                <td>3</td>
+                <td>Test Song</td>
+                <td>3.30</td>
+                <td>4</td>
+                <td>Test Song</td>
+                <td>3.30</td>
+            </tr>
+        </table>
+    </div>
+    <footer>
+        <figure>
+            <audio controls src="..//assets/music/Doctor_Turtle_-_04_-_Doctor_Talos_Answers_The_Door.mp3">
+                Your browser does not support the
+                <code>audio</code> element.</audio>
+        </figure>
+    </footer>
+
+    <script src="..//assets/js/audiotest.js"></script>
+</body>
+
+</html>
