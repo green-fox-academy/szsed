@@ -1,3 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: aqua;
+}
+
+img {
+    height: 10px;
+}
+
+span div {
+    display: inline-block;
+    outline: none;
+}
+
+.noUi-base {
+    width: 30%;
+}
+
+.arrow.back {
+    transform: rotate(180deg);
 }

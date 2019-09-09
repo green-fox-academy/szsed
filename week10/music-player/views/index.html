@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../assets/css/nouislider.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <title>Music Player Thing</title>
 </head>
@@ -21,7 +22,7 @@
         <header>
             <h3>Playlists</h3>
             <figure>
-                <img src="../assets/pics/add.svg" alt="#">
+                <img class="addplaylist" src="../assets/pics/add.svg" alt="#">
             </figure>
         </header>
         <ul>
@@ -38,8 +39,9 @@
                         <p class="artist"></p>
                     </td>
                     <td>
-                        <img src="../assets/pics/add.svg" alt="#">
-                        <img src="../assets/pics/star.svg" alt="#">
+                        <img class="addtrack" src="../assets/pics/add.svg" alt="#">
+                        <img src="../assets/pics/stargray.svg" alt="#">
+                        <img src="../assets/pics/staryellow.svg" alt="#">
                     </td>
                 </tr>
             </thead>
@@ -61,12 +63,22 @@
     </div>
     <footer>
         <figure>
-            <audio controls src="..//assets/music/Doctor_Turtle_-_04_-_Doctor_Talos_Answers_The_Door.mp3">
+            <audio src="..//assets/music/Doctor_Turtle_-_04_-_Doctor_Talos_Answers_The_Door.mp3" preload="metadata">
                 Your browser does not support the
                 <code>audio</code> element.</audio>
         </figure>
+        <img src="../assets/pics/forward.svg" alt="#" class="arrow back">
+        <img src="../assets/pics/play.svg" alt="#" class="playpause">
+        <img src="../assets/pics/forward.svg" alt="#" class="arrow forward">
+        <span class="remaining"></span>
+        <span class="progress slider"></span>
+        <span class="duration"></span>
+        <img src="../assets/pics/shuffle.svg" alt="#" class="shuffle">
+        <img src="../assets/pics/volume.svg" alt="#" class="volume">
+        <span class="volume slider"></span>
     </footer>
 
+    <script src="..//assets/js/nouislider.js"></script>
     <script src="..//assets/js/audiotest.js"></script>
 </body>
 
