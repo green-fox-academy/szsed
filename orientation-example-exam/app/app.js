@@ -1,8 +1,9 @@
 const express = require('express');
-const path = require('path');
 const mysql = require('mysql');
 const app = express();
 
+app.use(express.static('assets'));
+app.use(express.static('views/js'));
 app.use(express.json());
 
 const conn = mysql.createConnection({
@@ -20,5 +21,9 @@ conn.connect((err) => {
   }
   console.log('DB connection established');
 });
+
+app.get('/', (req, res) => {
+  res.sendFile('/views/index.html', { root: __dirname + '/..' });
+})
 
 module.exports = app;
