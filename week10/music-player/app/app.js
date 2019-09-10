@@ -25,20 +25,4 @@ conn.connect((err) => {
   console.log('DB connection established');
 });
 
-app.get('/', (req, res) => {
-  res.sendFile('/views/index.html', { root: __dirname + '/..' });
-});
-
-app.get('/tracks', (req, res) => {
-  conn.query('select * from tracks;', function (err, tracks) {
-    if (err) {
-      console.log(err.message);
-      res.status(404);
-      res.send(err);
-    }
-    console.log('Data received from DB.');
-    res.send(tracks);
-  });
-});
-
-module.exports = app;
+module.exports = { app, conn };

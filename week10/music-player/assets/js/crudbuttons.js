@@ -14,22 +14,16 @@ const addTrackButton = document.querySelector('.addtrack');
 addPlaylistButton.addEventListener('click', () => {
   let newPlaylistName = window.prompt('Enter name of new playlist:');
   if (newPlaylistName) {
-    let newList = document.createElement('li');
-    let deleteButton = document.createElement('img');
-    deleteButton.setAttribute('src', 'cross.svg');
-    deleteButton.setAttribute('alt', '#');
-    deleteButton.addEventListener('click', event => event.target.parentElement.remove());
-    newList.textContent = newPlaylistName;
-    newList.appendChild(deleteButton);
-    document.querySelector('ul').appendChild(newList);
+    buildPlaylistRow(newPlaylistName);
   }
 });
 
 addTrackButton.addEventListener('click', () => {
-  let newTrackName = window.prompt('Enter name of new track:');
-  let newArtistName = window.prompt('Enter name of artist:');
-  let newTrackUrl = window.prompt('Enter URL:');
-  if (newTrackName && newTrackUrl) {
+  let newTrackData = {}
+  newTrackData.name = window.prompt('Enter name of new track:');
+  newTrackData.artist = window.prompt('Enter name of artist:');
+  newTrackData.url = window.prompt('Enter URL:');
+  if (newTrackData.name && newTrackData.url) {
     const tableBody = document.querySelector('tbody');
     let newTableRow = document.createElement('tr');
     let numberField = document.createElement('td');

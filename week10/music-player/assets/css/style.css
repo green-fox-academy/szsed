@@ -23,6 +23,7 @@ span.slider .noUi-connect {
 
 span.slider .noUi-handle {
     outline: none;
+    border-radius: 12px;
 }
 
 .arrow.back {
