@@ -17,12 +17,12 @@ const buildDeleteButton = newListElement => {
 const buildPlaylistRow = (newPlaylistName) => {
   let newList = document.createElement('li');
   newList.textContent = newPlaylistName;
-  buildDeleteButton(newList);
+  if (newPlaylistName !== 'Favorites') buildDeleteButton(newList);
   document.querySelector('ul').appendChild(newList);
 }
 
-const buildPlaylist = () => {
-
+const buildPlaylistList = playlists => {
+  playlists.forEach(playlist => buildPlaylistRow(playlist.name));
 }
 
 const buildTrackRow = () => {
@@ -50,6 +50,16 @@ noUiSlider.create(progressSlider, {
   },
 });
 
+const updateProgressSliderOnNewTrack = () => {
+  progressSlider.noUiSlider.updateOptions({
+    range: {
+      min: 0,
+      max: audio.duration
+    }
+  });
+  progressSlider.noUiSlider.set(audio.currentTime);
+}
+
 noUiSlider.create(volumeSlider, {
   start: 50,
   connect: [true, false],
@@ -59,10 +69,16 @@ noUiSlider.create(volumeSlider, {
   },
 });
 
-const displayRemaining = () => remaining.textContent = Math.floor((audio.duration - audio.currentTime) * 10) / 10;
+const formatToMinutes = (seconds) => {
+  let minutes = (seconds - seconds % 60) / 60
+  let secondsRounded = Math.floor((seconds - minutes * 60) * 10) / 10;
+  return `${minutes}:${secondsRounded < 10 ? 0 : ''}${secondsRounded}`;
+}
+
+const displayRemaining = () => remaining.textContent = formatToMinutes(audio.duration - audio.currentTime);
 
 const displayDurationAndRemaining = () => {
-  duration.textContent = Math.floor(audio.duration * 10) / 10;
+  duration.textContent = formatToMinutes(audio.duration);
   displayRemaining();
 }
 
@@ -75,12 +91,9 @@ audio.addEventListener('timeupdate', () => {
   displayRemaining();
 });
 
+fetch('/playlists')
+  .then(result => result.json())
+  .then(buildPlaylistList)
+  .catch(err => alert(err.message));
 
-window.addEventListener('load', () => {
-  progressSlider.noUiSlider.updateOptions({
-    range: {
-      min: 0,
-      max: audio.duration
-    }
-  });
-});
+window.addEventListener('load', updateProgressSliderOnNewTrack);
