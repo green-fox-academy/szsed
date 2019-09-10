@@ -49,6 +49,7 @@ document.body.addEventListener('keydown', event => {
       break;
     case 27:
       muteVolume();
+      volumeSlider.noUiSlider.set(0);
       break;
   }
 });

@@ -22,11 +22,10 @@ app.post('/playlists', (req, res) => {
     conn.query('insert into playlists (name) values (?);', req.body.name, function (err, rows) {
       if (err) {
         console.log(err.message);
-        res.status(400);
-        res.send(err);
+        res.status(500);
       } else {
         console.log('Data added to DB.');
-        console.log(rows);
+        res.send({ result: 'success' });
       }
     });
   } else {

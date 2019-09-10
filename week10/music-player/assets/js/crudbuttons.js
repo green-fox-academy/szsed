@@ -14,6 +14,13 @@ const addTrackButton = document.querySelector('.addtrack');
 addPlaylistButton.addEventListener('click', () => {
   let newPlaylistName = window.prompt('Enter name of new playlist:');
   if (newPlaylistName) {
+    fetch('/playlists', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      })
+      .then
     buildPlaylistRow(newPlaylistName);
   }
 });

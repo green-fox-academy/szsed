@@ -14,14 +14,15 @@ const buildDeleteButton = newListElement => {
   newListElement.appendChild(deleteButton);
 }
 
-const buildPlaylistRow = (newPlaylistName) => {
+const buildPlaylistRow = newPlaylistName => {
   let newList = document.createElement('li');
   newList.textContent = newPlaylistName;
-  if (newPlaylistName !== 'Favorites') buildDeleteButton(newList);
+  if (newPlaylistName !== 'Favorites' && newPlaylistName !== 'All tracks') buildDeleteButton(newList);
   document.querySelector('ul').appendChild(newList);
 }
 
 const buildPlaylistList = playlists => {
+  buildPlaylistRow('All tracks');
   playlists.forEach(playlist => buildPlaylistRow(playlist.name));
 }
 
