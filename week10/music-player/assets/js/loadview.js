@@ -13,7 +13,6 @@ const buildDeleteButton = newElement => {
   let deleteButton = document.createElement('img');
   deleteButton.setAttribute('src', 'cross.svg');
   deleteButton.setAttribute('alt', '#');
-  deleteButton.addEventListener('click', event => event.target.parentElement.remove());
   newElement.appendChild(deleteButton);
 }
 
@@ -115,5 +114,13 @@ fetch('/playlists')
   .then(result => result.json())
   .then(buildPlaylistList)
   .catch(err => alert(err.message));
+
+const trackListArea = document.querySelector('tbody');
+
+const handleTrackListClick = event => {
+  if (event.target.tagName === 'IMG') event.target.parentElement.remove();
+}
+
+trackListArea.addEventListener('click', handleTrackListClick);
 
 window.addEventListener('load', updateProgressSliderOnNewTrack);
