@@ -4,31 +4,27 @@
 }
 
 body {
-    background-color: aqua;
+    background-color: whitesmoke;
 }
 
 img {
-    height: 10px;
+    height: 30px;
 }
 
-span div {
+span.slider {
     display: inline-block;
+    width: 30%;
+}
+
+span.slider .noUi-connect {
+    background: none;
+    background-image: linear-gradient(to right, #3FB8AF, #00FFFF);
+}
+
+span.slider .noUi-handle {
     outline: none;
 }
 
 .arrow.back {
     transform: rotate(180deg);
-}
-
-.noUi-base {
-    width: 30%;
-    height: 50%;
-}
-
-.noUi-connects {
-    position: static;
-}
-
-.noUi-connect {
-    background-image: linear-gradient(to right, #3FB8AF, #00FFFF)
 }

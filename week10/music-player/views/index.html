@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../assets/css/nouislider.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="nouislider.css">
+    <link rel="stylesheet" href="style.css">
     <title>Music Player Thing</title>
 </head>
 
@@ -14,14 +14,14 @@
 
     <div class="playlists">
         <figure class="foxplayer">
-            <img src="../assets/img/foxplayer.png" alt="#">
+            <img src="foxplayer.png" alt="#">
         </figure>
         <figure class="playing">
-            <img src="../assets/img/music-placeholder.png" alt="#">
+            <img src="music-placeholder.png" alt="#">
         </figure>
         <header>
             <h3>Playlists</h3>
-            <img class="addplaylist" src="../assets/img/add.svg" alt="#">
+            <img class="addplaylist" src="add.svg" alt="#">
         </header>
         <ul>
             <li>All tracks</li>
@@ -37,8 +37,8 @@
                         <p class="artist"></p>
                     </td>
                     <td>
-                        <img class="addtrack" src="../assets/img/add.svg" alt="#">
-                        <img class="star" src="../assets/img/stargray.svg" alt="#">
+                        <img class="addtrack" src="add.svg" alt="#">
+                        <img class="star" src="stargray.svg" alt="#">
                     </td>
                 </tr>
             </thead>
@@ -68,23 +68,25 @@
     </div>
     <footer>
         <figure>
-            <audio src="..//assets/music/Doctor_Turtle_-_04_-_Doctor_Talos_Answers_The_Door.mp3" preload="metadata">
+            <audio src="Doctor_Turtle_-_04_-_Doctor_Talos_Answers_The_Door.mp3" preload="metadata">
                 Your browser does not support the
                 <code>audio</code> element.</audio>
-            <img src="../assets/img/forward.svg" alt="#" class="arrow back">
-            <img src="../assets/img/play.svg" alt="#" class="playpause">
-            <img src="../assets/img/forward.svg" alt="#" class="arrow forward">
+            <img src="forward.svg" alt="#" class="arrow back">
+            <img src="play.svg" alt="#" class="playpause">
+            <img src="forward.svg" alt="#" class="arrow forward">
             <span class="remaining"></span>
             <span class="progress slider"></span>
             <span class="duration"></span>
-            <img src="../assets/img/shuffle.svg" alt="#" class="shuffle">
-            <img src="../assets/img/volume.svg" alt="#" class="volume">
+            <img src="shuffle.svg" alt="#" class="shuffle">
+            <img src="volume.svg" alt="#" class="volume">
             <span class="volume slider"></span>
         </figure>
     </footer>
 
-    <script src="..//assets/js/nouislider.js"></script>
-    <script src="..//assets/js/index.js"></script>
+    <script src="nouislider.js"></script>
+    <script src="loadview.js"></script>
+    <script src="audiocontrols.js"></script>
+    <script src="crudbuttons.js"></script>
 </body>
 
 </html>

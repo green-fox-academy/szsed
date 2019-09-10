@@ -26,6 +26,10 @@ conn.connect((err) => {
 });
 
 app.get('/', (req, res) => {
+  res.sendFile('/views/index.html', { root: __dirname + '/..' });
+});
+
+app.get('/tracks', (req, res) => {
   conn.query('select * from tracks;', function (err, tracks) {
     if (err) {
       console.log(err.message);
