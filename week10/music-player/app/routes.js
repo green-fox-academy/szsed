@@ -25,7 +25,8 @@ app.post('/playlists', (req, res) => {
         res.status(500);
       } else {
         console.log('Data added to DB.');
-        res.send({ result: 'success' });
+        console.log(rows);
+        res.send({ id: rows.insertId });
       }
     });
   } else {

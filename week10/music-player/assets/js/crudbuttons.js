@@ -9,40 +9,39 @@ starButton.addEventListener('click', () => {
 });
 
 const addPlaylistButton = document.querySelector('.addplaylist');
-const addTrackButton = document.querySelector('.addtrack');
+
+const postNewPlaylistToDB = newPlaylistName => {
+  fetch('/playlists', {
+    method: 'POST',
+    body: JSON.stringify({ name: newPlaylistName }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(result => result.json().id)
+    .catch(err => console.log(err.message));
+}
 
 addPlaylistButton.addEventListener('click', () => {
   let newPlaylistName = window.prompt('Enter name of new playlist:');
-  if (newPlaylistName) {
-    fetch('/playlists', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json'
-      })
-      .then
-    buildPlaylistRow(newPlaylistName);
-  }
+  if (newPlaylistName) postNewPlaylistToDB(newPlaylistName)
+    .then(id => buildPlaylistRow({
+      name: newPlaylistName,
+      id: id
+    }));
 });
+
+const addTrackButton = document.querySelector('.addtrack');
 
 addTrackButton.addEventListener('click', () => {
   let newTrackData = {}
-  newTrackData.name = window.prompt('Enter name of new track:');
+  newTrackData.title = window.prompt('Enter title of new track:');
   newTrackData.artist = window.prompt('Enter name of artist:');
   newTrackData.url = window.prompt('Enter URL:');
-  if (newTrackData.name && newTrackData.url) {
-    const tableBody = document.querySelector('tbody');
-    let newTableRow = document.createElement('tr');
-    let numberField = document.createElement('td');
-    let titleField = document.createElement('td');
-    let durationField = document.createElement('td');
-    numberField.textContent = Number(tableBody.lastElementChild.firstElementChild.textContent) + 1;
-    newTableRow.appendChild(numberField);
-    titleField.textContent = newTrackName;
-    newTableRow.appendChild(titleField);
-    audio.setAttribute('src', newTrackUrl);
-    durationField.textContent = duration.textContent;
-    newTableRow.appendChild(durationField);
-    tableBody.appendChild(newTableRow);
+  if (newTrackData.title && newTrackData.artist && newTrackData.url) {
+    newTrackData.id = 123;
+    newTrackData.duration = 123.123123;
+    let rowIndex = Number(document.querySelector('tbody').lastElementChild.firstElementChild.textContent) + 1;
+    buildTrackRow(newTrackData, rowIndex);
   }
 });

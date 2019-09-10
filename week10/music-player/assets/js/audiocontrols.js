@@ -29,7 +29,10 @@ const toggleShuffle = () => {
   shuffleButton.setAttribute('src', isShuffling ? 'shuffletrue.svg' : 'shuffle.svg');
 }
 
-const muteVolume = () => audio.volume = 0;
+const muteVolume = () => {
+  audio.volume = 0;
+  volumeSlider.noUiSlider.set(0);
+}
 
 backButton.addEventListener('click', playPrevious);
 playPauseButton.addEventListener('click', togglePlayPause);
@@ -49,7 +52,6 @@ document.body.addEventListener('keydown', event => {
       break;
     case 27:
       muteVolume();
-      volumeSlider.noUiSlider.set(0);
       break;
   }
 });

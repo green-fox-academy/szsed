@@ -6,32 +6,51 @@ const remaining = document.querySelector('.remaining');
 const progressSlider = document.querySelector('.progress.slider');
 const volumeSlider = document.querySelector('.volume.slider');
 
-const buildDeleteButton = newListElement => {
+let activePlaylistId = 0;
+let activeTrackId = 0;
+
+const buildDeleteButton = newElement => {
   let deleteButton = document.createElement('img');
   deleteButton.setAttribute('src', 'cross.svg');
   deleteButton.setAttribute('alt', '#');
   deleteButton.addEventListener('click', event => event.target.parentElement.remove());
-  newListElement.appendChild(deleteButton);
+  newElement.appendChild(deleteButton);
 }
 
-const buildPlaylistRow = newPlaylistName => {
-  let newList = document.createElement('li');
-  newList.textContent = newPlaylistName;
-  if (newPlaylistName !== 'Favorites' && newPlaylistName !== 'All tracks') buildDeleteButton(newList);
-  document.querySelector('ul').appendChild(newList);
+const buildPlaylistRow = playlistData => {
+  let newListItem = document.createElement('li');
+  newListItem.textContent = playlistData.name;
+  newListItem.setAttribute('data-id', playlistData.id);
+  if (playlistData.name !== 'Favorites' && playlistData.name !== 'All tracks') buildDeleteButton(newListItem);
+  document.querySelector('ul').appendChild(newListItem);
 }
 
 const buildPlaylistList = playlists => {
-  buildPlaylistRow('All tracks');
-  playlists.forEach(playlist => buildPlaylistRow(playlist.name));
+  buildPlaylistRow({
+    name: 'All tracks',
+    id: 0
+  });
+  playlists.forEach(playlist => buildPlaylistRow(playlist));
 }
 
-const buildTrackRow = () => {
-
+const buildTrackRow = (trackData, rowIndex) => {
+  let newTableRow = document.createElement('tr');
+  newTableRow.setAttribute('data-id', trackData.id)
+  let newIndexField = document.createElement('td');
+  newIndexField.textContent = rowIndex;
+  newTableRow.appendChild(newIndexField);
+  let newTitleField = document.createElement('td');
+  newTitleField.textContent = trackData.title;
+  newTableRow.appendChild(newTitleField);
+  let newDurationField = document.createElement('td');
+  newDurationField.textContent = formatToMinutes(trackData.duration);
+  newTableRow.appendChild(newDurationField);
+  buildDeleteButton(newTableRow);
+  document.querySelector('tbody').appendChild(newTableRow);
 }
 
-const buildTracklist = () => {
-
+const buildTracklist = tracks => {
+  tracks.forEach((track, index) => buildTrackRow(track, index));
 }
 
 const displayArtwork = () => {
