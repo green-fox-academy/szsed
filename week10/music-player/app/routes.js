@@ -9,7 +9,8 @@ app.get('/playlists', (req, res) => {
   conn.query('select * from playlists;', function (err, playlists) {
     if (err) {
       console.log(err.message);
-      res.sendStatus(500);
+      res.status(500);
+      res.send({ error: 'SQL error' });
     } else {
       console.log('Data received from DB.');
       res.send(playlists);
@@ -23,6 +24,7 @@ app.post('/playlists', (req, res) => {
       if (err) {
         console.log(err.message);
         res.status(500);
+        res.send({ error: 'SQL error' });
       } else {
         console.log('Data added to DB.');
         res.send({ id: rows.insertId });
@@ -39,7 +41,9 @@ app.get('/playlists/:playlist_id', (req, res) => {
     conn.query('select * from playlists where id = ?;', req.params.playlist_id, function (err, playlist) {
       if (err) {
         console.log(err.message);
-        res.sendStatus(500);
+        res.status(500);
+        res.send({ error: 'SQL error' });
+
       } else {
         console.log('Data received from DB.');
         if (playlist.length === 1) {
@@ -64,7 +68,7 @@ app.delete('/playlists/:playlist_id', (req, res) => {
         res.sendStatus(500);
       } else {
         console.log('Data deleted from DB.');
-        res.sendStatus(200);
+        res.send({ success: 'deleted' });
       }
     });
   } else {
@@ -77,7 +81,8 @@ app.get('/playlist-tracks', (req, res) => {
   conn.query('select * from tracks;', function (err, tracks) {
     if (err) {
       console.log(err.message);
-      res.sendStatus(500);
+      res.status(500);
+      res.send({ error: 'SQL error' });
     } else {
       console.log('Data received from DB.');
       res.send(tracks);
@@ -90,10 +95,11 @@ app.get('/playlist-tracks/:playlist_id', (req, res) => {
     conn.query('select * from tracks where playlist_id = ?;', req.params.playlist_id, function (err, tracks) {
       if (err) {
         console.log(err.message);
-        res.sendStatus(500);
+        res.status(500);
+        res.send({ error: 'SQL error' });
       } else {
         console.log('Data received from DB.');
-        res.sendStatus(200);
+        res.send(tracks);
       }
     });
   } else {
@@ -107,10 +113,11 @@ app.post('/playlist-tracks/:playlist_id/:track_id', (req, res) => {
     conn.query('update tracks set playlist_id = ? where id = ?;', [req.params.playlist_id, req.params.track_id], function (err, tracks) {
       if (err) {
         console.log(err.message);
-        res.sendStatus(500);
+        res.status(500);
+        res.send({ error: 'SQL error' });
       } else {
         console.log('DB updated.');
-        res.sendStatus(200);
+        res.send({ success: 'updated' });
       }
     });
   } else {
@@ -124,10 +131,11 @@ app.delete('/playlist-tracks/:playlist_id/:track_id', (req, res) => {
     conn.query('update tracks set playlist_id = null where id = ?;', req.params.track_id, function (err, tracks) {
       if (err) {
         console.log(err.message);
-        res.sendStatus(500);
+        res.status(500);
+        res.send({ error: 'SQL error' });
       } else {
         console.log('Data deleted from DB.');
-        res.sendStatus(200);
+        res.send({ success: 'deleted' });
       }
     });
   } else {
@@ -137,11 +145,12 @@ app.delete('/playlist-tracks/:playlist_id/:track_id', (req, res) => {
 
 app.post('/playlist-tracks', (req, res) => {
   if (req.body.title && req.body.artist && !isNaN(Number.parseInt(req.body.duration, 10)) && req.body.url) {
-    conn.query('insert into tracks (title, artist, duration, url) values (?);',
+    conn.query('insert into tracks (title, artist, duration, url) values (?, ?, ?, ?);',
       [req.body.title, req.body.artist, req.body.duration, req.body.url], function (err, rows) {
         if (err) {
           console.log(err.message);
           res.status(500);
+          res.send({ error: 'SQL error' });
         } else {
           console.log('Data added to DB.');
           res.send({ id: rows.insertId });
@@ -159,10 +168,11 @@ app.delete('/playlist-tracks/:track_id', (req, res) => {
     conn.query('delete from tracks where id = ?;', req.params.track_id, function (err, tracks) {
       if (err) {
         console.log(err.message);
-        res.sendStatus(500);
+        res.status(500);
+        res.send({ error: 'SQL error' });
       } else {
         console.log('Data deleted from DB.');
-        res.sendStatus(200);
+        res.send({ success: 'deleted' });
       }
     });
   } else {

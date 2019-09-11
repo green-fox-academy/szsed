@@ -28,9 +28,29 @@ addTrackButton.addEventListener('click', () => {
   newTrackData.artist = window.prompt('Enter name of artist:');
   newTrackData.url = window.prompt('Enter URL:');
   if (newTrackData.title && newTrackData.artist && newTrackData.url) {
-    newTrackData.id = 123;
-    newTrackData.duration = 123.123123;
     let rowIndex = Number(document.querySelector('tbody').lastElementChild.firstElementChild.textContent) + 1;
-    buildTrackRow(newTrackData, rowIndex);
+    newTrackData.duration = 123.123123;
+    postNewTrackToDB(newTrackData)
+      .then(parsed => {
+        newTrackData.id = parsed.id;
+      })
+      .then(() => buildTrackRow(newTrackData, rowIndex))
+      .catch(err => alert(err.message));
   }
 });
+
+const handlePlaylistListAreaClick = event => {
+  if (event.target.classList.contains('delete')) {
+    deletePlaylistFromDB(event.target.parentElement.getAttribute('data-id'))
+      .then(() => event.target.parentElement.remove())
+      .catch(err => alert(err.message));
+  }
+}
+
+document.querySelector('ul').addEventListener('click', handlePlaylistListAreaClick);
+
+const handleTrackListAreaClick = event => {
+  if (event.target.classList.contains('delete')) event.target.parentElement.remove();
+}
+
+document.querySelector('tbody').addEventListener('click', handleTrackListAreaClick);

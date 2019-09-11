@@ -48,15 +48,16 @@ const buildTrackRow = (trackData, rowIndex) => {
 }
 
 const buildTracklist = tracks => {
-  tracks.forEach((track, index) => buildTrackRow(track, index));
+  tracks.forEach((track, index) => buildTrackRow(track, index + 1));
 }
 
-const displayArtwork = () => {
-
+const displayArtwork = trackUrl => {
+  document.querySelector('.playing').setAttribute('src', 'music-placeholder.png');
 }
 
-const displayCurrentlyPlaying = () => {
-
+const displayCurrentlyPlaying = (title, artist) => {
+  document.querySelector('.title').textContent = title;
+  document.querySelector('.artist').textContent = artist;
 }
 
 noUiSlider.create(progressSlider, {
@@ -114,23 +115,15 @@ getAllPlaylistsFromDB()
   .catch(err => alert(err.message));
 
 getAllTracksFromDB()
+  .then(result => {
+    displayCurrentlyPlaying(result[0].title, result[0].artist);
+    return result;
+  })
+  .then(result => {
+    displayArtwork(result[0]);
+    return result;
+  })
   .then(buildTracklist)
   .catch(err => alert(err.message));
-
-const playlistListArea = document.querySelector('ul');
-
-const handlePlaylistListAreaClick = event => {
-  if (event.target.classList.contains('delete')) event.target.parentElement.remove();
-}
-
-playlistListArea.addEventListener('click', handlePlaylistListAreaClick);
-
-const trackListArea = document.querySelector('tbody');
-
-const handleTrackListAreaClick = event => {
-  if (event.target.classList.contains('delete')) event.target.parentElement.remove();
-}
-
-trackListArea.addEventListener('click', handleTrackListAreaClick);
 
 window.addEventListener('load', updateProgressSliderOnNewTrack);
