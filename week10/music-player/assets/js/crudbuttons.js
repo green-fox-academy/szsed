@@ -2,12 +2,20 @@ starButton.addEventListener('click', () => {
   let currentTrackId = currentSongDisplay.getAttribute('data-id');
   if (currentTrackId) {
     if (starButton.getAttribute('src') === 'stargray.svg') {
-      updateTrackWithPlaylistInDB(currentTrackId, 1)
-        .then(() => starButton.setAttribute('src', 'starlightblue.svg'));
+      return updateTrackWithPlaylistInDB(currentTrackId, 1)
+        .then(result => {
+          starButton.setAttribute('src', 'starlightblue.svg');
+          console.log(result);
+          return result;
+        });
     }
     else {
-      updateTrackWithPlaylistInDB(currentTrackId, 0)
-        .then(() => starButton.setAttribute('src', 'stargray.svg'));
+      return updateTrackWithPlaylistInDB(currentTrackId, 0)
+        .then(result => {
+          starButton.setAttribute('src', 'stargray.svg');
+          console.log(result);
+          return result;
+        });
     }
   }
 });
@@ -83,27 +91,44 @@ const handlePlaylistListAreaClick = event => {
 
 document.querySelector('ul').addEventListener('click', handlePlaylistListAreaClick);
 
+const reindexTracklist = () => {
+  Array.from(currentPlaylistDisplay.children).forEach((child, index) => child.firstElementChild.textContent = index + 1);
+}
+
+const handleCurrentTrackRemoval = () => {
+  if (currentSongDisplay.getAttribute('data-id') === trackElement.getAttribute('data-id')) {
+    audio.setAttribute('src', '#');
+    audio.pause();
+    playNext();
+  }
+}
+
 const deleteTrack = trackElement => {
   if (currentPlaylistDisplay.getAttribute('data-id') == 0) {
     if (window.confirm('Are you sure you want to remove this track from the database?')) {
       deleteTrackFromDB(trackElement.getAttribute('data-id'))
         .then(() => {
-          if (currentSongDisplay.getAttribute('data-id') === trackElement.getAttribute('data-id')) {
-            audio.setAttribute('src', '#');
-            audio.pause();
-            playNext();
-          }
+          handleCurrentTrackRemoval();
+          trackElement.remove();
+          reindexTracklist();
         })
-        .then(() => trackElement.remove())
         .catch(err => alert(err.message));
     }
   } else if (currentPlaylistDisplay.getAttribute('data-id') == 1) {
-    starButton.click();
-    trackElement.remove();
+    starButton.click()
+      .then(() => {
+        handleCurrentTrackRemoval();
+        trackElement.remove();
+        reindexTracklist();
+      })
+      .catch(err => alert(err.message));
   }
   else {
     updateTrackWithPlaylistInDB(trackElement.getAttribute('data-id'), 0)
-      .then(() => trackElement.remove())
+      .then(() => {
+        trackElement.remove();
+        reindexTracklist();
+      })
       .catch(err => alert(err.message));
   }
 }
