@@ -55,48 +55,68 @@ addTrackToPlaylistButton.addEventListener('click', () => {
   }
 });
 
+const deletePlaylist = playlistElement => {
+  deletePlaylistFromDB(playlistElement.getAttribute('data-id'))
+    .then(() => playlistElement.remove())
+    .catch(err => alert(err.message));
+}
+
+const changePlaylist = playlistElement => {
+  let clickedListId = playlistElement.getAttribute('data-id');
+  ((clickedListId == 0) ? getAllTracksFromDB() : getTracksByPlaylistFromDB(clickedListId))
+    .then(result => {
+      buildTracklist(result);
+      currentPlaylistDisplay.setAttribute('data-id', clickedListId);
+      if (result[0]) displayCurrentlyPlaying(result[0]);
+    })
+    .catch(err => alert(err.message));
+}
+
+
 const handlePlaylistListAreaClick = event => {
   if (event.target.classList.contains('delete')) {
-    deletePlaylistFromDB(event.target.parentElement.getAttribute('data-id'))
-      .then(() => event.target.parentElement.remove())
-      .catch(err => alert(err.message));
+    deletePlaylist(event.target.parentElement);
   } else {
-    let clickedListId = event.target.getAttribute('data-id');
-    ((clickedListId == 0) ? getAllTracksFromDB() : getTracksByPlaylistFromDB(clickedListId))
-      .then(result => {
-        buildTracklist(result);
-        currentPlaylistDisplay.setAttribute('data-id', clickedListId);
-        if (result[0]) displayCurrentlyPlaying(result[0]);
-      })
-      .catch(err => alert(err.message));
+    changePlaylist(event.target);
   }
 }
 
 document.querySelector('ul').addEventListener('click', handlePlaylistListAreaClick);
 
-const handleTrackListAreaClick = event => {
-  if (event.target.classList.contains('delete')) {
-    if (currentPlaylistDisplay.getAttribute('data-id') == 0) {
-      if (window.confirm('Are you sure you want to remove this track from the database?')) {
-        deleteTrackFromDB(event.target.parentElement.getAttribute('data-id'))
-          .then(() => {
-            if (currentSongDisplay.getAttribute('data-id') === event.target.parentElement.getAttribute('data-id')) {
-              audio.setAttribute('src', '#');
-              audio.pause();
-            }
-          })
-          .then(() => event.target.parentElement.remove())
-          .catch(err => alert(err.message));
-      }
-    } else if (currentPlaylistDisplay.getAttribute('data-id') == 1) {
-      starButton.click();
-      event.target.parentElement.remove();
-    }
-    else {
-      updateTrackWithPlaylistInDB(event.target.parentElement.getAttribute('data-id'), 0)
-        .then(() => event.target.parentElement.remove())
+const deleteTrack = trackElement => {
+  if (currentPlaylistDisplay.getAttribute('data-id') == 0) {
+    if (window.confirm('Are you sure you want to remove this track from the database?')) {
+      deleteTrackFromDB(trackElement.getAttribute('data-id'))
+        .then(() => {
+          if (currentSongDisplay.getAttribute('data-id') === trackElement.getAttribute('data-id')) {
+            audio.setAttribute('src', '#');
+            audio.pause();
+            playNext();
+          }
+        })
+        .then(() => trackElement.remove())
         .catch(err => alert(err.message));
     }
+  } else if (currentPlaylistDisplay.getAttribute('data-id') == 1) {
+    starButton.click();
+    trackElement.remove();
+  }
+  else {
+    updateTrackWithPlaylistInDB(trackElement.getAttribute('data-id'), 0)
+      .then(() => trackElement.remove())
+      .catch(err => alert(err.message));
+  }
+}
+
+const changeTrack = trackElement => {
+
+}
+
+const handleTrackListAreaClick = event => {
+  if (event.target.classList.contains('delete')) {
+    deleteTrack(event.target.parentElement);
+  } else {
+    changeTrack(event.target);
   }
 }
 
