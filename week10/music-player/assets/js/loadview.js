@@ -3,9 +3,8 @@ const duration = document.querySelector('.duration');
 const remaining = document.querySelector('.remaining');
 const progressSlider = document.querySelector('.progress.slider');
 const volumeSlider = document.querySelector('.volume.slider');
-
-let activePlaylistId = 0;
-let activeTrackId = 0;
+const currentSongDisplay = document.querySelector('thead');
+const currentPlaylistDisplay = document.querySelector('tbody');
 
 const buildDeleteButton = newElement => {
   let deleteButton = document.createElement('img');
@@ -44,20 +43,19 @@ const buildTrackRow = (trackData, rowIndex) => {
   newDurationField.textContent = formatToMinutes(trackData.duration);
   newTableRow.appendChild(newDurationField);
   buildDeleteButton(newTableRow);
-  document.querySelector('tbody').appendChild(newTableRow);
+  currentPlaylistDisplay.appendChild(newTableRow);
 }
 
 const buildTracklist = tracks => {
+  Array.from(currentPlaylistDisplay.children).forEach(child => child.remove());
   tracks.forEach((track, index) => buildTrackRow(track, index + 1));
 }
 
-const displayArtwork = trackUrl => {
+const displayCurrentlyPlaying = trackData => {
+  document.querySelector('.title').textContent = trackData.title;
+  document.querySelector('.artist').textContent = trackData.artist;
+  currentSongDisplay.setAttribute('data-id', trackData.id);
   document.querySelector('.playing').setAttribute('src', 'music-placeholder.png');
-}
-
-const displayCurrentlyPlaying = (title, artist) => {
-  document.querySelector('.title').textContent = title;
-  document.querySelector('.artist').textContent = artist;
 }
 
 noUiSlider.create(progressSlider, {
@@ -112,18 +110,17 @@ audio.addEventListener('timeupdate', () => {
 
 getAllPlaylistsFromDB()
   .then(buildPlaylistList)
+  .then(() => {
+    currentPlaylistDisplay.setAttribute('data-id', 0);
+  })
   .catch(err => alert(err.message));
 
 getAllTracksFromDB()
   .then(result => {
-    displayCurrentlyPlaying(result[0].title, result[0].artist);
-    return result;
+    buildTracklist(result);
+    displayCurrentlyPlaying(result[0]);
+    audio.setAttribute('src', result[0].url)
   })
-  .then(result => {
-    displayArtwork(result[0]);
-    return result;
-  })
-  .then(buildTracklist)
   .catch(err => alert(err.message));
 
 window.addEventListener('load', updateProgressSliderOnNewTrack);
