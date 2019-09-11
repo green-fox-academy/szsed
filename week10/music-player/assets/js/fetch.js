@@ -65,6 +65,17 @@ const removePlaylistFromTrackInDB = (trackId, playlistId) => {
     .then(parseResultAndHandleError);
 }
 
+const postNewTrackToDB = trackData => {
+  return fetch('/playlist-tracks', {
+    method: 'POST',
+    body: JSON.stringify(trackData),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(parseResultAndHandleError);
+}
+
 const deleteTrackFromDB = trackId => {
   return fetch(`/playlist-tracks/${trackId}`, {
     method: 'DELETE'

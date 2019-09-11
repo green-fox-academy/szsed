@@ -25,7 +25,6 @@ app.post('/playlists', (req, res) => {
         res.status(500);
       } else {
         console.log('Data added to DB.');
-        console.log(rows);
         res.send({ id: rows.insertId });
       }
     });
@@ -135,6 +134,25 @@ app.delete('/playlist-tracks/:playlist_id/:track_id', (req, res) => {
     res.send({ error: 'Invalid playlist id' });
   }
 });
+
+app.post('/playlist-tracks', (req, res) => {
+  if (req.body.title && req.body.artist && !isNaN(Number.parseInt(req.body.duration, 10)) && req.body.url) {
+    conn.query('insert into tracks (title, artist, duration, url) values (?);',
+      [req.body.title, req.body.artist, req.body.duration, req.body.url], function (err, rows) {
+        if (err) {
+          console.log(err.message);
+          res.status(500);
+        } else {
+          console.log('Data added to DB.');
+          res.send({ id: rows.insertId });
+        }
+      });
+  } else {
+    res.status(400);
+    res.send({ error: 'Missing track data' });
+  }
+});
+
 
 app.delete('/playlist-tracks/:track_id', (req, res) => {
   if (!isNaN(Number.parseInt(req.params.track_id, 10))) {
