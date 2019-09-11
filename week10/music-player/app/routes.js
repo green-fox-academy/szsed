@@ -35,9 +35,9 @@ app.post('/playlists', (req, res) => {
   }
 });
 
-app.get('/playlists/:id', (req, res) => {
+app.get('/playlists/:playlist_id', (req, res) => {
   if (!isNaN(Number.parseInt(req.params.id, 10))) {
-    conn.query('select * from playlists where id = ?;', req.params.id, function (err, playlist) {
+    conn.query('select * from playlists where id = ?;', req.params.playlist_id, function (err, playlist) {
       if (err) {
         console.log(err.message);
         res.sendStatus(500);
@@ -57,9 +57,9 @@ app.get('/playlists/:id', (req, res) => {
   }
 });
 
-app.delete('/playlists/:id', (req, res) => {
+app.delete('/playlists/:playlist_id', (req, res) => {
   if (!isNaN(Number.parseInt(req.params.playlist_id, 10))) {
-    conn.query('delete from playlists where id = ? and sys = 0;', req.params.id, function (err, playlist) {
+    conn.query('delete from playlists where id = ? and sys = 0;', req.params.playlist_id, function (err, playlist) {
       if (err) {
         console.log(err.message);
         res.sendStatus(500);
@@ -103,7 +103,7 @@ app.get('/playlist-tracks/:playlist_id', (req, res) => {
   }
 });
 
-app.delete('/playlist-tracks/:playlist_id/:track_id', (req, res) => {
+app.post('/playlist-tracks/:playlist_id/:track_id', (req, res) => {
   if (!isNaN(Number.parseInt(req.params.playlist_id, 10)) && !isNaN(Number.parseInt(req.params.track_id, 10))) {
     conn.query('update tracks set playlist_id = ? where id = ?;', [req.params.playlist_id, req.params.track_id], function (err, tracks) {
       if (err) {
@@ -127,7 +127,7 @@ app.delete('/playlist-tracks/:playlist_id/:track_id', (req, res) => {
         console.log(err.message);
         res.status(500);
       } else {
-        console.log('Data received from DB.');
+        console.log('Data deleted from DB.');
         res.send(tracks);
       }
     });
