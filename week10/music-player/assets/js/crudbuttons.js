@@ -10,25 +10,14 @@ starButton.addEventListener('click', () => {
 
 const addPlaylistButton = document.querySelector('.addplaylist');
 
-const postNewPlaylistToDB = newPlaylistName => {
-  fetch('/playlists', {
-    method: 'POST',
-    body: JSON.stringify({ name: newPlaylistName }),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then(result => result.json().id)
-    .catch(err => console.log(err.message));
-}
-
 addPlaylistButton.addEventListener('click', () => {
   let newPlaylistName = window.prompt('Enter name of new playlist:');
   if (newPlaylistName) postNewPlaylistToDB(newPlaylistName)
-    .then(id => buildPlaylistRow({
+    .then(parsed => buildPlaylistRow({
       name: newPlaylistName,
-      id: id
-    }));
+      id: parsed.id
+    }))
+    .catch(err => alert(err.message));
 });
 
 const addTrackButton = document.querySelector('.addtrack');

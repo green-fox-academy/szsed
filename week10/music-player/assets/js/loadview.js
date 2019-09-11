@@ -1,5 +1,3 @@
-'use strict';
-
 const audio = document.querySelector('audio');
 const duration = document.querySelector('.duration');
 const remaining = document.querySelector('.remaining');
@@ -13,6 +11,7 @@ const buildDeleteButton = newElement => {
   let deleteButton = document.createElement('img');
   deleteButton.setAttribute('src', 'cross.svg');
   deleteButton.setAttribute('alt', '#');
+  deleteButton.classList.add('delete');
   newElement.appendChild(deleteButton);
 }
 
@@ -73,10 +72,10 @@ const updateProgressSliderOnNewTrack = () => {
   progressSlider.noUiSlider.updateOptions({
     range: {
       min: 0,
-      max: audio.duration
+      max: 100
     }
   });
-  progressSlider.noUiSlider.set(audio.currentTime);
+  progressSlider.noUiSlider.set(0);
 }
 
 noUiSlider.create(volumeSlider, {
@@ -110,17 +109,24 @@ audio.addEventListener('timeupdate', () => {
   displayRemaining();
 });
 
-fetch('/playlists')
-  .then(result => result.json())
+getAllPlaylistsFromDB()
   .then(buildPlaylistList)
   .catch(err => alert(err.message));
 
-const trackListArea = document.querySelector('tbody');
+const playlistListArea = document.querySelector('ul');
 
-const handleTrackListClick = event => {
-  if (event.target.tagName === 'IMG') event.target.parentElement.remove();
+const handlePlaylistListAreaClick = event => {
+  if (event.target.classList.contains('delete')) event.target.parentElement.remove();
 }
 
-trackListArea.addEventListener('click', handleTrackListClick);
+playlistListArea.addEventListener('click', handlePlaylistListAreaClick);
+
+const trackListArea = document.querySelector('tbody');
+
+const handleTrackListAreaClick = event => {
+  if (event.target.classList.contains('delete')) event.target.parentElement.remove();
+}
+
+trackListArea.addEventListener('click', handleTrackListAreaClick);
 
 window.addEventListener('load', updateProgressSliderOnNewTrack);

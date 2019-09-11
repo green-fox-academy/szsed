@@ -65,7 +65,7 @@ app.delete('/playlists/:playlist_id', (req, res) => {
         res.sendStatus(500);
       } else {
         console.log('Data deleted from DB.');
-        res.send('ok');
+        res.sendStatus(200);
       }
     });
   } else {
@@ -88,7 +88,7 @@ app.get('/playlist-tracks', (req, res) => {
 
 app.get('/playlist-tracks/:playlist_id', (req, res) => {
   if (!isNaN(Number.parseInt(req.params.playlist_id, 10))) {
-    conn.query('select * from tracks;', function (err, tracks) {
+    conn.query('select * from tracks where playlist_id = ?;', req.params.playlist_id, function (err, tracks) {
       if (err) {
         console.log(err.message);
         res.sendStatus(500);
@@ -108,15 +108,15 @@ app.post('/playlist-tracks/:playlist_id/:track_id', (req, res) => {
     conn.query('update tracks set playlist_id = ? where id = ?;', [req.params.playlist_id, req.params.track_id], function (err, tracks) {
       if (err) {
         console.log(err.message);
-        res.status(500);
+        res.sendStatus(500);
       } else {
-        console.log('Data received from DB.');
-        res.send(tracks);
+        console.log('DB updated.');
+        res.sendStatus(200);
       }
     });
   } else {
     res.status(400);
-    res.send({ error: 'Invalid playlist id' });
+    res.send({ error: 'Invalid playlist or track id' });
   }
 });
 
@@ -125,7 +125,7 @@ app.delete('/playlist-tracks/:playlist_id/:track_id', (req, res) => {
     conn.query('update tracks set playlist_id = null where id = ?;', req.params.track_id, function (err, tracks) {
       if (err) {
         console.log(err.message);
-        res.status(500);
+        res.sendStatus(500);
       } else {
         console.log('Data deleted from DB.');
         res.send(tracks);
