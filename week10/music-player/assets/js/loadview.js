@@ -5,6 +5,7 @@ const progressSlider = document.querySelector('.progress.slider');
 const volumeSlider = document.querySelector('.volume.slider');
 const currentSongDisplay = document.querySelector('thead');
 const currentPlaylistDisplay = document.querySelector('tbody');
+const starButton = document.querySelector('.star');
 
 const buildDeleteButton = newElement => {
   let deleteButton = document.createElement('img');
@@ -56,6 +57,7 @@ const displayCurrentlyPlaying = trackData => {
   document.querySelector('.artist').textContent = trackData.artist;
   currentSongDisplay.setAttribute('data-id', trackData.id);
   document.querySelector('.playing').setAttribute('src', 'music-placeholder.png');
+  if (trackData.playlist_id == 1) starButton.setAttribute('src', 'starlightblue.svg');
 }
 
 noUiSlider.create(progressSlider, {

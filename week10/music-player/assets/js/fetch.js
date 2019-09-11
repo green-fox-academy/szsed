@@ -9,7 +9,7 @@ const parseResultAndHandleError = result => {
         return parsed;
       }
     })
-    .catch(err => console.log(err));
+    .catch(err => alert(err.message));
 }
 
 const getAllPlaylistsFromDB = () => {

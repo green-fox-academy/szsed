@@ -17,11 +17,27 @@ const togglePlayPause = () => {
 
 
 const playNext = () => {
-
+  if (isShuffling) {
+    let trackRowElements = document.querySelectorAll('tr');
+    let nextIndex = Math.floor(Math.random(trackRowElements.length));
+    trackRowElements[nextIndex].click();
+    console.log('hello');
+  } else {
+    let currentTrackRowElement = document.querySelector(`tr[data-id="${currentSongDisplay.getAttribute('data-id')}"]`);
+    if (currentTrackRowElement.nextElementSibling) currentTrackRowElement.nextElementSibling.click();
+  }
 }
 
 const playPrevious = () => {
-
+  if (isShuffling) {
+    let trackRowElements = document.querySelectorAll('tr');
+    let nextIndex = Math.floor(Math.random(trackRowElements.length));
+    trackRowElements[nextIndex].click();
+    console.log('hello');
+  } else {
+    let currentTrackRowElement = document.querySelector(`tr[data-id="${currentSongDisplay.getAttribute('data-id')}"]`);
+    if (currentTrackRowElement.previousElementSibling) currentTrackRowElement.previousElementSibling.click();
+  }
 }
 
 const toggleShuffle = () => {
