@@ -113,6 +113,10 @@ getAllPlaylistsFromDB()
   .then(buildPlaylistList)
   .catch(err => alert(err.message));
 
+getAllTracksFromDB()
+  .then(buildTracklist)
+  .catch(err => alert(err.message));
+
 const playlistListArea = document.querySelector('ul');
 
 const handlePlaylistListAreaClick = event => {

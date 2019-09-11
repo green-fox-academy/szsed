@@ -94,7 +94,7 @@ app.get('/playlist-tracks/:playlist_id', (req, res) => {
         res.sendStatus(500);
       } else {
         console.log('Data received from DB.');
-        res.send(tracks);
+        res.sendStatus(200);
       }
     });
   } else {
@@ -128,11 +128,28 @@ app.delete('/playlist-tracks/:playlist_id/:track_id', (req, res) => {
         res.sendStatus(500);
       } else {
         console.log('Data deleted from DB.');
-        res.send(tracks);
+        res.sendStatus(200);
       }
     });
   } else {
     res.send({ error: 'Invalid playlist id' });
+  }
+});
+
+app.delete('/playlist-tracks/:track_id', (req, res) => {
+  if (!isNaN(Number.parseInt(req.params.track_id, 10))) {
+    conn.query('delete from tracks where id = ?;', req.params.track_id, function (err, tracks) {
+      if (err) {
+        console.log(err.message);
+        res.sendStatus(500);
+      } else {
+        console.log('Data deleted from DB.');
+        res.sendStatus(200);
+      }
+    });
+  } else {
+    res.status(400);
+    res.send({ error: 'Invalid track id' });
   }
 });
 

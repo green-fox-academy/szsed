@@ -64,3 +64,10 @@ const removePlaylistFromTrackInDB = (trackId, playlistId) => {
   })
     .then(parseResultAndHandleError);
 }
+
+const deleteTrackFromDB = trackId => {
+  return fetch(`/playlist-tracks/${trackId}`, {
+    method: 'DELETE'
+  })
+    .then(parseResultAndHandleError);
+}
