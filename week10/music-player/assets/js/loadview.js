@@ -1,3 +1,5 @@
+'use strict';
+
 const audio = document.querySelector('audio');
 const duration = document.querySelector('.duration');
 const remaining = document.querySelector('.remaining');
@@ -38,7 +40,7 @@ const buildTrackRow = (trackData, rowIndex) => {
   newIndexField.textContent = rowIndex;
   newTableRow.appendChild(newIndexField);
   let newTitleField = document.createElement('td');
-  newTitleField.textContent = trackData.title;
+  newTitleField.textContent = `${trackData.artist} - ${trackData.title}`;
   newTableRow.appendChild(newTitleField);
   let newDurationField = document.createElement('td');
   newDurationField.textContent = formatToMinutes(trackData.duration);
@@ -57,7 +59,7 @@ const displayCurrentlyPlaying = trackData => {
   document.querySelector('.artist').textContent = trackData.artist;
   currentSongDisplay.setAttribute('data-id', trackData.id);
   document.querySelector('.playing').setAttribute('src', 'music-placeholder.png');
-  if (trackData.playlist_id == 1) starButton.setAttribute('src', 'starlightblue.svg');
+  starButton.setAttribute('src', trackData.playlist_id == 1 ? 'starlightblue.svg' : 'stargray.svg');
 }
 
 noUiSlider.create(progressSlider, {

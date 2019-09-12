@@ -38,17 +38,26 @@ addPlaylistButton.addEventListener('click', () => {
 
 const addTrackButton = document.querySelector('.addtrack');
 
+const getAudioDuration = url => {
+  return new Promise((resolve) => {
+    const tempAudio = new Audio();
+    tempAudio.addEventListener('loadedmetadata', () => resolve(tempAudio.duration));
+    tempAudio.setAttribute('src', url);
+  });
+}
+
 addTrackButton.addEventListener('click', () => {
   const currentPlaylistId = currentPlaylistDisplay.getAttribute('data-id');
-  const newTrackData = {}
+  const newTrackData = {};
   newTrackData.title = window.prompt('Enter title of new track:');
   newTrackData.artist = window.prompt('Enter name of artist:');
   newTrackData.url = window.prompt('Enter URL:');
   if (newTrackData.title && newTrackData.artist && newTrackData.url) {
     const rowIndex = currentPlaylistDisplay.firstElementChild ?
       Number(currentPlaylistDisplay.lastElementChild.firstElementChild.textContent) + 1 : 1;
-    newTrackData.duration = 123.123123;
-    postNewTrackToDB(newTrackData)
+    getAudioDuration(newTrackData.url)
+      .then(duration => newTrackData.duration = duration)
+      .then(() => postNewTrackToDB(newTrackData))
       .then(parsed => {
         newTrackData.id = parsed.id;
       })
@@ -113,8 +122,8 @@ const reindexTracklist = () => {
 
 const handleCurrentTrackRemoval = trackElement => {
   if (currentSongDisplay.getAttribute('data-id') === trackElement.getAttribute('data-id')) {
+    if (!audio.paused) togglePlayPause();
     audio.setAttribute('src', '#');
-    audio.pause();
     playNext();
   }
 }
