@@ -1,0 +1,1 @@
+SELECT name from employee LEFT JOIN devices ON employee.id=devices.employee_ID WHERE type = "mobile" ORDER BY name DESC;
