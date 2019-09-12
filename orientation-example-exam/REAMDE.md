@@ -45,4 +45,4 @@ Given the following table named `applicants`.
 Write an SQL query to select the name of the 5 youngest applicants from the
 Czech Republic.
 
-SELECT name FROM applicants ORDER BY age ASC LIMIT 5;
+SELECT name FROM applicants WHERE country = "Czech Republic" ORDER BY age ASC LIMIT 5;
