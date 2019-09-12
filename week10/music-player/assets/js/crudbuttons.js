@@ -1,20 +1,24 @@
 starButton.addEventListener('click', () => {
-  let currentTrackId = currentSongDisplay.getAttribute('data-id');
+  const currentTrackId = currentSongDisplay.getAttribute('data-id');
+  const currentTrackRowElement = document.querySelector(`tr[data-id="${currentTrackId}"]`);
   if (currentTrackId) {
     if (starButton.getAttribute('src') === 'stargray.svg') {
-      return updateTrackWithPlaylistInDB(currentTrackId, 1)
-        .then(result => {
+      updateTrackWithPlaylistInDB(currentTrackId, 1)
+        .then(() => {
           starButton.setAttribute('src', 'starlightblue.svg');
-          console.log(result);
-          return result;
+          if (currentPlaylistDisplay.getAttribute('data-id') == 1) {
+            document.querySelector('li[data-id="1"]').click();
+          }
         });
     }
     else {
-      return updateTrackWithPlaylistInDB(currentTrackId, 0)
-        .then(result => {
+      updateTrackWithPlaylistInDB(currentTrackId, 0)
+        .then(() => {
           starButton.setAttribute('src', 'stargray.svg');
-          console.log(result);
-          return result;
+          if (currentPlaylistDisplay.getAttribute('data-id') == 1) {
+            currentTrackRowElement.remove();
+            reindexTracklist();
+          }
         });
     }
   }
@@ -23,7 +27,7 @@ starButton.addEventListener('click', () => {
 const addPlaylistButton = document.querySelector('.addplaylist');
 
 addPlaylistButton.addEventListener('click', () => {
-  let newPlaylistName = window.prompt('Enter name of new playlist:');
+  const newPlaylistName = window.prompt('Enter name of new playlist:');
   if (newPlaylistName) postNewPlaylistToDB(newPlaylistName)
     .then(parsed => buildPlaylistRow({
       name: newPlaylistName,
@@ -35,12 +39,13 @@ addPlaylistButton.addEventListener('click', () => {
 const addTrackButton = document.querySelector('.addtrack');
 
 addTrackButton.addEventListener('click', () => {
-  let newTrackData = {}
+  const currentPlaylistId = currentPlaylistDisplay.getAttribute('data-id');
+  const newTrackData = {}
   newTrackData.title = window.prompt('Enter title of new track:');
   newTrackData.artist = window.prompt('Enter name of artist:');
   newTrackData.url = window.prompt('Enter URL:');
   if (newTrackData.title && newTrackData.artist && newTrackData.url) {
-    let rowIndex = currentPlaylistDisplay.firstElementChild ?
+    const rowIndex = currentPlaylistDisplay.firstElementChild ?
       Number(currentPlaylistDisplay.lastElementChild.firstElementChild.textContent) + 1 : 1;
     newTrackData.duration = 123.123123;
     postNewTrackToDB(newTrackData)
@@ -48,6 +53,9 @@ addTrackButton.addEventListener('click', () => {
         newTrackData.id = parsed.id;
       })
       .then(() => buildTrackRow(newTrackData, rowIndex))
+      .then(() => {
+        if (currentPlaylistId !== 0) updateTrackWithPlaylistInDB(newTrackData.id, currentPlaylistId);
+      })
       .catch(err => alert(err.message));
   }
 });
@@ -55,8 +63,8 @@ addTrackButton.addEventListener('click', () => {
 const addTrackToPlaylistButton = document.querySelector('.addtoplaylist');
 
 addTrackToPlaylistButton.addEventListener('click', () => {
-  let currentTrackId = currentSongDisplay.getAttribute('data-id');
-  let playlistId = window.prompt('Enter playlist id:');
+  const currentTrackId = currentSongDisplay.getAttribute('data-id');
+  const playlistId = window.prompt('Enter playlist id:');
 
   if (currentTrackId && playlistId) {
     updateTrackWithPlaylistInDB(currentTrackId, playlistId);
@@ -70,12 +78,20 @@ const deletePlaylist = playlistElement => {
 }
 
 const changePlaylist = playlistElement => {
-  let clickedListId = playlistElement.getAttribute('data-id');
+  const clickedListId = playlistElement.getAttribute('data-id');
   ((clickedListId == 0) ? getAllTracksFromDB() : getTracksByPlaylistFromDB(clickedListId))
     .then(result => {
       buildTracklist(result);
       currentPlaylistDisplay.setAttribute('data-id', clickedListId);
-      if (result[0]) displayCurrentlyPlaying(result[0]);
+      if (result[0]) {
+        displayCurrentlyPlaying(result[0]);
+        if (!audio.paused) {
+          audio.setAttribute('src', result[0].url);
+          audio.play();
+        } else {
+          audio.setAttribute('src', result[0].url);
+        }
+      }
     })
     .catch(err => alert(err.message));
 }
@@ -95,7 +111,7 @@ const reindexTracklist = () => {
   Array.from(currentPlaylistDisplay.children).forEach((child, index) => child.firstElementChild.textContent = index + 1);
 }
 
-const handleCurrentTrackRemoval = () => {
+const handleCurrentTrackRemoval = trackElement => {
   if (currentSongDisplay.getAttribute('data-id') === trackElement.getAttribute('data-id')) {
     audio.setAttribute('src', '#');
     audio.pause();
@@ -108,20 +124,14 @@ const deleteTrack = trackElement => {
     if (window.confirm('Are you sure you want to remove this track from the database?')) {
       deleteTrackFromDB(trackElement.getAttribute('data-id'))
         .then(() => {
-          handleCurrentTrackRemoval();
+          handleCurrentTrackRemoval(trackElement);
           trackElement.remove();
           reindexTracklist();
         })
         .catch(err => alert(err.message));
     }
   } else if (currentPlaylistDisplay.getAttribute('data-id') == 1) {
-    starButton.click()
-      .then(() => {
-        handleCurrentTrackRemoval();
-        trackElement.remove();
-        reindexTracklist();
-      })
-      .catch(err => alert(err.message));
+    starButton.click();
   }
   else {
     updateTrackWithPlaylistInDB(trackElement.getAttribute('data-id'), 0)
@@ -134,7 +144,16 @@ const deleteTrack = trackElement => {
 }
 
 const changeTrack = trackElement => {
-
+  const clickedTrackId = (trackElement.tagName === 'TR') ?
+    trackElement.getAttribute('data-id') : trackElement.parentElement.getAttribute('data-id');
+  getTrackFromDB(clickedTrackId)
+    .then(result => {
+      const isPlaying = !audio.paused;
+      audio.setAttribute('src', result[0].url);
+      if (isPlaying) audio.play();
+      displayCurrentlyPlaying(result[0]);
+    })
+    .catch(err => alert(err.message));
 }
 
 const handleTrackListAreaClick = event => {

@@ -81,3 +81,8 @@ const deleteTrackFromDB = trackId => {
   })
     .then(parseResultAndHandleError);
 }
+
+const getTrackFromDB = trackId => {
+  return fetch(`/tracks/${trackId}`)
+    .then(parseResultAndHandleError);
+}

@@ -37,13 +37,12 @@ app.post('/playlists', (req, res) => {
 });
 
 app.get('/playlists/:playlist_id', (req, res) => {
-  if (!isNaN(Number.parseInt(req.params.id, 10))) {
+  if (!isNaN(Number.parseInt(req.params.playlist_id, 10))) {
     conn.query('select * from playlists where id = ?;', req.params.playlist_id, function (err, playlist) {
       if (err) {
         console.log(err.message);
         res.status(500);
         res.send({ error: 'SQL error' });
-
       } else {
         console.log('Data received from DB.');
         if (playlist.length === 1) {
@@ -173,6 +172,29 @@ app.delete('/playlist-tracks/:track_id', (req, res) => {
       } else {
         console.log('Data deleted from DB.');
         res.send({ success: 'deleted' });
+      }
+    });
+  } else {
+    res.status(400);
+    res.send({ error: 'Invalid track id' });
+  }
+});
+
+app.get('/tracks/:track_id', (req, res) => {
+  if (!isNaN(Number.parseInt(req.params.track_id, 10))) {
+    conn.query('select * from tracks where id = ?;', req.params.track_id, function (err, track) {
+      if (err) {
+        console.log(err.message);
+        res.status(500);
+        res.send({ error: 'SQL error' });
+      } else {
+        console.log('Data received from DB.');
+        if (track.length === 1) {
+          res.send(track);
+        } else {
+          res.status(400);
+          res.send({ error: 'Invalid track id' });
+        }
       }
     });
   } else {
