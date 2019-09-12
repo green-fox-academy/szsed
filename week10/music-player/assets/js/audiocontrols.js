@@ -15,13 +15,21 @@ const togglePlayPause = () => {
   }
 }
 
+const playRandom = () => {
+  const trackRowElements = document.querySelectorAll('tbody>tr');
+  const nextIndex = Math.floor(Math.random() * trackRowElements.length);
+  const randomizedTrackId = trackRowElements[nextIndex].getAttribute('data-id');
+  const currentlyPlayingId = currentSongDisplay.getAttribute('data-id');
+  if (randomizedTrackId !== currentlyPlayingId && trackRowElements.length >= 2) {
+    trackRowElements[nextIndex].click();
+  } else {
+    playRandom();
+  }
+}
 
 const playNext = () => {
   if (isShuffling) {
-    let trackRowElements = document.querySelectorAll('tr');
-    let nextIndex = Math.floor(Math.random(trackRowElements.length));
-    trackRowElements[nextIndex].click();
-    console.log('hello');
+    playRandom();
   } else {
     let currentTrackRowElement = document.querySelector(`tr[data-id="${currentSongDisplay.getAttribute('data-id')}"]`);
     if (currentTrackRowElement.nextElementSibling) currentTrackRowElement.nextElementSibling.click();
@@ -30,10 +38,7 @@ const playNext = () => {
 
 const playPrevious = () => {
   if (isShuffling) {
-    let trackRowElements = document.querySelectorAll('tr');
-    let nextIndex = Math.floor(Math.random(trackRowElements.length));
-    trackRowElements[nextIndex].click();
-    console.log('hello');
+    playRandom();
   } else {
     let currentTrackRowElement = document.querySelector(`tr[data-id="${currentSongDisplay.getAttribute('data-id')}"]`);
     if (currentTrackRowElement.previousElementSibling) currentTrackRowElement.previousElementSibling.click();
