@@ -49,9 +49,21 @@ const getAudioDuration = url => {
 addTrackButton.addEventListener('click', () => {
   const currentPlaylistId = currentPlaylistDisplay.getAttribute('data-id');
   const newTrackData = {};
-  newTrackData.title = window.prompt('Enter title of new track:');
-  newTrackData.artist = window.prompt('Enter name of artist:');
-  newTrackData.url = window.prompt('Enter URL:');
+  vex.dialog.open({
+    message: 'Enter information for new playlist entry:',
+    input: [
+      '<input name="title" type="text" placeholder="Title" required />',
+      '<input name="artist" type="text" placeholder="Artist" required />',
+      '<input name="url" type="text" placeholder="URL" required />'
+    ].join(''),
+    callback: userInput => {
+      if (userInput) {
+        newTrackData.title = userInput.title;
+        newTrackData.artist = userInput.artist;
+        newTrackData.url = userInput.url;
+      }
+    }
+  })
   if (newTrackData.title && newTrackData.artist && newTrackData.url) {
     const rowIndex = currentPlaylistDisplay.firstElementChild ?
       Number(currentPlaylistDisplay.lastElementChild.firstElementChild.textContent) + 1 : 1;
@@ -73,10 +85,33 @@ const addTrackToPlaylistButton = document.querySelector('.addtoplaylist');
 
 addTrackToPlaylistButton.addEventListener('click', () => {
   const currentTrackId = currentSongDisplay.getAttribute('data-id');
-  const playlistId = window.prompt('Enter playlist id:');
+  // const playlistId = window.prompt('Enter playlist id:');
+  let selectedPlaylistName = '';
+  const listOfUserDefinedPlaylists = Array.from(document.querySelectorAll('li'))
+    .filter(element => element.getAttribute('data-id') >= 2)
+    .map(element => element.textContent);
+  if (listOfUserDefinedPlaylists.length >= 1) {
+    let inputOptionsHTMLString = listOfUserDefinedPlaylists.reduce((acc, curr) => acc + `<option>${curr}</option>`, '');
+    vex.dialog.open({
+      message: 'Choose playlist to add track to:',
+      input:
+        `<select name="playlistname">${inputOptionsHTMLString}</select>`,
+      callback: userInput => {
+        if (userInput) {
+          selectedPlaylistName = userInput.playlistname;
 
-  if (currentTrackId && playlistId) {
-    updateTrackWithPlaylistInDB(currentTrackId, playlistId);
+          const playlistId = Array.from(document.querySelectorAll('li'))
+            .filter(element => element.textContent === selectedPlaylistName)[0]
+            .getAttribute('data-id');
+
+          if (currentTrackId && playlistId) {
+            updateTrackWithPlaylistInDB(currentTrackId, playlistId);
+          }
+        }
+      }
+    });
+
+
   }
 });
 
