@@ -61,31 +61,30 @@ addTrackButton.addEventListener('click', () => {
         newTrackData.title = userInput.title;
         newTrackData.artist = userInput.artist;
         newTrackData.url = userInput.url;
+        if (newTrackData.title && newTrackData.artist && newTrackData.url) {
+          const rowIndex = currentPlaylistDisplay.firstElementChild ?
+            Number(currentPlaylistDisplay.lastElementChild.firstElementChild.textContent) + 1 : 1;
+          getAudioDuration(newTrackData.url)
+            .then(duration => newTrackData.duration = duration)
+            .then(() => postNewTrackToDB(newTrackData))
+            .then(parsed => {
+              newTrackData.id = parsed.id;
+            })
+            .then(() => buildTrackRow(newTrackData, rowIndex))
+            .then(() => {
+              if (currentPlaylistId !== 0) updateTrackWithPlaylistInDB(newTrackData.id, currentPlaylistId);
+            })
+            .catch(err => alert(err.message));
+        }
       }
     }
-  })
-  if (newTrackData.title && newTrackData.artist && newTrackData.url) {
-    const rowIndex = currentPlaylistDisplay.firstElementChild ?
-      Number(currentPlaylistDisplay.lastElementChild.firstElementChild.textContent) + 1 : 1;
-    getAudioDuration(newTrackData.url)
-      .then(duration => newTrackData.duration = duration)
-      .then(() => postNewTrackToDB(newTrackData))
-      .then(parsed => {
-        newTrackData.id = parsed.id;
-      })
-      .then(() => buildTrackRow(newTrackData, rowIndex))
-      .then(() => {
-        if (currentPlaylistId !== 0) updateTrackWithPlaylistInDB(newTrackData.id, currentPlaylistId);
-      })
-      .catch(err => alert(err.message));
-  }
+  });
 });
 
 const addTrackToPlaylistButton = document.querySelector('.addtoplaylist');
 
 addTrackToPlaylistButton.addEventListener('click', () => {
   const currentTrackId = currentSongDisplay.getAttribute('data-id');
-  // const playlistId = window.prompt('Enter playlist id:');
   let selectedPlaylistName = '';
   const listOfUserDefinedPlaylists = Array.from(document.querySelectorAll('li'))
     .filter(element => element.getAttribute('data-id') >= 2)
