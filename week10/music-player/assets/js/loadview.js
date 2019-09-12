@@ -54,11 +54,25 @@ const buildTracklist = tracks => {
   tracks.forEach((track, index) => buildTrackRow(track, index + 1));
 }
 
+
+const displayArtistImage = artist => {
+  const lastfmAPIKey = 'ee125f318852fc7d1c2f4e21458a0035';
+  const url = `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist}&api_key=${lastfmAPIKey}&format=json`
+  console.log(url);
+  fetch(url)
+    .then(response => response.json())
+    .then(parsed => {
+      document.querySelector('.playing').setAttribute('src', parsed.artist.image[1]['#text'] || 'music-placeholder.png');
+    });
+}
+
 const displayCurrentlyPlaying = trackData => {
   document.querySelector('.title').textContent = trackData.title;
+  if (document.querySelector('.artist').textContent !== trackData.artist) {
+    displayArtistImage(trackData.artist);
+  }
   document.querySelector('.artist').textContent = trackData.artist;
   currentSongDisplay.setAttribute('data-id', trackData.id);
-  document.querySelector('.playing').setAttribute('src', 'music-placeholder.png');
   starButton.setAttribute('src', trackData.playlist_id == 1 ? 'starlightblue.svg' : 'stargray.svg');
 }
 

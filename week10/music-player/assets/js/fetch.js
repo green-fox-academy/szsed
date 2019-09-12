@@ -1,7 +1,7 @@
 'use strict';
 
-const parseResultAndHandleError = result => {
-  return result.json()
+const parseResultAndHandleError = response => {
+  return response.json()
     .then(parsed => {
       if (parsed.error) {
         throw new Error(parsed.error);
