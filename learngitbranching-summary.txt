@@ -2,7 +2,7 @@ MAIN
 ####  
 
 git branch // list all branches  
-git branch <name> // create new cranch // does not move HEAD  
+git branch <name> // create new branch // does not move HEAD  
 git branch -f <name> <into> // create branch at specified commit // or move existing branch  
 
 git checkout <into> // use to move HEAD  
@@ -18,7 +18,7 @@ git reset <into> // local only - moves HEAD back to <into>
 git revert <what> // creates new commits and moves HEAD forward  
 
 git cherry-pick <commit> (<commit2> ...)  
-git rebase -i <into> (<what>) // <what> moves HEAD to that branch // moves diff commits on top of <into>  
+git rebase -i <into> (<what>) // <what> moves HEAD to that branch // optional selection and reordering 
 
 git commit --amend // combine with cherry-pick or rebase to amend older commits  
 
