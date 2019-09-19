@@ -2,7 +2,7 @@ MAIN
 ####
 
 git branch // list all branches
-git branch <name> // does not move HEAD
+git branch <name> // create new cranch // does not move HEAD
 git branch -f <name> <into> // create branch at specified commit // or move existing branch
 
 git checkout <into> // use to move HEAD
@@ -11,7 +11,7 @@ git checkout -b <name> // combine git branch <name> and git checkout <name>
 git merge <what> //  always into currently checked out branch, with new commit // only 1 argument
 git rebase <into> (<what>) // <what> moves HEAD to that branch // moves diff commits on top of <into>
 
-relative reference/ancestors: ^(^^...) and ~<number>
+relative reference/ancestors: ^(^^...) and ~<number> // can be added to a branch/commit reference or HEAD
 ^<number> to specify which parent when there is upstream branching // these can be chained
 
 git reset <into> // local only - moves HEAD back to <into>
