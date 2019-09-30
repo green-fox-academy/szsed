@@ -1,0 +1,4 @@
+-- PostList teszt: mock import function
+-- setTimeout helyett cvalami megoldás
+-- jest-mock-fetch
+-- istanbul ???
