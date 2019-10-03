@@ -3,7 +3,8 @@ MAIN
 
 git branch // list all branches  
 git branch <name> // create new branch // does not move HEAD  
-git branch -f <name> <into> // create branch at specified commit // or move existing branch  
+git branch -f <name> <into> // create branch at specified commit // or move existing branch
+git branch -d <name> // delete local branch
 
 git checkout <into> // use to move HEAD  
 git checkout -b <name> // combine git branch <name> and git checkout <name>  
@@ -39,12 +40,16 @@ git fetch (<remote>) (<branch>) // default <remote> is origin
 	// works if current branch doesn't have remote tracking (unlike pull)  
 
 git pull (<remote>) (<branch>) // combine git fetch and merge  
-git pull --rebase (<remote>) (<branch>) // combine git fetch and rebase  
+git pull --rebase (<remote>) (<branch>) // combine git fetch and rebase
+
+git remote -v update // compare status of local branches vs upstream remote branches
 
 git push (<remote>) (<branch>) // default <remote> is origin  
 	// upload commits to <remote> and update remote tracking branch positions  
 	// does not work if the remote and local branches have diverged  
-	// solution: fetch, rebase or merge into the remote branch, push - same as: pull and push  
+	// solution: fetch, rebase or merge into the remote branch, push - same as: pull and push
+
+git push -u <remote> <branch> // upload with setting (and creating) an upstream remote branch
 
 git checkout -b <name> <remote branch> // create and switch to new branch that is linked to the specified remote branch  
 git branch -u <remote branch> (<name>) // link the current branch (or specify by <name>) to the specified remote branch  
