@@ -14,12 +14,10 @@ class Stack {
       this.numbersInStack.push(0);
     } else {
       let currentMax = this.max;
-      if (num > currentMax) {
-        this.max = num;
-        this.numbersInStack.push(currentMax); // when the maximum changed, we store its previous value as a positive number
-      } else {
-        this.numbersInStack.push(num - currentMax); // otherwise we store numbers encoded as a distance from the stored max (negative or 0)
-      }
+      if (num > currentMax) this.max = num;
+      this.numbersInStack.push(num - currentMax);
+      // we store the difference of the received input from the current max
+      // which is going to be a positive number if the maximum has changed
     }
   }
 
@@ -31,10 +29,10 @@ class Stack {
       this.max = null;
       return currentMax;
     } else if (topElement > 0) { // this condition determines whether we changed the stored max at this element
-      this.max = topElement;
+      this.max = currentMax - topElement;
       return currentMax; // if so, we can return with its value and set the stored max to the previous value
     } else {
-      return topElement + this.max; // otherwise reverse encoding and return
+      return topElement + this.max; // otherwise reverse encoding of received input and return
     }
   }
 }
@@ -42,7 +40,7 @@ class Stack {
 const myStack = new Stack();
 console.log('should print null', myStack.getMax());
 
-console.log('TEST PUSHES:')
+console.log('TEST PUSHES:');
 
 myStack.push(5);
 console.log('should print 5:', myStack.getMax());
@@ -55,7 +53,7 @@ console.log('should print 7:', myStack.getMax());
 myStack.push(1);
 console.log('should print 7:', myStack.getMax());
 
-console.log('TEST POPS:')
+console.log('TEST POPS:');
 
 console.log('should print 1:', myStack.pop());
 console.log('should print 7:', myStack.getMax());
@@ -68,3 +66,22 @@ console.log('should print 5:', myStack.getMax());
 console.log('should print 5:', myStack.pop());
 console.log('should print null:', myStack.getMax());
 
+console.log('NEGATIVE NUMBERS:');
+
+console.log('TEST PUSHES:');
+
+myStack.push(-3);
+console.log('should print -3:', myStack.getMax());
+myStack.push(-1);
+console.log('should print -1:', myStack.getMax());
+myStack.push(-5);
+console.log('should print -1:', myStack.getMax());
+
+console.log('TEST POPS:');
+
+console.log('should print -5:', myStack.pop());
+console.log('should print -1:', myStack.getMax());
+console.log('should print -1:', myStack.pop());
+console.log('should print -3:', myStack.getMax());
+console.log('should print -3:', myStack.pop());
+console.log('should print null:', myStack.getMax());
