@@ -1,0 +1,41 @@
+~90 minutes length
+
+Personal:
+- your technologies, languages, interests
+- coding experience before GFA
+- your current projects, hobby or otherwise
+- do you practice Hackerrank, Code Wars, etc.? Which is your favorite and why? What is your current rank?
+- if you had "infinite" time without having to start to work what would you spend it on?
+
+Algorithmic excercises:
+- ~30 minutes
+- write small functions, increasing difficulty but nothing too crazy. pass unit tests
+- array and string methods, input validation, argument type based control flow, recursion
+- code review, refactoring
+- simple ordo-related questions: implement an array method without iterating over every element,
+    why do you think your solution is efficient?
+
+Javascript deep dive:
+- Basically everything Péter talked about and more (closures, variable scope and types, hoisting, IIFE, pointers etc.)
+- var vs let
+- IIFE relation to the module pattern
+- the "arguments" object in functions
+- how to call an array method on something that is not an array without converting it?
+- how to set a default value to a function argument (at least 2 solutions)
+- the || and && operators, truthy and falsy values
+
+React:
+- few questions, probably specific to this interviewer
+- class and functional component differences, what is the purpose of a basic functional component?
+- what is the advantage of converting class components into functional with hooks?
+- how is JSX able to run in the browser?
+
+Other:
+
+- De Morgan's laws
+- what exactly happens when you execute an url in the browser?
+- what if your html page has 1000 images in it? do they all initiate a request immediately or not?
+    do image responses have headers, or is it only a file?
+- how to log into a website without Javascript? how does the server know once you're logged in (session based)?
+- how does Node.js allow you to run Javascript outside the browser? what is "v8"?
+- code packaging, transpiling
