@@ -26,7 +26,6 @@ Javascript deep dive:
 - the || and && operators, truthy and falsy values
 
 Other:
-
 - De Morgan's laws
 - what exactly happens when you execute an url in the browser?
 - what if your html page has 1000 images in it? do they all initiate a request immediately or not?
